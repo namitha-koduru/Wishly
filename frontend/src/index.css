@@ -103,73 +103,196 @@ body {
   line-height: 1.6;
 }
 
-/* Hero Section */
+/* Hero Section with Visual Showcase */
 .hero-section {
-  text-align: center;
-  padding: 5.5rem 1.5rem 4rem;
-  max-width: 900px;
-  margin: 0 auto;
+  padding: 4.5rem 0 3.5rem;
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  align-items: center;
+  gap: 3rem;
+}
+
+.hero-content {
+  text-align: left;
 }
 
 .hero-badge {
   display: inline-block;
   background: rgba(255, 94, 126, 0.1);
   color: var(--primary-color);
-  padding: 0.4rem 1.2rem;
+  padding: 0.35rem 1rem;
   border-radius: 30px;
   font-weight: 700;
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
+  font-size: 0.88rem;
+  margin-bottom: 1.2rem;
   border: 1px solid rgba(255, 94, 126, 0.2);
 }
 
 .hero-title {
-  font-size: 3.8rem;
-  font-weight: 800;
+  font-size: 3.4rem;
+  font-weight: 900;
   letter-spacing: -1.5px;
-  line-height: 1.15;
+  line-height: 1.12;
   color: var(--text-primary);
-  margin-bottom: 1.2rem;
-}
-
-.hero-gradient-text {
-  background: linear-gradient(135deg, #ff5e7e 0%, #a55eea 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
 }
 
 .hero-subtitle {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: var(--text-secondary);
-  max-width: 640px;
-  margin: 0 auto 2.2rem;
+  margin-bottom: 2rem;
   line-height: 1.6;
 }
 
 .hero-cta-group {
   display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-  flex-wrap: wrap;
-  margin-bottom: 3rem;
-}
-
-.hero-pills-row {
-  display: flex;
-  justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
+  margin-bottom: 2rem;
 }
 
-.hero-pill {
+.hero-feature-pills {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.feature-pill {
   background: #ffffff;
   border: 1px solid var(--border-color);
-  padding: 0.45rem 1rem;
+  padding: 0.35rem 0.8rem;
   border-radius: 30px;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--text-secondary);
   box-shadow: var(--shadow-sm);
+}
+
+/* Visual Hero Composition */
+.hero-visual-showcase {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-card-stack {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 380px;
+}
+
+.hero-floating-card {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 1.4rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease;
+}
+
+.hero-floating-card:hover {
+  transform: scale(1.03) translateY(-4px);
+  z-index: 10;
+}
+
+.hero-card-1 {
+  top: 0;
+  left: 0;
+  right: 40px;
+  z-index: 3;
+  border-left: 4px solid var(--primary-color);
+}
+
+.hero-card-2 {
+  top: 130px;
+  left: 40px;
+  right: 0;
+  z-index: 2;
+  background: #fff8fa;
+  border-left: 4px solid #eb5757;
+}
+
+.hero-card-3 {
+  bottom: 0;
+  left: 20px;
+  right: 20px;
+  z-index: 1;
+  background: #f0f7ff;
+  border-left: 4px solid #2f80ed;
+}
+
+.card-badge {
+  display: inline-block;
+  background: rgba(255, 94, 126, 0.12);
+  color: var(--primary-color);
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+}
+
+.card-badge-romance {
+  background: rgba(235, 87, 87, 0.12);
+  color: #eb5757;
+}
+
+.card-badge-grad {
+  background: rgba(47, 128, 237, 0.12);
+  color: #2f80ed;
+}
+
+.card-person-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.person-avatar {
+  width: 36px;
+  height: 36px;
+  background: #ffe3ea;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.hero-floating-card h4 {
+  font-size: 0.98rem;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.hero-floating-card p {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.card-mini-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.8rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.card-pill-tag {
+  background: #f1f3f5;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.72rem;
+  color: var(--primary-color);
 }
 
 /* Occasions Section */
@@ -365,6 +488,26 @@ body {
 }
 
 /* Responsive adjustments */
+@media (max-width: 900px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-content {
+    text-align: center;
+  }
+  .hero-cta-group {
+    justify-content: center;
+  }
+  .hero-feature-pills {
+    justify-content: center;
+  }
+  .hero-card-stack {
+    height: 320px;
+    margin: 1.5rem auto 0;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2.6rem;
@@ -374,8 +517,5 @@ body {
   }
   .cta-banner-title {
     font-size: 2rem;
-  }
-  .hero-section {
-    padding: 3.5rem 1rem 2.5rem;
   }
 }
