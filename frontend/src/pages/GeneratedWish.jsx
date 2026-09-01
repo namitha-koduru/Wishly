@@ -1,63 +1,126 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getTemplateById, TEMPLATES } from '../templates/templateRegistry.js';
+import { getTemplateById } from '../templates/templateRegistry.js';
+import { getWish } from '../services/api.js';
 
 export function GeneratedWish() {
   const { projectId } = useParams();
-  const [projectData, setProjectData] = useState(null);
-  const [template, setTemplate] = useState(null);
+  const [wish, setWish] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Attempt to load from localStorage
-    const saved = localStorage.getItem(`wishly_project_${projectId}`);
-    if (saved) {
+    let isMounted = true;
+
+    async function loadWishData() {
+      setLoading(true);
+      setError(null);
+
+      // 1. Try to fetch from backend API
       try {
-        const parsed = JSON.parse(saved);
-        setProjectData(parsed);
-        const tpl = getTemplateById(parsed.templateId);
-        setTemplate(tpl);
-        return;
-      } catch (err) {
-        console.error('Failed to parse project data', err);
+        const response = await getWish(projectId);
+        if (isMounted && response?.wish) {
+          setWish(response.wish);
+          setLoading(false);
+          return;
+        }
+      } catch (apiErr) {
+        console.warn('API getWish failed, trying local backup:', apiErr.message);
+      }
+
+      // 2. Try local backup (localStorage)
+      try {
+        const localSaved = localStorage.getItem(`wishly_project_${projectId}`);
+        if (localSaved) {
+          const parsed = JSON.parse(localSaved);
+          if (isMounted) {
+            setWish(parsed);
+            setLoading(false);
+            return;
+          }
+        }
+      } catch (localErr) {
+        console.warn('Local backup parsing error:', localErr);
+      }
+
+      // 3. Not found
+      if (isMounted) {
+        setError('Wish not found');
+        setLoading(false);
       }
     }
 
-    // Fallback if opened with random id or direct demo route
-    const fallbackTemplate = TEMPLATES[0];
-    setTemplate(fallbackTemplate);
-    setProjectData({
-      recipientName: 'Someone Special',
-      senderName: 'A Dear Friend',
-      message: 'Wishing you all the joy, love, and happiness in the world today and always!',
-      ...fallbackTemplate.defaultData
-    });
+    if (projectId) {
+      loadWishData();
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [projectId]);
 
-  if (!template || !projectData) {
+  // Loading State
+  if (loading) {
     return (
-      <div className="generated-wish-loading">
-        <div className="loading-spinner">✨</div>
-        <p>Opening your Wishly keepsake...</p>
+      <div className="generated-wish-loading-screen">
+        <div className="loading-card text-center">
+          <div className="loading-sparkle-icon">✨</div>
+          <h2>Preparing something special...</h2>
+          <p>Unwrapping your personalized Wishly keepsake</p>
+        </div>
       </div>
     );
   }
 
+  // Error / Not Found State
+  if (error || !wish) {
+    return (
+      <div className="generated-wish-error-screen">
+        <div className="error-card text-center">
+          <div className="error-emoji">🔍</div>
+          <h2>Oops! This Wishly couldn't be found.</h2>
+          <p>Maybe the link is incorrect, or the wish no longer exists.</p>
+          <div className="error-actions">
+            <Link to="/templates" className="btn btn-primary btn-lg pulse-glow">
+              Create Your Own Wish ✨
+            </Link>
+            <Link to="/" className="btn btn-secondary">
+              Go to Home
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Retrieve template from central Template Registry
+  const template = getTemplateById(wish.templateId);
+
+  // Combine wish fields & customData
+  const templateData = {
+    recipientName: wish.recipientName,
+    senderName: wish.senderName,
+    message: wish.message,
+    photos: wish.photos || [],
+    ...(wish.customData || {})
+  };
+
   return (
     <div className="generated-wish-page">
-      {/* Full screen celebration container */}
-      <div className="generated-wish-container">
+      {/* Standalone Recipient Website Canvas */}
+      <main className="generated-wish-canvas">
         {React.createElement(template.component, {
-          data: projectData
+          data: templateData
         })}
-      </div>
+      </main>
 
-      {/* Subtle footer watermark */}
-      <div className="generated-wish-watermark">
+      {/* Subtle Footer Watermark */}
+      <footer className="generated-wish-watermark">
         <p>Made with love using <Link to="/" className="watermark-brand">✨ Wishly</Link></p>
         <Link to="/templates" className="btn btn-primary btn-sm watermark-btn">
           Create Your Own Wish ✨
         </Link>
-      </div>
+      </footer>
     </div>
   );
 }

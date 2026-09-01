@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getTemplateById } from '../templates/templateRegistry.js';
 import { getOccasionById } from '../data/occasions.js';
 import { SAMPLE_PHOTOS } from '../data/samplePhotos.js';
+import { createWish } from '../services/api.js';
 
 export function Customize() {
   const { templateId, occasion: routeOccasion } = useParams();
@@ -41,6 +42,7 @@ export function Customize() {
   const [deviceMode, setDeviceMode] = useState('desktop'); // 'desktop' | 'mobile'
   const [validationError, setValidationError] = useState('');
   const [isDraftSaved, setIsDraftSaved] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const [generatedModal, setGeneratedModal] = useState(null);
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState('editor'); // For mobile: 'editor' | 'preview'
@@ -113,12 +115,10 @@ export function Customize() {
 
     const newPhotoUrls = [];
     files.forEach((file) => {
-      // Validate image type
       if (!file.type.startsWith('image/')) {
         alert(`File "${file.name}" is not an image.`);
         return;
       }
-      // Validate size (max 10MB)
       if (file.size > 10 * 1024 * 1024) {
         alert(`File "${file.name}" is too large (max 10MB).`);
         return;
@@ -137,7 +137,6 @@ export function Customize() {
       triggerDraftSaved();
     }
 
-    // Reset file input so re-selecting same file works
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -204,12 +203,11 @@ export function Customize() {
     photos: formData.photos && formData.photos.length > 0 ? formData.photos : (template.defaultData?.photos || SAMPLE_PHOTOS.slice(0, 2))
   };
 
-  // Generate Wish Handler
-  const handleGenerateWish = () => {
+  // Generate Wish Handler with Backend API integration
+  const handleGenerateWish = async () => {
     // 1. Validation
     if (!formData.recipientName || !formData.recipientName.trim()) {
       setValidationError('Tell us who this wish is for 💛');
-      // Scroll to top of form panel if on desktop or mobile
       const input = document.getElementById('recipientName');
       if (input) {
         input.focus();
@@ -218,43 +216,86 @@ export function Customize() {
       return;
     }
 
-    // 2. Build Project Object
-    const projectId = Math.random().toString(36).substring(2, 9);
-    const wishPayload = {
-      projectId,
-      occasion: template.occasion,
-      templateId: template.id,
-      recipientName: formData.recipientName.trim(),
-      senderName: formData.senderName.trim() || 'A Secret Admirer',
-      message: formData.message.trim() || template.defaultData?.message || 'Wishing you the best!',
-      photos: formData.photos || [],
-      photoCaptions: formData.photoCaptions || {},
-      customData: {
-        date: formData.date,
-        age: formData.age,
-        years: formData.years,
-        degree: formData.degree,
-        classYear: formData.classYear,
-        teamName: formData.teamName,
-        achievement: formData.achievement
-      },
-      createdAt: new Date().toISOString()
-    };
+    setIsGenerating(true);
 
-    // 3. Save to localStorage
     try {
-      localStorage.setItem(`wishly_project_${projectId}`, JSON.stringify(wishPayload));
-    } catch (e) {
-      console.warn('Could not save full payload to localStorage (likely quota from blob URLs)', e);
-    }
+      // 2. Prepare payload for POST /api/wishes
+      const wishPayload = {
+        occasion: template.occasion,
+        templateId: template.id,
+        recipientName: formData.recipientName.trim(),
+        senderName: formData.senderName.trim() || '',
+        message: formData.message.trim() || template.defaultData?.message || '',
+        // For development, keep URLs/sample URLs in payload (blob URLs are maintained in local state)
+        photos: formData.photos || [],
+        customData: {
+          photoCaptions: formData.photoCaptions || {},
+          date: formData.date || '',
+          age: formData.age || '',
+          years: formData.years || '',
+          degree: formData.degree || '',
+          classYear: formData.classYear || '',
+          teamName: formData.teamName || '',
+          achievement: formData.achievement || ''
+        }
+      };
 
-    // 4. Open Generated Modal & Shareable Link
-    const shareUrl = `${window.location.origin}/w/${projectId}`;
-    setGeneratedModal({
-      projectId,
-      shareUrl,
-      recipientName: wishPayload.recipientName
-    });
+      // 3. Call backend API
+      const result = await createWish(wishPayload);
+      const projectId = result.projectId;
+
+      // Also mirror to localStorage for instant offline access
+      try {
+        localStorage.setItem(`wishly_project_${projectId}`, JSON.stringify({
+          projectId,
+          ...wishPayload,
+          createdAt: new Date().toISOString()
+        }));
+      } catch (e) {}
+
+      // 4. Show success modal with generated shareable URL
+      const shareUrl = `${window.location.origin}/w/${projectId}`;
+      setGeneratedModal({
+        projectId,
+        shareUrl,
+        recipientName: wishPayload.recipientName
+      });
+    } catch (error) {
+      console.error('Failed to save wish to backend:', error);
+
+      // Graceful fallback for local development if server is unreachable
+      const fallbackId = Math.random().toString(36).substring(2, 9);
+      const fallbackPayload = {
+        projectId: fallbackId,
+        occasion: template.occasion,
+        templateId: template.id,
+        recipientName: formData.recipientName.trim(),
+        senderName: formData.senderName.trim() || '',
+        message: formData.message.trim() || '',
+        photos: formData.photos || [],
+        customData: {
+          date: formData.date,
+          age: formData.age,
+          years: formData.years,
+          degree: formData.degree,
+          classYear: formData.classYear,
+          teamName: formData.teamName,
+          achievement: formData.achievement
+        },
+        createdAt: new Date().toISOString()
+      };
+
+      localStorage.setItem(`wishly_project_${fallbackId}`, JSON.stringify(fallbackPayload));
+
+      const shareUrl = `${window.location.origin}/w/${fallbackId}`;
+      setGeneratedModal({
+        projectId: fallbackId,
+        shareUrl,
+        recipientName: fallbackPayload.recipientName
+      });
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const handleCopyShareLink = () => {
@@ -324,8 +365,9 @@ export function Customize() {
               type="button"
               className="btn btn-primary btn-sm studio-generate-btn pulse-glow"
               onClick={handleGenerateWish}
+              disabled={isGenerating}
             >
-              ✨ Generate Wish
+              {isGenerating ? 'Creating Wishly... ✨' : '✨ Generate Wish'}
             </button>
           </div>
         </div>
@@ -648,8 +690,9 @@ export function Customize() {
                 type="button"
                 className="btn btn-primary btn-block btn-lg pulse-glow"
                 onClick={handleGenerateWish}
+                disabled={isGenerating}
               >
-                ✨ Generate Wish
+                {isGenerating ? 'Creating your Wishly... ✨' : '✨ Generate Wish'}
               </button>
             </div>
           </form>
@@ -679,7 +722,6 @@ export function Customize() {
 
               {/* Live Preview Viewport */}
               <div className="mockup-viewport">
-                {/* Dynamically render the template component with reactive user data */}
                 {React.createElement(template.component, {
                   data: previewData
                 })}
@@ -695,9 +737,9 @@ export function Customize() {
           <div className="share-modal-dialog" onClick={(e) => e.stopPropagation()}>
             <div className="share-modal-content text-center">
               <span className="share-celebrate-emoji">🎉</span>
-              <h2>Your Wish for {generatedModal.recipientName} is Ready!</h2>
+              <h2>Your Wishly is ready!</h2>
               <p>
-                A personalized website has been generated. Anyone opening this link will see your customized keepsake immediately without logging in.
+                Your little surprise for <strong>{generatedModal.recipientName}</strong> is ready to share. Anyone opening this link can view it instantly without logging in.
               </p>
 
               <div className="share-link-input-box">
@@ -713,7 +755,7 @@ export function Customize() {
                   className="btn btn-primary"
                   onClick={handleCopyShareLink}
                 >
-                  {copied ? '✅ Copied!' : 'Copy Link'}
+                  {copied ? 'Link copied! ✨' : 'Copy Link'}
                 </button>
               </div>
 
@@ -723,7 +765,7 @@ export function Customize() {
                   className="btn btn-secondary btn-lg"
                   onClick={() => navigate(`/w/${generatedModal.projectId}`)}
                 >
-                  Open Generated Website ↗
+                  Open Wish ↗
                 </button>
                 <button
                   type="button"

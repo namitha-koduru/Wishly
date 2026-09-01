@@ -1,19 +1,29 @@
 {
-  "name": "whishly-backend",
+  "name": "wishly-backend",
   "version": "1.0.0",
-  "description": "Backend server for Whishly - Turn moments into memories",
+  "description": "Backend API server for Wishly - Wishes, made personal.",
   "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js"
   },
-  "keywords": ["whishly", "birthday-generator", "express"],
+  "keywords": [
+    "wishly",
+    "birthday",
+    "anniversary",
+    "wishes",
+    "generator",
+    "express",
+    "mongodb",
+    "mongoose"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "mongoose": "^8.9.2"
   }
 }
