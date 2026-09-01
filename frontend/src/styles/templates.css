@@ -1,0 +1,983 @@
+/* =========================================================
+   Wishly Templates Design System (Plain CSS)
+   Supports all 35 templates across 7 occasions
+   ========================================================= */
+
+.tpl-root {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  border-radius: 24px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.07);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+
+/* 1. Birthday Memories */
+.tpl-birthday-memories {
+  background: linear-gradient(145deg, #ffffff 0%, #fff5f7 100%);
+  border: 1px solid #ffe3ea;
+}
+
+.tpl-hero-badge {
+  display: inline-block;
+  background: #ff5e7e;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.tpl-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #2d3436;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.tpl-date {
+  color: #ff5e7e;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.tpl-photo-hero-wrapper {
+  margin: 1.5rem auto;
+  position: relative;
+  display: inline-block;
+}
+
+.tpl-featured-photo-frame {
+  position: relative;
+  border-radius: 20px;
+  padding: 8px;
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(255, 94, 126, 0.2);
+}
+
+.tpl-featured-photo {
+  width: 100%;
+  max-width: 480px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+
+.tpl-photo-sparkle {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  font-size: 1.8rem;
+}
+
+.tpl-message-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 18px;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  border: 1px solid #fff0f3;
+}
+
+.tpl-message-text {
+  font-size: 1.15rem;
+  color: #4a4a4a;
+  line-height: 1.7;
+  font-style: italic;
+}
+
+.tpl-signature {
+  margin-top: 1.2rem;
+  color: #ff5e7e;
+  font-size: 1rem;
+}
+
+.tpl-mini-gallery {
+  margin-top: 2rem;
+}
+
+.tpl-section-subtitle {
+  font-size: 1.1rem;
+  color: #636e72;
+  margin-bottom: 1rem;
+}
+
+.tpl-gallery-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.tpl-polaroid {
+  background: #ffffff;
+  padding: 10px 10px 24px 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  transform: rotate(-2deg);
+  transition: transform 0.2s ease;
+}
+
+.tpl-polaroid:nth-child(even) {
+  transform: rotate(2deg);
+}
+
+.tpl-polaroid:hover {
+  transform: scale(1.04) rotate(0deg);
+}
+
+.tpl-polaroid img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+}
+
+/* 2. Sweet Celebration */
+.tpl-sweet-celebration {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+  color: #fff;
+}
+
+.tpl-confetti-banner {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  font-weight: 800;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.tpl-title-playful {
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+}
+
+.tpl-rounded-avatar-wrap {
+  margin: 1.5rem auto;
+}
+
+.tpl-rounded-avatar {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 6px solid #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.tpl-bubbly-card {
+  background: #ffffff;
+  color: #2d3436;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+}
+
+.tpl-cake-icon {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.tpl-tag {
+  margin-top: 1rem;
+  font-weight: 700;
+  color: #e84393;
+}
+
+/* 3. Photo Story / Magazine Editorial */
+.tpl-photo-story {
+  background: #fbfbfb;
+  border: 1px solid #ebebeb;
+  text-align: left;
+}
+
+.tpl-editorial-header {
+  border-bottom: 2px solid #2d3436;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tpl-kicker {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #e17055;
+  display: block;
+}
+
+.tpl-editorial-title {
+  font-size: 2.2rem;
+  font-family: Georgia, serif;
+  color: #2d3436;
+  margin: 0.3rem 0;
+}
+
+.tpl-editorial-sub {
+  color: #636e72;
+  font-size: 0.95rem;
+}
+
+.tpl-editorial-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.tpl-editorial-main-img img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.tpl-quote-mark {
+  font-size: 3rem;
+  color: #e17055;
+  line-height: 1;
+}
+
+.tpl-editorial-body {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+.tpl-editorial-byline {
+  margin-top: 1rem;
+  font-weight: 700;
+  color: #e17055;
+}
+
+/* 4. Surprise Party */
+.tpl-surprise-party {
+  background: #ffeaa7;
+  border: 4px dashed #fdcb6e;
+}
+
+.tpl-party-popper {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.tpl-party-headline {
+  font-size: 2.3rem;
+  font-weight: 900;
+  color: #d63031;
+  letter-spacing: -0.5px;
+}
+
+.tpl-party-box {
+  background: #ffffff;
+  padding: 1.8rem;
+  border-radius: 20px;
+  margin-top: 1.5rem;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+}
+
+.tpl-party-img {
+  width: 100%;
+  max-width: 400px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.tpl-party-text {
+  font-size: 1.1rem;
+  color: #2d3436;
+  margin-bottom: 1rem;
+}
+
+.tpl-party-badge {
+  display: inline-block;
+  background: #fd79a8;
+  color: #fff;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* 5. Minimal Birthday */
+.tpl-minimal-birthday {
+  background: #ffffff;
+  border: 1px solid #f0f0f0;
+}
+
+.tpl-minimal-container {
+  padding: 1.5rem;
+}
+
+.tpl-minimal-label {
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #a4b0be;
+  font-weight: 600;
+}
+
+.tpl-minimal-name {
+  font-size: 2.8rem;
+  font-weight: 300;
+  letter-spacing: -1px;
+  margin: 0.8rem 0;
+  color: #2f3542;
+}
+
+.tpl-minimal-divider {
+  width: 40px;
+  height: 3px;
+  background: #ff5e7e;
+  margin: 1.5rem auto;
+  border-radius: 2px;
+}
+
+.tpl-minimal-message {
+  font-size: 1.15rem;
+  color: #57606f;
+  line-height: 1.8;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.tpl-minimal-footer {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #747d8c;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* 6. Anniversary - Our Story */
+.tpl-our-story {
+  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  border: 1px solid #e0d7ec;
+}
+
+.tpl-story-tag {
+  color: #9b51e0;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.5rem;
+}
+
+.tpl-serif-title {
+  font-family: Georgia, serif;
+  font-size: 2.5rem;
+  color: #341f97;
+}
+
+.tpl-years-badge {
+  font-weight: 700;
+  color: #9b51e0;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.tpl-romantic-frame img {
+  width: 100%;
+  max-width: 450px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(155, 81, 224, 0.15);
+}
+
+.tpl-storybook-card {
+  background: #ffffff;
+  padding: 1.8rem;
+  border-radius: 16px;
+  margin-top: 1.5rem;
+}
+
+.tpl-story-text {
+  font-size: 1.15rem;
+  font-style: italic;
+  color: #4a4a4a;
+}
+
+.tpl-signature-script {
+  font-family: cursive, sans-serif;
+  color: #9b51e0;
+  font-size: 1.3rem;
+  margin-top: 1rem;
+}
+
+/* 7. Forever & Always */
+.tpl-forever-always {
+  background: #1e1e24;
+  color: #f5f5f5;
+  border: 2px solid #d4af37;
+}
+
+.tpl-gold-border-box {
+  padding: 1.5rem;
+}
+
+.tpl-gold-ribbon {
+  color: #d4af37;
+  letter-spacing: 3px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.tpl-elegant-name {
+  font-family: Georgia, serif;
+  font-size: 2.6rem;
+  color: #ffffff;
+  margin: 0.6rem 0;
+}
+
+.tpl-golden-ornament {
+  font-size: 1.8rem;
+  color: #d4af37;
+  margin: 0.8rem 0;
+}
+
+.tpl-vow-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #dcdde1;
+  font-style: italic;
+}
+
+.tpl-vow-author {
+  margin-top: 1.5rem;
+  color: #d4af37;
+  font-weight: 600;
+}
+
+/* 8. Memory Timeline */
+.tpl-memory-timeline {
+  background: #ffffff;
+  border: 1px solid #ede7f6;
+  text-align: left;
+}
+
+.tpl-timeline-title {
+  text-align: center;
+  color: #512da8;
+  font-size: 2rem;
+}
+
+.tpl-timeline-sub {
+  text-align: center;
+  color: #7e57c2;
+  margin-bottom: 2rem;
+}
+
+.tpl-timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin: 1.5rem 0;
+}
+
+.tpl-timeline-node {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.tpl-node-dot {
+  width: 36px;
+  height: 36px;
+  background: #673ab7;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.tpl-node-content h4 {
+  color: #311b92;
+  margin-bottom: 0.2rem;
+}
+
+.tpl-timeline-footer-card {
+  text-align: center;
+  background: #f3e5f5;
+  padding: 1.5rem;
+  border-radius: 14px;
+  margin-top: 1.5rem;
+}
+
+/* 9. Love Letter */
+.tpl-love-letter, .tpl-val-letter {
+  background: #fdf6e2;
+  border: 1px solid #ebdcb2;
+  box-shadow: 0 10px 30px rgba(139, 69, 19, 0.08);
+}
+
+.tpl-parchment-sheet, .tpl-val-envelope {
+  padding: 1.5rem;
+  text-align: left;
+}
+
+.tpl-wax-seal, .tpl-val-heart-seal {
+  width: 48px;
+  height: 48px;
+  background: #c0392b;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 10px rgba(192, 57, 43, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+.tpl-letter-salutation, .tpl-val-salutation {
+  font-family: Georgia, serif;
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.tpl-letter-content, .tpl-val-body {
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #34495e;
+}
+
+.tpl-letter-signoff, .tpl-val-signoff {
+  margin-top: 2rem;
+  text-align: right;
+  font-family: Georgia, serif;
+}
+
+.tpl-handwritten, .tpl-val-author {
+  font-family: cursive, sans-serif;
+  font-size: 1.5rem;
+  color: #c0392b;
+}
+
+/* 10. Our Journey / Passport */
+.tpl-our-journey {
+  background: #f0f7ff;
+  border: 2px solid #bcd9ff;
+}
+
+.tpl-stamp {
+  display: inline-block;
+  border: 2px solid #0984e3;
+  color: #0984e3;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.tpl-journey-title {
+  font-size: 2.2rem;
+  color: #0c2461;
+}
+
+.tpl-polaroid-stack {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1.8rem 0;
+  flex-wrap: wrap;
+}
+
+.tpl-polaroid-tilt {
+  background: #fff;
+  padding: 10px 10px 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  border-radius: 4px;
+}
+
+.tpl-tilt-1 { transform: rotate(-3deg); }
+.tpl-tilt-2 { transform: rotate(3deg); }
+
+.tpl-polaroid-tilt img {
+  width: 160px;
+  height: 140px;
+  object-fit: cover;
+}
+
+.tpl-polaroid-caption {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #636e72;
+  margin-top: 8px;
+}
+
+.tpl-journey-message {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  color: #2d3436;
+}
+
+/* 11. Graduation - Class of 2026 */
+.tpl-class-grad {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #fff;
+}
+
+.tpl-grad-banner {
+  background: #f1c40f;
+  color: #1e3c72;
+  display: inline-block;
+  padding: 0.4rem 1.2rem;
+  border-radius: 30px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.tpl-grad-name {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.tpl-grad-degree {
+  font-size: 1.1rem;
+  color: #f1c40f;
+  margin: 0.4rem 0 1.5rem;
+}
+
+.tpl-grad-portrait-box img {
+  width: 100%;
+  max-width: 440px;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 4px solid #fff;
+}
+
+.tpl-grad-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 1.8rem;
+  border-radius: 16px;
+  margin-top: 1.5rem;
+}
+
+.tpl-grad-quote {
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.tpl-grad-sign {
+  margin-top: 1rem;
+  color: #f1c40f;
+  font-weight: 700;
+}
+
+/* 12. Achievement Laurel / Diploma */
+.tpl-achievement-grad, .tpl-proud-moment {
+  background: #fffdf7;
+  border: 3px double #d4af37;
+  padding: 3rem 2rem;
+}
+
+.tpl-laurel-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.tpl-laurel-title, .tpl-tribute-label {
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  font-weight: 800;
+  color: #d4af37;
+}
+
+.tpl-laurel-name, .tpl-tribute-name {
+  font-family: Georgia, serif;
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin: 0.8rem 0;
+}
+
+.tpl-laurel-msg, .tpl-tribute-msg {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #555;
+  max-width: 540px;
+  margin: 1.2rem auto;
+}
+
+.tpl-seal-badge {
+  display: inline-block;
+  background: #f9ca24;
+  color: #333;
+  padding: 0.4rem 1.2rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* 13. Farewell - Memory Wall & Sticky Notes */
+.tpl-memory-wall {
+  background: #fdfaf6;
+  border: 1px solid #ebd9c8;
+}
+
+.tpl-wall-title {
+  font-size: 2.2rem;
+  color: #d35400;
+}
+
+.tpl-wall-sub {
+  color: #7f8c8d;
+  margin-bottom: 1.5rem;
+}
+
+.tpl-sticky-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.tpl-sticky-note {
+  padding: 1.2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  text-align: left;
+}
+
+.tpl-sticky-color-1 { background: #ffeaa7; transform: rotate(-2deg); }
+.tpl-sticky-color-2 { background: #dff9fb; transform: rotate(1deg); }
+.tpl-sticky-color-3 { background: #ffcccc; transform: rotate(-1deg); }
+
+.tpl-sticky-text {
+  font-size: 0.95rem;
+  color: #2d3436;
+  line-height: 1.5;
+}
+
+.tpl-sticky-author {
+  display: block;
+  margin-top: 0.6rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #636e72;
+}
+
+.tpl-wall-footer-note {
+  background: #fff;
+  padding: 1.2rem;
+  border-radius: 12px;
+  border: 1px dashed #d35400;
+}
+
+/* 14. Valentine's Reasons I Love You */
+.tpl-val-reasons {
+  background: #fff0f3;
+  border: 1px solid #ffccd5;
+}
+
+.tpl-reasons-badge {
+  background: #ff4757;
+  color: #fff;
+  padding: 0.35rem 1rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.tpl-reasons-title {
+  font-size: 2.3rem;
+  color: #c0392b;
+  margin: 0.8rem 0;
+}
+
+.tpl-reasons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 1.5rem 0;
+}
+
+.tpl-reason-item {
+  background: #ffffff;
+  padding: 1rem 1.4rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+  box-shadow: 0 3px 10px rgba(255, 71, 87, 0.08);
+}
+
+.tpl-reason-num {
+  font-weight: 900;
+  color: #ff4757;
+  font-size: 1.1rem;
+}
+
+.tpl-reasons-footer {
+  margin-top: 1.5rem;
+  color: #c0392b;
+  font-size: 1.1rem;
+}
+
+/* 15. Congratulations - You Did It */
+.tpl-congrat-you-did-it {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: #fff;
+}
+
+.tpl-trophy-badge {
+  background: #f1c40f;
+  color: #2c3e50;
+  display: inline-block;
+  padding: 0.4rem 1.2rem;
+  border-radius: 30px;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.tpl-congrat-title {
+  font-size: 2.6rem;
+  font-weight: 900;
+}
+
+.tpl-achievement-banner {
+  background: rgba(0, 0, 0, 0.15);
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0.6rem 0 1.5rem;
+}
+
+.tpl-congrat-card {
+  background: #ffffff;
+  color: #2d3436;
+  padding: 2rem;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.tpl-congrat-msg {
+  font-size: 1.2rem;
+  line-height: 1.7;
+}
+
+.tpl-congrat-from {
+  margin-top: 1rem;
+  color: #11998e;
+  font-weight: 700;
+}
+
+/* 16. Just Because - Just For You */
+.tpl-just-for-you {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  color: #2d3436;
+}
+
+.tpl-heart-pill {
+  background: #e17055;
+  color: #fff;
+  padding: 0.35rem 1rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: inline-block;
+  margin-bottom: 0.8rem;
+}
+
+.tpl-warm-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+}
+
+.tpl-warm-photo img {
+  width: 100%;
+  max-width: 440px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 4px solid #fff;
+  margin: 1.2rem 0;
+}
+
+.tpl-warm-card {
+  background: #fff;
+  padding: 1.8rem;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+.tpl-warm-msg {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #4a4a4a;
+}
+
+.tpl-warm-sign {
+  margin-top: 1rem;
+  color: #d35400;
+  font-weight: 700;
+}
+
+/* General shared template helpers */
+.tpl-subtle-author {
+  display: block;
+  margin-top: 0.8rem;
+  color: #636e72;
+}
+
+.tpl-tag-soft {
+  display: inline-block;
+  background: #ede7f6;
+  color: #512da8;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-top: 0.8rem;
+}
+
+.tpl-badge-pill {
+  display: inline-block;
+  margin-top: 0.8rem;
+  font-weight: 700;
+  color: #0984e3;
+}
+
+@media (max-width: 640px) {
+  .tpl-root {
+    padding: 1.8rem 1.2rem;
+  }
+  .tpl-title, .tpl-title-playful, .tpl-serif-title, .tpl-grad-name, .tpl-congrat-title {
+    font-size: 1.8rem;
+  }
+  .tpl-editorial-grid {
+    grid-template-columns: 1fr;
+  }
+  .tpl-featured-photo, .tpl-grad-portrait-box img, .tpl-romantic-frame img {
+    height: 200px;
+  }
+}
