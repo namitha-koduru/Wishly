@@ -8,6 +8,8 @@ export function GeneratedWish() {
   const [wish, setWish] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isOpened, setIsOpened] = useState(false);
+  const [isOpeningAnim, setIsOpeningAnim] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -16,7 +18,7 @@ export function GeneratedWish() {
       setLoading(true);
       setError(null);
 
-      // 1. Try to fetch from backend API
+      // 1. Fetch from backend API
       try {
         const response = await getWish(projectId);
         if (isMounted && response?.wish) {
@@ -25,10 +27,10 @@ export function GeneratedWish() {
           return;
         }
       } catch (apiErr) {
-        console.warn('API getWish failed, trying local backup:', apiErr.message);
+        console.warn('API getWish failed, checking local backup:', apiErr.message);
       }
 
-      // 2. Try local backup (localStorage)
+      // 2. Fallback to localStorage
       try {
         const localSaved = localStorage.getItem(`wishly_project_${projectId}`);
         if (localSaved) {
@@ -59,12 +61,19 @@ export function GeneratedWish() {
     };
   }, [projectId]);
 
+  const handleOpenGift = () => {
+    setIsOpeningAnim(true);
+    setTimeout(() => {
+      setIsOpened(true);
+    }, 450);
+  };
+
   // Loading State
   if (loading) {
     return (
       <div className="generated-wish-loading-screen">
         <div className="loading-card text-center">
-          <div className="loading-sparkle-icon">✨</div>
+          <div className="loading-sparkle-icon">✦</div>
           <h2>Preparing something special...</h2>
           <p>Unwrapping your personalized Wishly keepsake</p>
         </div>
@@ -105,9 +114,35 @@ export function GeneratedWish() {
     ...(wish.customData || {})
   };
 
+  // Initial Unboxing "Gift Card" Reveal Screen
+  if (!isOpened) {
+    return (
+      <div className={`unboxing-stage ${isOpeningAnim ? 'unboxing-exit-anim' : ''}`}>
+        <div className="unboxing-card">
+          <div className="unboxing-wax-seal">✦</div>
+          <span className="unboxing-eyebrow">A PERSONAL GIFT FOR YOU</span>
+          <h1 className="unboxing-title">
+            Someone made something<br />
+            <em>special just for you.</em>
+          </h1>
+          {wish.senderName && (
+            <p className="unboxing-sender-note">From: <strong>{wish.senderName}</strong></p>
+          )}
+          <button
+            type="button"
+            className="btn btn-primary btn-lg unboxing-open-btn pulse-glow"
+            onClick={handleOpenGift}
+          >
+            Open Your Wishly ✨
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Full Revealed Standalone Website
   return (
-    <div className="generated-wish-page">
-      {/* Standalone Recipient Website Canvas */}
+    <div className="generated-wish-page animate-fade-in">
       <main className="generated-wish-canvas">
         {React.createElement(template.component, {
           data: templateData
@@ -116,7 +151,7 @@ export function GeneratedWish() {
 
       {/* Subtle Footer Watermark */}
       <footer className="generated-wish-watermark">
-        <p>Made with love using <Link to="/" className="watermark-brand">✨ Wishly</Link></p>
+        <p>Made with love using <Link to="/" className="watermark-brand">✦ Wishly</Link></p>
         <Link to="/templates" className="btn btn-primary btn-sm watermark-btn">
           Create Your Own Wish ✨
         </Link>

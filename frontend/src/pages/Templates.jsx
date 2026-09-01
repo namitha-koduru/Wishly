@@ -1,20 +1,26 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import TemplateGallery from '../components/TemplateGallery.jsx';
 
 export function Templates() {
   return (
     <div className="templates-page">
-      <div className="container">
-        <div className="page-header text-center">
-          <span className="section-tag">TEMPLATE CATALOG</span>
+      <section className="page-header text-center">
+        <div className="container">
+          <div className="breadcrumbs">
+            <Link to="/">Home</Link> / <span>Templates</span>
+          </div>
+          <span className="section-tag">CATALOG & DESIGNS</span>
           <h1 className="page-title">Find the perfect way to say it.</h1>
           <p className="page-subtitle">
-            Choose a design, make it yours, and send it with love. Browse all 35+ templates across 7 occasions.
+            Start with a design. Finish with something completely yours.
           </p>
         </div>
+      </section>
 
-        <TemplateGallery initialOccasion="all" />
-      </div>
+      <section className="container pb-5">
+        <TemplateGallery />
+      </section>
     </div>
   );
 }

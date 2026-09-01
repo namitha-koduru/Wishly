@@ -4,30 +4,23 @@ export function HowItWorks() {
   const steps = [
     {
       step: '01',
-      title: 'Choose an occasion',
-      desc: 'Pick from 7 occasions: Birthday, Anniversary, Graduation, Farewell, Valentine’s, Congratulations, or Just Because.',
-      icon: '🎉',
-      color: '#FF6B8B'
+      title: 'Choose your occasion',
+      desc: 'Pick from 7 occasions — Birthday, Anniversary, Graduation, Farewell, Valentine’s, Congratulations, or Just Because.',
+      icon: '✨',
+      color: '#E05368'
     },
     {
       step: '02',
-      title: 'Pick your favorite design',
-      desc: 'Browse through 35+ handcrafted templates with diverse layouts, typography, and storytelling styles.',
-      icon: '🎨',
-      color: '#9B51E0'
+      title: 'Make it yours',
+      desc: 'Add their name, upload memorable photos, and craft your heartfelt note. Watch the live preview update in real time.',
+      icon: '✍️',
+      color: '#8E44AD'
     },
     {
       step: '03',
-      title: 'Personalize it',
-      desc: 'Add their name, upload photos, and write your heartfelt message. Watch the live preview update in real time.',
-      icon: '✍️',
-      color: '#2F80ED'
-    },
-    {
-      step: '04',
-      title: 'Share your Wishly',
-      desc: 'Generate a clean, unique link and send it. The recipient opens their personalized keepsake instantly without logging in.',
-      icon: '🚀',
+      title: 'Send the link',
+      desc: 'Generate your unique Wishly link and send it. The recipient opens an emotional digital keepsake instantly without logging in.',
+      icon: '💌',
       color: '#27AE60'
     }
   ];
@@ -36,24 +29,28 @@ export function HowItWorks() {
     <section className="how-it-works-section" id="how-it-works">
       <div className="container">
         <div className="section-heading text-center">
-          <span className="section-tag">EASY AS 1-2-3-4</span>
-          <h2 className="section-title">How Wishly works</h2>
+          <span className="section-tag">HOW IT WORKS</span>
+          <h2 className="section-title">Three little steps.<br />One unforgettable surprise.</h2>
           <p className="section-subtitle">
-            Create a meaningful personalized digital keepsake in just a few minutes.
+            Crafting a meaningful personalized digital keepsake takes less than two minutes.
           </p>
         </div>
 
-        <div className="steps-grid steps-grid-4">
-          {steps.map((item, index) => (
-            <div key={index} className="step-card" style={{ '--step-color': item.color }}>
-              <div className="step-number">{item.step}</div>
-              <div className="step-icon-wrapper" style={{ backgroundColor: `${item.color}15` }}>
-                <span className="step-icon">{item.icon}</span>
+        {/* Visual 3-step connected journey */}
+        <div className="steps-journey-container">
+          <div className="steps-connector-line" aria-hidden="true"></div>
+          <div className="steps-grid steps-grid-3">
+            {steps.map((item, index) => (
+              <div key={index} className="step-card" style={{ '--step-color': item.color }}>
+                <div className="step-number-badge">{item.step}</div>
+                <div className="step-icon-wrapper" style={{ backgroundColor: `${item.color}14` }}>
+                  <span className="step-icon">{item.icon}</span>
+                </div>
+                <h3 className="step-title">{item.title}</h3>
+                <p className="step-desc">{item.desc}</p>
               </div>
-              <h3 className="step-title">{item.title}</h3>
-              <p className="step-desc">{item.desc}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

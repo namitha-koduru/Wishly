@@ -4,35 +4,40 @@ import { OCCASIONS } from '../data/occasions.js';
 import OccasionCard from '../components/OccasionCard.jsx';
 import HowItWorks from '../components/HowItWorks.jsx';
 import TemplateGallery from '../components/TemplateGallery.jsx';
+import EmotionalSection from '../components/EmotionalSection.jsx';
+import PersonalizationDemo from '../components/PersonalizationDemo.jsx';
 
 export function Home() {
   return (
     <div className="home-page">
-      {/* Visual Hero Section */}
+      {/* High-End Hero Section with Staggered Entrance */}
       <section className="hero-section">
         <div className="container hero-container">
           <div className="hero-content">
-            <div className="hero-badge">
-              <span>✨ Wishly</span>
+            <div className="hero-eyebrow-tag animate-fade-in" style={{ animationDelay: '150ms' }}>
+              ✦ THE INTERNET'S LITTLE WAY OF SAYING I CARE
             </div>
-            <h1 className="hero-title">
-              Wishes, made personal.
+
+            <h1 className="hero-title animate-fade-in" style={{ animationDelay: '300ms' }}>
+              Make something<br />
+              special. <em>Just for them.</em>
             </h1>
-            <p className="hero-subtitle">
-              Create a beautiful little website for someone special.
+
+            <p className="hero-subtitle animate-fade-in" style={{ animationDelay: '450ms' }}>
+              Create a beautiful personalized website for someone you love, celebrate, or simply want to make smile.
             </p>
 
-            <div className="hero-cta-group">
+            <div className="hero-cta-group animate-fade-in" style={{ animationDelay: '600ms' }}>
               <Link to="/templates" className="btn btn-primary btn-lg pulse-glow">
                 Create Your Wish ✨
               </Link>
               <a href="#occasions" className="btn btn-secondary btn-lg">
-                Explore Templates ↓
+                Explore templates ↓
               </a>
             </div>
 
-            {/* Quick feature pills */}
-            <div className="hero-feature-pills">
+            {/* Quick feature indicators */}
+            <div className="hero-feature-pills animate-fade-in" style={{ animationDelay: '750ms' }}>
               <span className="feature-pill">🎂 7 Occasions</span>
               <span className="feature-pill">🎨 35 Handcrafted Designs</span>
               <span className="feature-pill">⚡ Instant Shareable URL</span>
@@ -40,54 +45,72 @@ export function Home() {
             </div>
           </div>
 
-          {/* Visual Hero Showcase Composition */}
-          <div className="hero-visual-showcase" aria-hidden="true">
+          {/* Hero Visual Composition with Floating Keepsake Cards */}
+          <div className="hero-visual-showcase animate-fade-in" style={{ animationDelay: '400ms' }} aria-hidden="true">
             <div className="hero-card-stack">
-              {/* Card 1: Birthday Celebration */}
-              <div className="hero-floating-card hero-card-1">
-                <div className="card-badge">🎂 BIRTHDAY</div>
+              {/* Central Feature Card: Ananya Birthday */}
+              <div className="hero-floating-card hero-card-main">
+                <div className="card-badge">🎂 BIRTHDAY KEEPSAKE</div>
                 <div className="card-person-row">
-                  <div className="person-avatar">🎉</div>
+                  <div className="person-avatar-wrap">
+                    <img
+                      src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=400&auto=format&fit=crop&q=80"
+                      alt="Ananya celebration"
+                    />
+                  </div>
                   <div>
-                    <h4>Happy Birthday, Ananya!</h4>
-                    <p>May your year be full of magic & laughter ✨</p>
+                    <h4>Happy Birthday, Ananya! ✨</h4>
+                    <p className="card-subtext">September 12 • Special Day</p>
                   </div>
                 </div>
+                <p className="card-quote-preview">
+                  "May your year be as bright and wonderful as your smile!"
+                </p>
                 <div className="card-mini-footer">
-                  <span>With love always, Alex</span>
+                  <span className="footer-author">— With love always, Alex</span>
                   <span className="card-pill-tag">wishly.app/w/ananya-21</span>
                 </div>
               </div>
 
-              {/* Card 2: Romantic Love Letter */}
-              <div className="hero-floating-card hero-card-2">
-                <div className="card-badge card-badge-romance">❤️ VALENTINE'S</div>
-                <h4>Dearest Sophia,</h4>
-                <p>"Every second with you is my favorite memory in life."</p>
-                <div className="card-mini-footer">
-                  <span>— Forever Yours ❦</span>
-                </div>
+              {/* Floating Chip 1: Anniversary */}
+              <div className="floating-chip chip-anniversary">
+                <span className="chip-icon">💍</span>
+                <span className="chip-text">5 Beautiful Years</span>
               </div>
 
-              {/* Card 3: Milestone Graduation */}
-              <div className="hero-floating-card hero-card-3">
-                <div className="card-badge card-badge-grad">🎓 CLASS OF 2026</div>
-                <h4>Bravo, Marcus! 🏆</h4>
-                <p>All the hard work paid off. The world is yours!</p>
+              {/* Floating Chip 2: Valentine's */}
+              <div className="floating-chip chip-valentine">
+                <span className="chip-icon">❤️</span>
+                <span className="chip-text">Forever & Always</span>
+              </div>
+
+              {/* Floating Chip 3: Graduation */}
+              <div className="floating-chip chip-grad">
+                <span className="chip-icon">🎓</span>
+                <span className="chip-text">Class of 2026</span>
+              </div>
+
+              {/* Floating Chip 4: Just Because */}
+              <div className="floating-chip chip-just-because">
+                <span className="chip-icon">💌</span>
+                <span className="chip-text">Thinking of you</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Occasion Section: "What's the occasion?" */}
+      {/* Occasions Section: "Whatever the reason, make it personal." */}
       <section className="occasions-section" id="occasions">
         <div className="container">
           <div className="section-heading text-center">
-            <span className="section-tag">CHOOSE AN OCCASION</span>
-            <h2 className="section-title">What's the occasion?</h2>
+            <span className="section-tag">OCCASIONS</span>
+            <h2 className="section-title">
+              Whatever the reason,<br />
+              <em>make it personal.</em>
+            </h2>
             <p className="section-subtitle">
-              Select an occasion to browse designs tailored for every special moment.
+              Choose an occasion to explore tailored layouts, typography, and storytelling aesthetics.
             </p>
           </div>
 
@@ -99,17 +122,25 @@ export function Home() {
         </div>
       </section>
 
-      {/* How It Works Section (4 Steps) */}
+      {/* Visual 3-Step Journey */}
       <HowItWorks />
 
-      {/* Template Gallery Section */}
+      {/* Emotional Storytelling Section */}
+      <EmotionalSection />
+
+      {/* Personalization Transformation Demonstration */}
+      <PersonalizationDemo />
+
+      {/* Template Showcase Section: "Made to feel like them." */}
       <section className="featured-templates-section" id="templates">
         <div className="container">
           <div className="section-heading text-center">
-            <span className="section-tag">TEMPLATES</span>
-            <h2 className="section-title">Find the perfect way to say it.</h2>
+            <span className="section-tag">CURATED DESIGNS</span>
+            <h2 className="section-title">
+              Made to feel <em>like them.</em>
+            </h2>
             <p className="section-subtitle">
-              Choose a design, make it yours, and send it with love.
+              Browse 35+ handcrafted templates with diverse layouts, mood boards, and keepsake styles.
             </p>
           </div>
 
@@ -117,18 +148,22 @@ export function Home() {
         </div>
       </section>
 
-      {/* Bottom CTA Section */}
+      {/* Final Call to Action Section */}
       <section className="final-cta-section">
         <div className="container">
           <div className="cta-banner-card">
-            <span className="cta-banner-badge">✨ MAKE MOMENTS SPECIAL</span>
-            <h2 className="cta-banner-title">Ready to make someone's day?</h2>
+            <span className="cta-banner-badge">✦ START IN SECONDS</span>
+            <h2 className="cta-banner-title">
+              Ready to make their day?
+            </h2>
             <p className="cta-banner-desc">
-              Create something they'll want to keep forever. Pick a template and customize your wish in minutes.
+              Create a Wishly they'll want to open twice. Pick a design, write from the heart, and surprise them today.
             </p>
-            <Link to="/templates" className="btn btn-primary btn-lg pulse-glow">
-              Create Your Wish ✨
-            </Link>
+            <div className="cta-btn-wrap">
+              <Link to="/templates" className="btn btn-primary btn-lg pulse-glow">
+                Create Your Wish ✨
+              </Link>
+            </div>
           </div>
         </div>
       </section>
