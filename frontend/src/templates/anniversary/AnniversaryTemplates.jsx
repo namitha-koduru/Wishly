@@ -1,152 +1,204 @@
 import React from 'react';
+import FloatingHeartsEffect from '../shared/FloatingHeartsEffect.jsx';
+import TimelineView from '../shared/TimelineView.jsx';
 
-// 1. Our Story (Romantic storybook layout)
+// 1. Anniversary 01 — Our Story (Milestone timeline: First Meet → First Date → First Adventure → Today)
 export function OurStoryTemplate({ data = {} }) {
   const {
-    recipientName = 'Sophia & David',
-    senderName = 'With Love',
-    message = 'From our very first conversation to all the adventures we have shared, every single second with you is a blessing.',
+    recipientName = 'Rohan & Priya',
+    senderName = 'Rohan',
+    message = 'Every single day with you is my favorite adventure. Five years of love, laughter, and building our forever home together.',
+    photos = [
+      'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&auto=format&fit=crop&q=80'
+    ],
     years = '5 Beautiful Years',
-    photos = ['https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&auto=format&fit=crop&q=80']
+    customData = {}
   } = data;
 
-  return (
-    <div className="tpl-root tpl-our-story">
-      <div className="tpl-story-tag">💍 HAPPY ANNIVERSARY</div>
-      <h1 className="tpl-serif-title">{recipientName}</h1>
-      <p className="tpl-years-badge">✨ {years} ✨</p>
+  const photoUrls = photos.map(p => typeof p === 'object' ? p.url : p).filter(Boolean);
 
-      {photos[0] && (
-        <div className="tpl-romantic-frame">
-          <img src={photos[0]} alt="Our Story" />
+  const defaultTimeline = [
+    { date: 'Year 1', title: 'The First Spark', description: 'When a simple coffee date turned into a 5-hour conversation.' },
+    { date: 'Year 3', title: 'The Big Adventure', description: 'Our first unforgettable trip to Paris together.' },
+    { date: 'Today', title: 'Still Choosing You', description: 'Stronger, happier, and more in love than ever.' }
+  ];
+
+  const timelineItems = customData.timeline || defaultTimeline;
+
+  return (
+    <div className="tpl-root tpl-anniversary-our-story">
+      <FloatingHeartsEffect count={10} />
+      <span className="tpl-anniversary-tag">OUR LOVE STORY</span>
+      <h1 className="tpl-title">{recipientName}</h1>
+      {years && <span className="tpl-years-badge">💍 {years}</span>}
+
+      {photoUrls[0] && (
+        <div className="our-story-hero-frame">
+          <img src={photoUrls[0]} alt={recipientName} />
         </div>
       )}
 
-      <div className="tpl-storybook-card">
-        <p className="tpl-story-text">"{message}"</p>
-        {senderName && <p className="tpl-signature-script">{senderName}</p>}
+      <div className="tpl-message-card">
+        <p className="tpl-message-text">"{message}"</p>
+        {senderName && <p className="tpl-signature">With all my love,<br /><strong>{senderName}</strong></p>}
+      </div>
+
+      <div className="anniversary-timeline-section">
+        <h3 className="tpl-section-subtitle">How Our Story Unfolded ⏳</h3>
+        <TimelineView items={timelineItems} />
       </div>
     </div>
   );
 }
 
-// 2. Forever & Always (Gold & champagne elegance)
-export function ForeverAlwaysTemplate({ data = {} }) {
-  const {
-    recipientName = 'My Beloved',
-    senderName = 'Forever Yours',
-    message = 'I loved you yesterday, I love you still, I always have, I always will. Happy Anniversary, my heart.',
-    date = 'October 14'
-  } = data;
-
-  return (
-    <div className="tpl-root tpl-forever-always">
-      <div className="tpl-gold-border-box">
-        <span className="tpl-gold-ribbon">FOREVER & ALWAYS</span>
-        <h1 className="tpl-elegant-name">{recipientName}</h1>
-        {date && <p className="tpl-sub-date">{date}</p>}
-        <div className="tpl-golden-ornament">❦</div>
-        <p className="tpl-vow-text">{message}</p>
-        {senderName && <p className="tpl-vow-author">— {senderName}</p>}
-      </div>
-    </div>
-  );
-}
-
-// 3. Memory Timeline (Milestone checkpoints layout)
-export function MemoryTimelineTemplate({ data = {} }) {
-  const {
-    recipientName = 'Alex & Taylor',
-    senderName = 'Celebrating Us',
-    message = 'Looking back on all our memories and looking forward to thousands more.',
-    milestones = [
-      { label: 'First Date', text: 'Where the magic sparked' },
-      { label: 'Moving In', text: 'Building our cozy haven' },
-      { label: 'Today & Beyond', text: 'Stronger and more in love than ever' }
-    ]
-  } = data;
-
-  return (
-    <div className="tpl-root tpl-memory-timeline">
-      <h1 className="tpl-timeline-title">Our Milestone Journey</h1>
-      <p className="tpl-timeline-sub">Celebrating {recipientName}</p>
-
-      <div className="tpl-timeline-list">
-        {milestones.map((item, idx) => (
-          <div key={idx} className="tpl-timeline-node">
-            <div className="tpl-node-dot">{idx + 1}</div>
-            <div className="tpl-node-content">
-              <h4>{item.label}</h4>
-              <p>{item.text}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="tpl-timeline-footer-card">
-        <p className="tpl-timeline-msg">{message}</p>
-        {senderName && <span className="tpl-tag-soft">{senderName}</span>}
-      </div>
-    </div>
-  );
-}
-
-// 4. Love Letter (Vintage parchment aesthetic)
+// 2. Anniversary 02 — Love Letter (Paper texture, wax seal, handwritten typography)
 export function LoveLetterAnniversaryTemplate({ data = {} }) {
   const {
-    recipientName = 'Dearest Eleanor',
-    senderName = 'Arthur',
-    message = 'No words in any language could ever fully express how grateful I am to walk through this life by your side.',
-    date = 'Our Anniversary'
+    recipientName = 'My Dearest Emily',
+    senderName = 'Yours Always, Liam',
+    message = 'Looking into your eyes still feels like coming home. You are my safe harbor, my greatest confidant, and the love of my life.',
+    photos = ['https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&auto=format&fit=crop&q=80'],
+    date = 'October 24'
   } = data;
 
+  const photoUrls = photos.map(p => typeof p === 'object' ? p.url : p).filter(Boolean);
+
   return (
-    <div className="tpl-root tpl-love-letter">
-      <div className="tpl-parchment-sheet">
-        <div className="tpl-wax-seal">❤️</div>
-        <p className="tpl-letter-salutation">{recipientName},</p>
-        <p className="tpl-letter-content">{message}</p>
-        <div className="tpl-letter-signoff">
-          <p>Forever & faithfully,</p>
-          <p className="tpl-handwritten">{senderName}</p>
-          {date && <span className="tpl-letter-date">{date}</span>}
+    <div className="tpl-root tpl-anniversary-love-letter">
+      <div className="wax-seal-crest">💌</div>
+      <div className="letter-paper-sheet">
+        <div className="letter-header-row">
+          <span className="letter-date-stamp">{date || 'A Special Day'}</span>
+          <span className="letter-seal-badge">SEALED WITH LOVE</span>
+        </div>
+
+        <h2 className="letter-salutation">{recipientName},</h2>
+
+        <div className="letter-body-text">
+          <p>"{message}"</p>
+        </div>
+
+        {photoUrls[0] && (
+          <div className="letter-polaroid-tuck">
+            <img src={photoUrls[0]} alt="Tucked memory" />
+            <span className="letter-polaroid-caption">"A memory forever tucked in my heart"</span>
+          </div>
+        )}
+
+        <div className="letter-signoff">
+          <p>{senderName}</p>
         </div>
       </div>
     </div>
   );
 }
 
-// 5. Our Journey (Polaroid & Travel Keepsake layout)
-export function OurJourneyTemplate({ data = {} }) {
+// 3. Anniversary 03 — Forever (Minimal romantic, date prominently displayed, hero portrait)
+export function ForeverAlwaysTemplate({ data = {} }) {
   const {
-    recipientName = 'Chris & Sam',
-    senderName = 'Love',
-    message = 'Every flight, every road trip, and every cozy quiet evening. Life is an amazing adventure with you.',
+    recipientName = 'Elena & Mark',
+    senderName = 'Mark',
+    message = 'In a sea of people, my eyes will always search for you. Happy anniversary my love.',
+    photos = ['https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=800&auto=format&fit=crop&q=80'],
+    date = 'June 18 • Forever & Always'
+  } = data;
+
+  const photoUrls = photos.map(p => typeof p === 'object' ? p.url : p).filter(Boolean);
+
+  return (
+    <div className="tpl-root tpl-anniversary-forever">
+      <div className="forever-crest">∞</div>
+      <h1 className="forever-title">{recipientName}</h1>
+      {date && <p className="forever-date">{date}</p>}
+
+      {photoUrls[0] && (
+        <div className="forever-portrait-frame">
+          <img src={photoUrls[0]} alt={recipientName} />
+        </div>
+      )}
+
+      <div className="forever-note-box">
+        <p className="forever-text">"{message}"</p>
+        {senderName && <span className="forever-signature">— {senderName}</span>}
+      </div>
+    </div>
+  );
+}
+
+// 4. Anniversary 04 — Memories (Photo-focused scrapbook with stickers and polaroids)
+export function MemoryTimelineTemplate({ data = {} }) {
+  const {
+    recipientName = 'Claire',
+    senderName = 'Noah',
+    message = 'Every snapshot holds a thousand words and a million feelings. Thank you for making life so wonderful.',
     photos = [
-      'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800&auto=format&fit=crop&q=80'
+      'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1529636798458-92182e662485?w=800&auto=format&fit=crop&q=80'
     ]
   } = data;
 
-  return (
-    <div className="tpl-root tpl-our-journey">
-      <div className="tpl-journey-header">
-        <span className="tpl-stamp">PASSPORT TO LOVE ✈️</span>
-        <h1 className="tpl-journey-title">{recipientName}'s Journey</h1>
-      </div>
+  const photoUrls = photos.map(p => typeof p === 'object' ? p.url : p).filter(Boolean);
 
-      <div className="tpl-polaroid-stack">
-        {photos.map((url, i) => (
-          <div key={i} className={`tpl-polaroid-tilt tpl-tilt-${(i % 2) + 1}`}>
-            <img src={url} alt="Journey moment" />
-            <div className="tpl-polaroid-caption">Chapter {i + 1}</div>
+  return (
+    <div className="tpl-root tpl-anniversary-memories">
+      <div className="scrapbook-pin">📍</div>
+      <h1 className="tpl-title">Memories of Us: {recipientName}</h1>
+      <p className="scrapbook-sub">Handpicked moments from our story</p>
+
+      <div className="anniversary-polaroid-gallery">
+        {photoUrls.map((url, i) => (
+          <div key={i} className={`polaroid-pin-card pin-tilt-${(i % 2) + 1}`}>
+            <img src={url} alt={`Memory ${i + 1}`} />
+            <span className="polaroid-pin-caption">"My favorite place is next to you"</span>
           </div>
         ))}
       </div>
 
-      <div className="tpl-journey-message">
-        <p>{message}</p>
-        {senderName && <span className="tpl-badge-pill">— {senderName}</span>}
+      <div className="scrapbook-note-card">
+        <p className="tpl-message-text">"{message}"</p>
+        {senderName && <p className="tpl-signature">— {senderName}</p>}
+      </div>
+    </div>
+  );
+}
+
+// 5. Anniversary 05 — Journey (Long-scrolling visual milestone story)
+export function OurJourneyTemplate({ data = {} }) {
+  const {
+    recipientName = 'Maya & Sam',
+    senderName = 'Sam',
+    message = 'From day one until forever, I would choose you over and over in every lifetime.',
+    photos = [
+      'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=1000&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1000&auto=format&fit=crop&q=80'
+    ],
+    years = '10 Years of Us'
+  } = data;
+
+  const photoUrls = photos.map(p => typeof p === 'object' ? p.url : p).filter(Boolean);
+
+  return (
+    <div className="tpl-root tpl-anniversary-journey">
+      <div className="journey-hero-header">
+        <span className="journey-tag">MILESTONE JOURNEY</span>
+        <h1 className="journey-title">{recipientName}</h1>
+        {years && <span className="journey-badge">{years}</span>}
+      </div>
+
+      {photoUrls.map((url, i) => (
+        <div key={i} className="journey-section-card">
+          <img src={url} alt={`Milestone ${i + 1}`} />
+          <div className="journey-card-caption">
+            <h4>Milestone 0{i + 1}</h4>
+            <p>"Every step of the way has been a blessing with you."</p>
+          </div>
+        </div>
+      ))}
+
+      <div className="journey-closing-card">
+        <p className="tpl-message-text">"{message}"</p>
+        {senderName && <p className="tpl-signature">— {senderName}</p>}
       </div>
     </div>
   );
