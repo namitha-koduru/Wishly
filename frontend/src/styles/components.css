@@ -1073,38 +1073,71 @@
   justify-content: center;
   padding: 2rem;
   background: var(--bg-cream);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.unboxing-exit-anim {
+.ambient-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  color: var(--accent-gold);
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+
+.p1 { top: 15%; left: 20%; animation: floatSlow 5s infinite ease-in-out; }
+.p2 { top: 25%; right: 25%; animation: floatGentle 6s infinite ease-in-out 1s; }
+.p3 { bottom: 20%; left: 15%; animation: floatSlight 5.5s infinite ease-in-out 0.5s; }
+.p4 { bottom: 30%; right: 18%; animation: floatSlow 7s infinite ease-in-out 2s; }
+.p5 { top: 40%; left: 10%; animation: floatGentle 4.5s infinite ease-in-out 1.5s; }
+
+.unboxing-burst-anim {
   opacity: 0;
-  transform: scale(0.95) translateY(-20px);
+  transform: scale(1.08);
+  filter: blur(8px);
 }
 
 .unboxing-card {
   background: #ffffff;
-  padding: 3.5rem 2.5rem;
+  padding: 3.8rem 2.8rem;
   border-radius: var(--radius-xl);
   max-width: 520px;
   width: 100%;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--border-color);
-  animation: modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 2;
+  animation: modalPop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .unboxing-wax-seal {
-  width: 56px;
-  height: 56px;
+  position: relative;
+  width: 64px;
+  height: 64px;
   background: var(--primary-color);
   color: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   margin: 0 auto 1.5rem;
-  box-shadow: 0 8px 20px rgba(224, 83, 104, 0.35);
+  box-shadow: 0 10px 25px rgba(217, 72, 92, 0.35);
+}
+
+.seal-pulse-glow {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+  opacity: 0.5;
   animation: pulseGlow 2.5s infinite;
 }
 
@@ -1112,18 +1145,18 @@
   display: block;
   font-size: 0.78rem;
   font-weight: 800;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   color: var(--primary-color);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.8rem;
 }
 
 .unboxing-title {
   font-family: var(--font-display);
-  font-size: 2.2rem;
+  font-size: 2.3rem;
   font-weight: 700;
   color: var(--text-primary);
-  line-height: 1.25;
-  margin-bottom: 1.2rem;
+  line-height: 1.22;
+  margin-bottom: 1rem;
 }
 
 .unboxing-title em {
@@ -1134,12 +1167,163 @@
 .unboxing-sender-note {
   font-size: 1rem;
   color: var(--text-secondary);
-  margin-bottom: 2rem;
+  margin-bottom: 2.2rem;
+}
+
+.unboxing-action-wrap {
+  display: flex;
+  justify-content: center;
 }
 
 .unboxing-open-btn {
   width: 100%;
-  max-width: 280px;
+  max-width: 300px;
+}
+
+/* Standalone Revealed Wish & Storytelling */
+.wish-reveal-animation {
+  animation: revealWish 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes revealWish {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(15px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+.generated-wish-canvas img {
+  cursor: zoom-in;
+  transition: transform 0.25s ease;
+}
+
+.generated-wish-canvas img:hover {
+  opacity: 0.96;
+}
+
+/* Recipient Closing & Sharing Section */
+.recipient-footer-section {
+  width: 100%;
+  max-width: 760px;
+  margin: 4.5rem auto 2rem;
+  padding: 0 1.5rem;
+}
+
+.recipient-closing-card {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 3rem 2rem;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+}
+
+.closing-heart-sparkle {
+  font-size: 2.5rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+  animation: floatSlow 4s infinite ease-in-out;
+}
+
+.closing-sentiment-text {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.45;
+  margin-bottom: 0.5rem;
+}
+
+.closing-signature-text {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+}
+
+.recipient-share-bar {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.recipient-watermark-note {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Photo Lightbox */
+.photo-lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 15, 17, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: fadeIn 0.25s ease;
+}
+
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+  animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lightbox-caption {
+  color: #FAF7F2;
+  font-size: 1rem;
+  margin-top: 1rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  max-width: 600px;
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.lightbox-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
 }
 
 /* Responsive Rules */
