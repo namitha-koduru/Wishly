@@ -69,7 +69,8 @@ export const createWish = async (req, res) => {
             url: item.url,
             publicId: item.publicId || null,
             width: item.width || null,
-            height: item.height || null
+            height: item.height || null,
+            caption: item.caption || ''
           };
         }
         return null;

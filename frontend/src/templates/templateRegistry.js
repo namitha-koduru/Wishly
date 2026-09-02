@@ -64,12 +64,13 @@ export const TEMPLATES = [
     description: 'Hero photo spotlight with warm wishes and a polaroid memory album.',
     badge: 'Popular',
     previewColor: '#FF6B8B',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'date'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'date', 'age'],
     defaultData: {
       recipientName: 'Sarah',
       senderName: 'Alex',
       message: 'Wishing you the happiest birthday filled with joy, laughter, and unforgettable moments! May this year bring you closer to all your dreams.',
       date: 'September 12',
+      age: '25',
       photos: [
         'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=800&auto=format&fit=crop&q=80',
         'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&auto=format&fit=crop&q=80'
@@ -122,11 +123,12 @@ export const TEMPLATES = [
     description: 'Vibrant party popper style with interactive celebration banners.',
     badge: 'Festive',
     previewColor: '#FD79A8',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'surpriseMessage'],
     defaultData: {
       recipientName: 'Lucas',
       senderName: 'The Whole Crew',
       message: 'SURPRISE! Today is all about celebrating the incredible person you are. Grab a slice of cake and let the party begin!',
+      surpriseMessage: 'You are getting a weekend getaway trip with everyone! Pack your bags!',
       photos: [
         'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&auto=format&fit=crop&q=80'
       ]
@@ -140,12 +142,15 @@ export const TEMPLATES = [
     description: 'Clean aesthetic typography with delicate accents and heartfelt simplicity.',
     badge: 'Minimal',
     previewColor: '#6C5CE7',
-    supportedFields: ['recipientName', 'senderName', 'message', 'date'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'date'],
     defaultData: {
       recipientName: 'Elena',
       senderName: 'Oliver',
       message: 'May your day be peaceful, bright, and surrounded by the things and people you love the most.',
-      date: 'Today'
+      date: 'October 14',
+      photos: [
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: MinimalBirthdayTemplate
   },
@@ -155,10 +160,10 @@ export const TEMPLATES = [
     id: 'our-story',
     occasion: 'anniversary',
     name: 'Our Story',
-    description: 'Romantic storybook tribute celebrating years together and heartfelt vows.',
+    description: 'Romantic storybook tribute celebrating years together and milestone timeline.',
     badge: 'Romantic',
     previewColor: '#9B51E0',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'years'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'years', 'timeline'],
     defaultData: {
       recipientName: 'Sophia & David',
       senderName: 'With Love Always',
@@ -177,27 +182,34 @@ export const TEMPLATES = [
     description: 'Timeless gold and champagne elegance for cherished milestones.',
     badge: 'Elegant',
     previewColor: '#D4AF37',
-    supportedFields: ['recipientName', 'senderName', 'message', 'date'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'date'],
     defaultData: {
       recipientName: 'My Beloved',
       senderName: 'Forever Yours',
       message: 'I loved you yesterday, I love you still, I always have, I always will. Happy Anniversary, my heart.',
-      date: 'October 14'
+      date: 'June 18 • Forever & Always',
+      photos: [
+        'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: ForeverAlwaysTemplate
   },
   {
     id: 'memory-timeline',
     occasion: 'anniversary',
-    name: 'Memory Timeline',
-    description: 'Milestone checkpoints commemorating where your journey started and where it is headed.',
-    badge: 'Timeline',
+    name: 'Memory Scrapbook',
+    description: 'Photo scrapbook checkpoints commemorating where your journey started.',
+    badge: 'Scrapbook',
     previewColor: '#A29BFE',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
     defaultData: {
       recipientName: 'Alex & Taylor',
       senderName: 'Celebrating Us',
-      message: 'Looking back on all our memories and looking forward to thousands more together.'
+      message: 'Looking back on all our memories and looking forward to thousands more together.',
+      photos: [
+        'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1529636798458-92182e662485?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: MemoryTimelineTemplate
   },
@@ -208,12 +220,15 @@ export const TEMPLATES = [
     description: 'Vintage wax seal parchment paper letter handwritten with devotion.',
     badge: 'Keepsake',
     previewColor: '#E84393',
-    supportedFields: ['recipientName', 'senderName', 'message', 'date'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'date'],
     defaultData: {
       recipientName: 'Dearest Eleanor',
       senderName: 'Arthur',
       message: 'No words in any language could ever fully express how grateful I am to walk through this life by your side.',
-      date: 'Our Anniversary'
+      date: 'Our Anniversary',
+      photos: [
+        'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: LoveLetterAnniversaryTemplate
   },
@@ -221,17 +236,18 @@ export const TEMPLATES = [
     id: 'our-journey',
     occasion: 'anniversary',
     name: 'Our Journey',
-    description: 'Polaroid travel keepsake celebrating every flight, road trip, and memory.',
+    description: 'Polaroid travel keepsake celebrating every milestone and memory.',
     badge: 'Adventure',
     previewColor: '#0984E3',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'years'],
     defaultData: {
       recipientName: 'Chris & Sam',
       senderName: 'With Love',
       message: 'Every flight, every road trip, and every cozy quiet evening. Life is an amazing adventure with you.',
+      years: '10 Years of Us',
       photos: [
-        'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&auto=format&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800&auto=format&fit=crop&q=80'
+        'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=1000&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1000&auto=format&fit=crop&q=80'
       ]
     },
     component: OurJourneyTemplate
@@ -251,7 +267,7 @@ export const TEMPLATES = [
       senderName: 'Mom & Dad',
       message: 'You did it! All those late nights, endless study sessions, and sacrifices have paid off. We are beyond proud of you!',
       degree: 'Bachelor of Science',
-      classYear: '2026',
+      classYear: 'Class of 2026',
       photos: [
         'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&auto=format&fit=crop&q=80'
       ]
@@ -262,14 +278,17 @@ export const TEMPLATES = [
     id: 'the-journey-grad',
     occasion: 'graduation',
     name: 'The Journey',
-    description: 'Academic timeline tracing steps from first lecture to the graduation stage.',
+    description: 'Academic timeline tracing steps from first lecture to graduation.',
     badge: 'Inspiring',
     previewColor: '#54A0FF',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'milestones'],
     defaultData: {
       recipientName: 'Chloe',
       senderName: 'Family & Mentors',
-      message: 'From your very first lecture to the graduation stage, you proved resilience, passion, and brilliance at every step.'
+      message: 'From your very first lecture to the graduation stage, you proved resilience, passion, and brilliance at every step.',
+      photos: [
+        'https://images.unsplash.com/photo-1627556704302-624286467c65?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: TheJourneyGradTemplate
   },
@@ -280,28 +299,33 @@ export const TEMPLATES = [
     description: 'Diploma laurel certificate layout commemorating academic excellence.',
     badge: 'Honors',
     previewColor: '#F39C12',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'degree'],
     defaultData: {
       recipientName: 'Dr. Emily Vance',
       senderName: 'Colleagues & Friends',
-      message: 'Congratulations on achieving this remarkable academic pinnacle! The world is waiting for your brilliant contributions.'
+      message: 'Congratulations on achieving this remarkable academic pinnacle! The world is waiting for your brilliant contributions.',
+      degree: 'Doctor of Medicine',
+      photos: [
+        'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1000&auto=format&fit=crop&q=80'
+      ]
     },
     component: AchievementGradTemplate
   },
   {
     id: 'photo-memories-grad',
     occasion: 'graduation',
-    name: 'Photo Memories',
-    description: 'Campus photo album with friends, study sessions, and ceremony cheers.',
+    name: 'Yearbook Tribute',
+    description: 'Campus photo album with friends, quotes, and ceremony cheers.',
     badge: 'Album',
     previewColor: '#00D2D3',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'classYear'],
     defaultData: {
       recipientName: 'Daniel',
       senderName: 'The Squad',
       message: 'We laughed, we stressed, we studied together, and now we graduate as champions!',
+      classYear: 'Class of 2026',
       photos: [
-        'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&auto=format&fit=crop&q=80',
         'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800&auto=format&fit=crop&q=80'
       ]
     },
@@ -314,11 +338,15 @@ export const TEMPLATES = [
     description: 'Compass and starry horizon celebrating ambitious dreams and future paths.',
     badge: 'Future',
     previewColor: '#5F27CD',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'achievement'],
     defaultData: {
       recipientName: 'Jessica',
       senderName: 'Uncle Robert',
-      message: 'Your graduation is not the end of a book, but the prologue to an extraordinary adventure. Go chase the stars!'
+      message: 'Your graduation is not the end of a book, but the prologue to an extraordinary adventure. Go chase the stars!',
+      achievement: 'The Future is Yours',
+      photos: [
+        'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: FutureBeginsTemplate
   },
@@ -328,16 +356,16 @@ export const TEMPLATES = [
     id: 'goodbye-memories',
     occasion: 'farewell',
     name: 'Goodbye Memories',
-    description: 'Warm keepsake with personal memories and encouragement for what is ahead.',
+    description: 'Shared chapter milestone timeline with colleagues and friends.',
     badge: 'Warm',
     previewColor: '#F2994A',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'milestones'],
     defaultData: {
       recipientName: 'Samantha',
       senderName: 'Your Friends',
       message: 'Saying goodbye is never easy, but we are so excited for your next great chapter. Thank you for all the laughter and memories!',
       photos: [
-        'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800&auto=format&fit=crop&q=80'
+        'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80'
       ]
     },
     component: GoodbyeMemoriesTemplate
@@ -346,14 +374,19 @@ export const TEMPLATES = [
     id: 'memory-wall',
     occasion: 'farewell',
     name: 'Memory Wall',
-    description: 'Sticky notes wall filled with individual messages from colleagues or friends.',
+    description: 'Polaroid wall filled with individual messages and washi tape from teammates.',
     badge: 'Interactive',
     previewColor: '#FF9F43',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'teamName'],
     defaultData: {
       recipientName: 'David',
       senderName: 'The Whole Office',
-      message: 'You left footprints of kindness everywhere. Keep in touch!'
+      teamName: 'Design & Product Crew',
+      message: 'You left footprints of kindness everywhere. Keep in touch!',
+      photos: [
+        'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: MemoryWallTemplate
   },
@@ -361,14 +394,17 @@ export const TEMPLATES = [
     id: 'until-we-meet-again',
     occasion: 'farewell',
     name: 'Until We Meet Again',
-    description: 'Wanderlust send-off reminding friends that distance can never break true bonds.',
+    description: 'Full-bleed imagery reminding friends that distance can never break true bonds.',
     badge: 'Send-off',
     previewColor: '#10AC84',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
     defaultData: {
       recipientName: 'Hannah',
       senderName: 'Your Best Friends',
-      message: 'Distance means so little when people mean so much. No matter where life takes you, you will always have a home here.'
+      message: 'Distance means so little when people mean so much. No matter where life takes you, you will always have a home here.',
+      photos: [
+        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1000&auto=format&fit=crop&q=80'
+      ]
     },
     component: UntilWeMeetAgainTemplate
   },
@@ -379,12 +415,15 @@ export const TEMPLATES = [
     description: 'Professional and warm team tribute celebrating colleagues moving to new roles.',
     badge: 'Team',
     previewColor: '#EE5253',
-    supportedFields: ['recipientName', 'senderName', 'message', 'teamName'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'teamName'],
     defaultData: {
       recipientName: 'Alex Mercer',
       senderName: 'The Engineering Team',
       teamName: 'Product & Tech Crew',
-      message: 'Your brilliance, patience, and humor made every sprint a pleasure. Wishing you huge success in your next venture!'
+      message: 'Your brilliance, patience, and humor made every sprint a pleasure. Wishing you huge success in your next venture!',
+      photos: [
+        'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: TeamMemoriesTemplate
   },
@@ -392,14 +431,18 @@ export const TEMPLATES = [
     id: 'goodbye-letter',
     occasion: 'farewell',
     name: 'Goodbye Letter',
-    description: 'Heartwarming letter in a vintage envelope style.',
+    description: 'Heartwarming letter in a vintage envelope style with wax seal.',
     badge: 'Classic',
     previewColor: '#6D214F',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'date'],
     defaultData: {
       recipientName: 'Dear Friend',
       senderName: 'Your Crew',
-      message: 'As one journey concludes, another begins. Thank you for making our days brighter with your kindness and positivity.'
+      date: 'Farewell Gathering',
+      message: 'As one journey concludes, another begins. Thank you for making our days brighter with your kindness and positivity.',
+      photos: [
+        'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: GoodbyeLetterTemplate
   },
@@ -412,12 +455,15 @@ export const TEMPLATES = [
     description: 'Passionate digital love letter sealed with hearts and sweet devotion.',
     badge: 'Sweet',
     previewColor: '#EB5757',
-    supportedFields: ['recipientName', 'senderName', 'message', 'date'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'date'],
     defaultData: {
       recipientName: 'My Valentine',
       senderName: 'Yours Always',
       message: 'You make every normal moment feel magical. You have my whole heart today, tomorrow, and for all the days to come.',
-      date: "Valentine's Day"
+      date: "Valentine's Day",
+      photos: [
+        'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: LoveLetterValTemplate
   },
@@ -434,8 +480,8 @@ export const TEMPLATES = [
       senderName: 'Me',
       message: 'Every memory we create together is my favorite treasure.',
       photos: [
-        'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&auto=format&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&auto=format&fit=crop&q=80'
+        'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1529636798458-92182e662485?w=800&auto=format&fit=crop&q=80'
       ]
     },
     component: OurMomentsValTemplate
@@ -447,11 +493,14 @@ export const TEMPLATES = [
     description: 'Cosmic romance layout celebrating one love in a universe of billions.',
     badge: 'Cosmic',
     previewColor: '#D63031',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
     defaultData: {
       recipientName: 'Aria',
       senderName: 'Leo',
-      message: 'In a universe of billions of stars, meeting and loving you is the greatest wonder of my life.'
+      message: 'In a universe of billions of stars, meeting and loving you is the greatest wonder of my life.',
+      photos: [
+        'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: ForeverValTemplate
   },
@@ -462,11 +511,14 @@ export const TEMPLATES = [
     description: 'Numbered card deck highlighting all the reasons why they are adored.',
     badge: 'Thoughtful',
     previewColor: '#E84393',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'reasons'],
     defaultData: {
       recipientName: 'Bella',
       senderName: 'Noah',
-      message: 'Here are just a few reasons why you are the love of my life...'
+      message: 'Here are just a few reasons why you are the love of my life...',
+      photos: [
+        'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: ReasonsILoveYouTemplate
   },
@@ -474,14 +526,17 @@ export const TEMPLATES = [
     id: 'our-story-val',
     occasion: 'valentines',
     name: 'Our Story',
-    description: 'Classic Valentine card layout with gentle gradients and romantic framing.',
+    description: 'Classic Valentine card layout with gentle gradients and milestone timeline.',
     badge: 'Classic',
     previewColor: '#B33771',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'milestones'],
     defaultData: {
       recipientName: 'My One & Only',
       senderName: 'Always',
-      message: 'From day one, you have been my dream come true. Happy Valentine’s Day, my love.'
+      message: 'From day one, you have been my dream come true. Happy Valentine’s Day, my love.',
+      photos: [
+        'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: OurStoryValTemplate
   },
@@ -494,12 +549,15 @@ export const TEMPLATES = [
     description: 'Gold trophy banner celebrating promotions, victories, and hard-earned wins.',
     badge: 'Victory',
     previewColor: '#27AE60',
-    supportedFields: ['recipientName', 'senderName', 'message', 'achievement'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'achievement'],
     defaultData: {
       recipientName: 'Jordan Smith',
       senderName: 'Friends & Family',
-      achievement: 'Promotion & New Leadership Role',
-      message: 'Huge congratulations on this tremendous milestone! Your perseverance and talent shine so bright.'
+      achievement: 'Senior Promotion',
+      message: 'Huge congratulations on this tremendous milestone! Your perseverance and talent shine so bright.',
+      photos: [
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: YouDidItTemplate
   },
@@ -510,13 +568,14 @@ export const TEMPLATES = [
     description: 'Sparkling celebration banner with spotlight photo and proud tributes.',
     badge: 'Cheer',
     previewColor: '#2ECC71',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'achievement'],
     defaultData: {
       recipientName: 'Samantha Ray',
       senderName: 'The Whole Team',
+      achievement: 'Marathon Finisher',
       message: 'Here is to all your hard work coming to fruition. You earned every bit of this victory!',
       photos: [
-        'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&auto=format&fit=crop&q=80'
+        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80'
       ]
     },
     component: AchievementCelebrationTemplate
@@ -528,11 +587,14 @@ export const TEMPLATES = [
     description: 'Refined tribute honoring dedication, character, and exceptional milestones.',
     badge: 'Pride',
     previewColor: '#F1C40F',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
     defaultData: {
       recipientName: 'Liam',
       senderName: 'Proud Parents',
-      message: 'Seeing how far you have come and the determination you carry fills our hearts with endless pride.'
+      message: 'Seeing how far you have come and the determination you carry fills our hearts with endless pride.',
+      photos: [
+        'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: ProudMomentTemplate
   },
@@ -543,11 +605,15 @@ export const TEMPLATES = [
     description: 'Modern rocket badge highlighting big breakthroughs and goals smashed.',
     badge: 'Success',
     previewColor: '#16A085',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'achievement'],
     defaultData: {
       recipientName: 'Maya Lin',
       senderName: 'Mentors & Peers',
-      message: 'Success is the sum of small efforts repeated daily. You made it happen through sheer grit and dedication!'
+      achievement: 'First Big Milestone',
+      message: 'Success is the sum of small efforts repeated daily. You made it happen through sheer grit and dedication!',
+      photos: [
+        'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: SuccessStoryTemplate
   },
@@ -558,11 +624,14 @@ export const TEMPLATES = [
     description: 'Champagne toast and confetti party cheer for any victorious occasion.',
     badge: 'Party',
     previewColor: '#E67E22',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
     defaultData: {
       recipientName: 'Ethan',
       senderName: 'Everyone',
-      message: 'Raise a glass and let the celebrations begin! Here is to new heights and even greater victories ahead.'
+      message: 'Raise a glass and let the celebrations begin! Here is to new heights and even greater victories ahead.',
+      photos: [
+        'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: CelebrateCheerTemplate
   },
@@ -581,7 +650,7 @@ export const TEMPLATES = [
       senderName: 'Morgan',
       message: 'No special occasion needed — just wanted to remind you that you are deeply appreciated and loved today!',
       photos: [
-        'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&auto=format&fit=crop&q=80'
+        'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80'
       ]
     },
     component: JustForYouTemplate
@@ -593,11 +662,14 @@ export const TEMPLATES = [
     description: 'Minimalist aesthetic postcard note with a gentle reminder of care.',
     badge: 'Postcard',
     previewColor: '#BE2EDD',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
     defaultData: {
       recipientName: 'Taylor',
       senderName: 'Sam',
-      message: 'Just a small reminder: you are doing amazing, and having you in my life makes everything brighter.'
+      message: 'Just a small reminder: you are doing amazing, and having you in my life makes everything brighter.',
+      photos: [
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: ALittleNoteTemplate
   },
@@ -608,11 +680,14 @@ export const TEMPLATES = [
     description: 'Serene botanical blossom frame offering comfort and warmth from afar.',
     badge: 'Serene',
     previewColor: '#686DE0',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
     defaultData: {
       recipientName: 'Grandma Rose',
       senderName: 'Lucas & Lily',
-      message: 'Sending you a warm hug from afar and keeping you in our warmest thoughts today.'
+      message: 'Sending you a warm hug from afar and keeping you in our warmest thoughts today.',
+      photos: [
+        'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: ThinkingOfYouTemplate
   },
@@ -623,11 +698,14 @@ export const TEMPLATES = [
     description: 'Positive affirmation deck celebrating how unique and valued they are.',
     badge: 'Affirmation',
     previewColor: '#30336B',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
     defaultData: {
       recipientName: 'Zoe',
       senderName: 'Ben',
-      message: 'In case nobody told you today: you are talented, valued, and truly one of a kind.'
+      message: 'In case nobody told you today: you are talented, valued, and truly one of a kind.',
+      photos: [
+        'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: YouAreSpecialTemplate
   },
@@ -638,11 +716,14 @@ export const TEMPLATES = [
     description: 'Heartfelt gratitude keepsake with soft ambient glow and pure appreciation.',
     badge: 'Heartfelt',
     previewColor: '#FF7979',
-    supportedFields: ['recipientName', 'senderName', 'message'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
     defaultData: {
       recipientName: 'Dear Friend',
       senderName: 'Forever Grateful',
-      message: 'Thank you for being such an extraordinary presence in my life. You make every day better just by being you.'
+      message: 'Thank you for being such an extraordinary presence in my life. You make every day better just by being you.',
+      photos: [
+        'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&auto=format&fit=crop&q=80'
+      ]
     },
     component: FromMyHeartTemplate
   }

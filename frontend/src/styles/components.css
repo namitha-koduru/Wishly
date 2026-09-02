@@ -1164,10 +1164,22 @@
   color: var(--primary-color);
 }
 
-.unboxing-sender-note {
-  font-size: 1rem;
+.unboxing-subtitle-text {
+  font-size: 0.95rem;
   color: var(--text-secondary);
-  margin-bottom: 2.2rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.unboxing-sender-note {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  background: #FAF7F2;
+  display: inline-block;
+  padding: 0.4rem 1.2rem;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
 }
 
 .unboxing-action-wrap {
@@ -1207,18 +1219,35 @@
   opacity: 0.96;
 }
 
+/* Toast Notification */
+.wishly-toast-notification {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1f1e1d;
+  color: #fff;
+  padding: 0.75rem 1.6rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 3000;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
 /* Recipient Closing & Sharing Section */
 .recipient-footer-section {
   width: 100%;
   max-width: 760px;
-  margin: 4.5rem auto 2rem;
+  margin: 4.5rem auto 2.5rem;
   padding: 0 1.5rem;
 }
 
 .recipient-closing-card {
   background: #ffffff;
   border-radius: var(--radius-xl);
-  padding: 3rem 2rem;
+  padding: 3.2rem 2.2rem;
   border: 1px solid var(--border-color);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
 }
@@ -1226,25 +1255,48 @@
 .closing-heart-sparkle {
   font-size: 2.5rem;
   display: inline-block;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   animation: floatSlow 4s infinite ease-in-out;
 }
 
 .closing-sentiment-text {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-primary);
-  line-height: 1.45;
-  margin-bottom: 0.5rem;
+  line-height: 1.35;
+  margin-bottom: 0.3rem;
+}
+
+.closing-sub-text {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-bottom: 1rem;
 }
 
 .closing-signature-text {
-  display: block;
+  display: inline-block;
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--primary-color);
+  background: #fff5f6;
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
   margin-bottom: 2rem;
+}
+
+.recipient-share-container {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.8rem;
+  margin-top: 1.2rem;
+}
+
+.pass-feeling-text {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
 }
 
 .recipient-share-bar {
@@ -1257,14 +1309,32 @@
 .recipient-watermark-note {
   margin-top: 2rem;
   font-size: 0.9rem;
-  color: var(--text-muted);
 }
 
-/* Photo Lightbox */
+.watermark-tagline {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 0.3rem;
+}
+
+.watermark-create-cta {
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.watermark-create-cta:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
+/* Photo Lightbox with Gallery Navigation */
 .photo-lightbox-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 15, 17, 0.88);
+  background: rgba(15, 15, 17, 0.9);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   z-index: 2000;
@@ -1282,25 +1352,41 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .lightbox-img {
   max-width: 100%;
-  max-height: 78vh;
+  max-height: 75vh;
   object-fit: contain;
   border-radius: 12px;
   box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
   animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.lightbox-footer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
 .lightbox-caption {
   color: #FAF7F2;
-  font-size: 1rem;
-  margin-top: 1rem;
-  text-align: center;
+  font-size: 1.05rem;
   font-family: var(--font-display);
   font-style: italic;
+  text-align: center;
   max-width: 600px;
+  margin: 0;
+}
+
+.lightbox-counter {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .lightbox-close-btn {
@@ -1319,12 +1405,96 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
+  z-index: 10;
 }
 
 .lightbox-close-btn:hover {
   background: rgba(255, 255, 255, 0.3);
   transform: scale(1.1);
 }
+
+.lightbox-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.lightbox-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-nav-btn.prev { left: 24px; }
+.lightbox-nav-btn.next { right: 24px; }
+
+/* Visual Link Preview Card */
+.visual-link-preview-card {
+  background: #FAF7F2;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem;
+  text-align: left;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.preview-card-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.preview-brand-tag {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--primary-color);
+}
+
+.preview-card-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.preview-card-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.8rem;
+}
+
+.preview-card-url-display {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Occasion Atmosphere Shell */
+.occasion-theme-birthday { background: linear-gradient(180deg, #FAF7F2 0%, #FFF5F7 100%); }
+.occasion-theme-anniversary { background: linear-gradient(180deg, #FAF7F2 0%, #FBF3F9 100%); }
+.occasion-theme-graduation { background: linear-gradient(180deg, #FAF7F2 0%, #F0F7FF 100%); }
+.occasion-theme-farewell { background: linear-gradient(180deg, #FAF7F2 0%, #FFF8F0 100%); }
+.occasion-theme-valentines { background: linear-gradient(180deg, #FAF7F2 0%, #FFF0F3 100%); }
+.occasion-theme-congratulations { background: linear-gradient(180deg, #FAF7F2 0%, #F0FFF4 100%); }
+.occasion-theme-just-because { background: linear-gradient(180deg, #FAF7F2 0%, #FDF4FF 100%); }
 
 /* Responsive Rules */
 @media (max-width: 1024px) {

@@ -1,32 +1,167 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { getTemplateById } from '../templates/templateRegistry.js';
 import { getOccasionById } from '../data/occasions.js';
-import { SAMPLE_PHOTOS } from '../data/samplePhotos.js';
-import { createWish, uploadImages, deleteImage, APP_BASE_URL } from '../services/api.js';
+import { createWish, uploadImages, APP_BASE_URL } from '../services/api.js';
+import PhotoUploader from '../components/PhotoUploader.jsx';
+import TimelineEditor from '../components/TimelineEditor.jsx';
+import ReasonsEditor from '../components/ReasonsEditor.jsx';
+import CharacterCounter from '../components/CharacterCounter.jsx';
 
 export function Customize() {
   const { templateId } = useParams();
-  const navigate = useNavigate();
   const template = getTemplateById(templateId);
-  const fileInputRef = useRef(null);
-
-  // Occasion metadata
   const occasion = template ? getOccasionById(template.occasion) : null;
 
-  // Customization Form State
+  // Local storage draft key
+  const draftStorageKey = `wishly_draft_${templateId || 'default'}`;
+
+  // Form State Initialization
   const [formData, setFormData] = useState(() => {
     if (!template) return {};
+
+    // 1. Check local draft
+    try {
+      const savedDraft = localStorage.getItem(draftStorageKey);
+      if (savedDraft) {
+        const parsed = JSON.parse(savedDraft);
+        return {
+          ...template.defaultData,
+          ...parsed,
+          photos: (parsed.photos || []).map((p, i) =>
+            typeof p === 'string'
+              ? { id: `photo_${i}`, url: p, status: 'ready', caption: '' }
+              : { ...p, status: p.status || 'ready' }
+          )
+        };
+      }
+    } catch (e) {
+      console.warn('Draft load error:', e);
+    }
+
+    // 2. Default data
     const defaultPhotos = template.defaultData?.photos
       ? template.defaultData.photos.map((url, i) => ({
           id: `sample_${i}`,
           url,
-          status: 'uploaded',
+          status: 'ready',
           caption: ''
         }))
       : [];
 
     return {
+      recipientName: template.defaultData?.recipientName || '',
+      senderName: template.defaultData?.senderName || '',
+      message: template.defaultData?.message || '',
+      photos: defaultPhotos,
+      date: template.defaultData?.date || '',
+      age: template.defaultData?.age || '',
+      years: template.defaultData?.years || '',
+      degree: template.defaultData?.degree || '',
+      classYear: template.defaultData?.classYear || '',
+      teamName: template.defaultData?.teamName || '',
+      achievement: template.defaultData?.achievement || '',
+      surpriseMessage: template.defaultData?.surpriseMessage || '',
+      reasons: template.defaultData?.reasons ? [...template.defaultData.reasons] : [
+        'The contagious smile that brightens any day.',
+        'Your kindness and thoughtful care for others.',
+        'Making every moment together unforgettable.'
+      ],
+      timeline: template.defaultData?.timeline ? [...template.defaultData.timeline] : [
+        { date: 'Chapter 01', title: 'The Beginning', description: 'When our story first began and memories started unfolding.' },
+        { date: 'Chapter 02', title: 'The Adventure', description: 'Countless laughs, late night chats, and shared journeys.' },
+        { date: 'Today', title: 'Still Celebrating', description: 'Grateful for every step and excited for what comes next.' }
+      ],
+      milestones: template.defaultData?.milestones ? [...template.defaultData.milestones] : [
+        { date: 'Freshman Year', title: 'The Start', description: 'Arriving full of ambition and big dreams.' },
+        { date: 'Senior Year', title: 'The Triumph', description: 'Cap in the air, ready for the next adventure.' }
+      ]
+    };
+  });
+
+  // UI States
+  const [deviceMode, setDeviceMode] = useState('desktop'); // 'desktop' | 'mobile'
+  const [activeTab, setActiveTab] = useState('editor'); // For mobile: 'editor' | 'preview'
+  const [validationErrors, setValidationErrors] = useState({});
+  const [isDraftRestored, setIsDraftRestored] = useState(() => {
+    try {
+      return Boolean(localStorage.getItem(draftStorageKey));
+    } catch {
+      return false;
+    }
+  });
+  const [isDraftSavedPulse, setIsDraftSavedPulse] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState(null);
+
+  // Generation & Share modal state
+  const [generationStep, setGenerationStep] = useState(0); // 0 = idle, 1 = preparing, 2 = uploading, 3 = saving, 4 = complete
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [shareModal, setShareModal] = useState(null);
+  const [copied, setCopied] = useState(false);
+
+  // Autosave effect
+  useEffect(() => {
+    if (!templateId) return;
+
+    try {
+      const serializableData = {
+        recipientName: formData.recipientName,
+        senderName: formData.senderName,
+        message: formData.message,
+        photos: (formData.photos || [])
+          .filter((p) => p.status === 'ready' && !p.url.startsWith('blob:'))
+          .map((p) => ({ url: p.url, caption: p.caption })),
+        date: formData.date,
+        age: formData.age,
+        years: formData.years,
+        degree: formData.degree,
+        classYear: formData.classYear,
+        teamName: formData.teamName,
+        achievement: formData.achievement,
+        surpriseMessage: formData.surpriseMessage,
+        reasons: formData.reasons,
+        timeline: formData.timeline,
+        milestones: formData.milestones
+      };
+
+      localStorage.setItem(draftStorageKey, JSON.stringify(serializableData));
+      setIsDraftSavedPulse(true);
+      const timer = setTimeout(() => setIsDraftSavedPulse(false), 2000);
+      return () => clearTimeout(timer);
+    } catch (e) {
+      console.warn('Autosave error:', e);
+    }
+  }, [formData, templateId, draftStorageKey]);
+
+  if (!template) {
+    return (
+      <div className="container text-center py-5">
+        <h2>Template Not Found</h2>
+        <p>The selected template could not be loaded.</p>
+        <Link to="/templates" className="btn btn-primary mt-3">Browse Templates</Link>
+      </div>
+    );
+  }
+
+  const supported = template.supportedFields || [];
+
+  // Reset draft to fresh template defaults
+  const handleStartFresh = () => {
+    try {
+      localStorage.removeItem(draftStorageKey);
+    } catch {}
+
+    const defaultPhotos = template.defaultData?.photos
+      ? template.defaultData.photos.map((url, i) => ({
+          id: `sample_${i}`,
+          url,
+          status: 'ready',
+          caption: ''
+        }))
+      : [];
+
+    setFormData({
       recipientName: '',
       senderName: '',
       message: '',
@@ -38,927 +173,804 @@ export function Customize() {
       classYear: template.defaultData?.classYear || '',
       teamName: template.defaultData?.teamName || '',
       achievement: template.defaultData?.achievement || '',
+      surpriseMessage: template.defaultData?.surpriseMessage || '',
       reasons: template.defaultData?.reasons ? [...template.defaultData.reasons] : [],
+      timeline: template.defaultData?.timeline ? [...template.defaultData.timeline] : [],
       milestones: template.defaultData?.milestones ? [...template.defaultData.milestones] : []
-    };
-  });
+    });
 
-  // Track local created object URLs to properly revoke on cleanup
-  const createdObjectUrlsRef = useRef(new Set());
+    setIsDraftRestored(false);
+  };
 
-  // UI States
-  const [deviceMode, setDeviceMode] = useState('desktop'); // 'desktop' | 'mobile'
-  const [validationError, setValidationError] = useState('');
-  const [isDraftSaved, setIsDraftSaved] = useState(false);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedModal, setGeneratedModal] = useState(null);
-  const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState('editor'); // For mobile: 'editor' | 'preview'
-  const [uploadError, setUploadError] = useState('');
-
-  // Clean up object URLs on component unmount
-  useEffect(() => {
-    const urls = createdObjectUrlsRef.current;
-    return () => {
-      urls.forEach((url) => {
-        try {
-          URL.revokeObjectURL(url);
-        } catch (e) {}
-      });
-    };
-  }, []);
-
-  if (!template) {
-    return (
-      <div className="container text-center py-5">
-        <h2>Template Not Found</h2>
-        <p>The template you selected could not be found.</p>
-        <Link to="/templates" className="btn btn-primary mt-3">Browse Templates</Link>
-      </div>
-    );
-  }
-
-  const supported = template.supportedFields || [];
-  const isUploadingPhotos = formData.photos?.some((p) => p.status === 'uploading');
-
-  // Field change handler
+  // Field update handler
   const handleFieldChange = (field, value) => {
-    if (field === 'recipientName' && validationError) {
-      setValidationError('');
+    if (validationErrors[field]) {
+      setValidationErrors((prev) => {
+        const copy = { ...prev };
+        delete copy[field];
+        return copy;
+      });
     }
+
     setFormData((prev) => ({
       ...prev,
       [field]: value
     }));
-    triggerDraftSaved();
   };
 
-  // Trigger gentle "Draft saved" pulse
-  const triggerDraftSaved = () => {
-    setIsDraftSaved(true);
-    setTimeout(() => setIsDraftSaved(false), 2000);
-  };
+  // Photo handlers
+  const handleUploadFiles = async (files) => {
+    setUploadError(null);
+    setUploading(true);
 
-  // Multi-Photo Upload Handler with Instant Preview + Background Cloudinary Upload
-  const handleFileUpload = async (e) => {
-    const files = Array.from(e.target.files || []);
-    if (!files.length) return;
-    setUploadError('');
-
-    // 1. Validate files
-    const validFiles = [];
-    for (const file of files) {
-      if (!file.type.startsWith('image/')) {
-        setUploadError(`File "${file.name}" is not an image (JPEG, PNG, WebP only).`);
-        return;
-      }
-      if (file.size > 10 * 1024 * 1024) {
-        setUploadError(`File "${file.name}" is too large (maximum 10MB).`);
-        return;
-      }
-      validFiles.push(file);
-    }
-
-    if (!validFiles.length) return;
-
-    // 2. Create instant local previews immediately for zero perceived latency
-    const pendingItems = validFiles.map((file, i) => {
-      const tempUrl = URL.createObjectURL(file);
-      createdObjectUrlsRef.current.add(tempUrl);
-      return {
-        id: `upload_${Date.now()}_${i}`,
-        file,
-        url: tempUrl,
-        status: 'uploading', // 'uploading' | 'uploaded' | 'error'
-        caption: ''
-      };
-    });
+    // 1. Create temporary preview objects
+    const tempPhotos = files.map((file, i) => ({
+      id: `temp_${Date.now()}_${i}`,
+      url: URL.createObjectURL(file),
+      file,
+      status: 'uploading',
+      caption: ''
+    }));
 
     setFormData((prev) => ({
       ...prev,
-      photos: [...(prev.photos || []), ...pendingItems]
+      photos: [...(prev.photos || []), ...tempPhotos]
     }));
 
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
-
-    // 3. Upload to backend/Cloudinary concurrently
     try {
-      const uploadRes = await uploadImages(validFiles, template.occasion || 'general');
+      // 2. Stream to Cloudinary backend
+      const uploadResult = await uploadImages(files, template.occasion);
 
-      if (uploadRes.success && uploadRes.images) {
+      if (uploadResult && uploadResult.images) {
         setFormData((prev) => {
-          const updated = [...(prev.photos || [])];
-          pendingItems.forEach((pending, index) => {
-            const uploadedImage = uploadRes.images[index];
-            const targetIdx = updated.findIndex((p) => p.id === pending.id);
-            if (targetIdx !== -1 && uploadedImage) {
-              updated[targetIdx] = {
-                ...updated[targetIdx],
-                url: uploadedImage.url,
-                publicId: uploadedImage.publicId,
-                width: uploadedImage.width,
-                height: uploadedImage.height,
-                status: 'uploaded'
+          const current = [...(prev.photos || [])];
+          let resIdx = 0;
+
+          const updated = current.map((p) => {
+            if (p.status === 'uploading' && uploadResult.images[resIdx]) {
+              const uploadedItem = uploadResult.images[resIdx++];
+              return {
+                id: uploadedItem.publicId || `cloud_${Date.now()}`,
+                url: uploadedItem.url,
+                publicId: uploadedItem.publicId,
+                status: 'ready',
+                caption: p.caption || ''
               };
             }
+            return p;
           });
+
           return { ...prev, photos: updated };
         });
-        triggerDraftSaved();
       }
     } catch (err) {
-      console.error('Photo upload failed:', err);
-      setUploadError('Failed to upload photos to cloud storage. You can still preview locally.');
-      // Mark failed uploads
-      setFormData((prev) => {
-        const updated = [...(prev.photos || [])];
-        pendingItems.forEach((pending) => {
-          const targetIdx = updated.findIndex((p) => p.id === pending.id);
-          if (targetIdx !== -1 && updated[targetIdx].status === 'uploading') {
-            updated[targetIdx] = {
-              ...updated[targetIdx],
-              status: 'error'
-            };
-          }
-        });
-        return { ...prev, photos: updated };
-      });
-    }
-  };
-
-  // Quick sample photo pick
-  const handleAddSamplePhoto = (sampleUrl) => {
-    setFormData((prev) => ({
-      ...prev,
-      photos: [
-        ...(prev.photos || []),
-        {
-          id: `sample_${Date.now()}`,
-          url: sampleUrl,
-          status: 'uploaded',
-          caption: ''
-        }
-      ]
-    }));
-    triggerDraftSaved();
-  };
-
-  // Remove photo
-  const handleRemovePhoto = (index) => {
-    const photo = formData.photos[index];
-    if (photo?.publicId) {
-      // Background delete from Cloudinary
-      deleteImage(photo.publicId).catch(() => {});
-    }
-    if (photo?.url && createdObjectUrlsRef.current.has(photo.url)) {
-      try {
-        URL.revokeObjectURL(photo.url);
-        createdObjectUrlsRef.current.delete(photo.url);
-      } catch (e) {}
-    }
-
-    setFormData((prev) => ({
-      ...prev,
-      photos: prev.photos.filter((_, i) => i !== index)
-    }));
-    triggerDraftSaved();
-  };
-
-  // Photo caption update
-  const handleCaptionChange = (index, caption) => {
-    setFormData((prev) => {
-      const updatedPhotos = [...prev.photos];
-      if (updatedPhotos[index]) {
-        updatedPhotos[index] = {
-          ...updatedPhotos[index],
-          caption
-        };
-      }
-      return {
+      console.warn('Cloudinary upload issue, keeping local fallback:', err.message);
+      // Fall back to ready state so creators are never blocked
+      setFormData((prev) => ({
         ...prev,
-        photos: updatedPhotos
-      };
+        photos: (prev.photos || []).map((p) => ({ ...p, status: 'ready' }))
+      }));
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleRemovePhoto = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      photos: (prev.photos || []).filter((_, i) => i !== index)
+    }));
+  };
+
+  const handleReorderPhotos = (reordered) => {
+    setFormData((prev) => ({
+      ...prev,
+      photos: reordered
+    }));
+  };
+
+  const handleUpdateCaption = (index, caption) => {
+    setFormData((prev) => {
+      const updated = [...(prev.photos || [])];
+      if (updated[index]) {
+        updated[index] = { ...updated[index], caption };
+      }
+      return { ...prev, photos: updated };
     });
   };
 
-  // Reset form to template defaults
-  const handleResetToDefault = () => {
-    if (window.confirm('Reset all fields to template default preview?')) {
-      const defaultPhotos = template.defaultData?.photos
-        ? template.defaultData.photos.map((url, i) => ({
-            id: `sample_${i}`,
-            url,
-            status: 'uploaded',
-            caption: ''
-          }))
-        : [];
-
-      setFormData({
-        recipientName: '',
-        senderName: '',
-        message: '',
-        photos: defaultPhotos,
-        ...template.defaultData
-      });
-      setValidationError('');
-      setUploadError('');
+  // Validation
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.recipientName?.trim()) {
+      errors.recipientName = "Tell us who this Wishly is for 💌";
     }
+    if (supported.includes('message') && !formData.message?.trim()) {
+      errors.message = "Add a personal heartfelt message ✨";
+    }
+    if (formData.message && formData.message.length > 1000) {
+      errors.message = "Your message is a little long — try keeping it under 1000 characters.";
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
-  // Extract plain photo URLs for template rendering
-  const photoUrls = (formData.photos || [])
-    .map((p) => (typeof p === 'object' ? p.url : p))
-    .filter(Boolean);
-
-  // Prepare safe preview data with graceful fallback defaults
-  const previewData = {
-    ...formData,
-    recipientName: formData.recipientName?.trim() || 'Someone Special',
-    senderName: formData.senderName?.trim() || 'Someone who cares',
-    message: formData.message?.trim() || template.defaultData?.message || 'Your heartfelt wishes and memories will appear here.',
-    photos: photoUrls.length > 0 ? photoUrls : (template.defaultData?.photos || SAMPLE_PHOTOS.slice(0, 2))
-  };
-
-  // Generate Wish Handler with Cloudinary image URLs and backend persistence
+  // Generate Wish Handler with cinematic step animation
   const handleGenerateWish = async () => {
-    // 1. Validation
-    if (!formData.recipientName || !formData.recipientName.trim()) {
-      setValidationError('Tell us who this wish is for 💛');
-      const input = document.getElementById('recipientName');
-      if (input) {
-        input.focus();
-        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-      return;
-    }
-
-    if (isUploadingPhotos) {
-      alert('Please wait for photos to finish uploading before generating.');
+    if (!validateForm()) {
+      setActiveTab('editor');
       return;
     }
 
     setIsGenerating(true);
+    setGenerationStep(1); // Preparing memories
 
-    try {
-      // 2. Prepare permanent photos payload
-      const permanentPhotos = (formData.photos || []).map((p) => {
-        if (typeof p === 'object' && p.url) {
-          return {
-            url: p.url,
-            publicId: p.publicId || null,
-            caption: p.caption || ''
-          };
-        }
-        return { url: p };
-      });
+    setTimeout(async () => {
+      setGenerationStep(2); // Uploading & processing
 
-      const wishPayload = {
-        occasion: template.occasion,
-        templateId: template.id,
-        recipientName: formData.recipientName.trim(),
-        senderName: formData.senderName.trim() || '',
-        message: formData.message.trim() || template.defaultData?.message || '',
-        photos: permanentPhotos,
-        customData: {
-          date: formData.date || '',
-          age: formData.age || '',
-          years: formData.years || '',
-          degree: formData.degree || '',
-          classYear: formData.classYear || '',
-          teamName: formData.teamName || '',
-          achievement: formData.achievement || ''
-        }
-      };
-
-      // 3. Call backend API
-      const result = await createWish(wishPayload);
-      const projectId = result.projectId;
-
-      // Also mirror to localStorage for instant local backup
       try {
-        localStorage.setItem(`wishly_project_${projectId}`, JSON.stringify({
-          projectId,
-          ...wishPayload,
-          createdAt: new Date().toISOString()
+        const normalizedPhotos = (formData.photos || []).map((p) => ({
+          url: typeof p === 'string' ? p : p.url,
+          publicId: p.publicId || '',
+          caption: p.caption || ''
         }));
-      } catch (e) {}
 
-      // 4. Construct share URL with configurable base URL
-      const baseUrl = APP_BASE_URL.replace(/\/$/, '');
-      const shareUrl = `${baseUrl}/w/${projectId}`;
-
-      setGeneratedModal({
-        projectId,
-        shareUrl,
-        recipientName: wishPayload.recipientName,
-        senderName: wishPayload.senderName
-      });
-    } catch (error) {
-      console.error('Failed to save wish to backend:', error);
-
-      // Graceful fallback for local development if server is unreachable
-      const fallbackId = Math.random().toString(36).substring(2, 9);
-      const fallbackPayload = {
-        projectId: fallbackId,
-        occasion: template.occasion,
-        templateId: template.id,
-        recipientName: formData.recipientName.trim(),
-        senderName: formData.senderName.trim() || '',
-        message: formData.message.trim() || '',
-        photos: (formData.photos || []).map((p) => (typeof p === 'object' ? p.url : p)),
-        customData: {
+        const customDataPayload = {
           date: formData.date,
           age: formData.age,
           years: formData.years,
           degree: formData.degree,
           classYear: formData.classYear,
           teamName: formData.teamName,
-          achievement: formData.achievement
-        },
-        createdAt: new Date().toISOString()
-      };
+          achievement: formData.achievement,
+          surpriseMessage: formData.surpriseMessage,
+          reasons: formData.reasons,
+          timeline: formData.timeline,
+          milestones: formData.milestones
+        };
 
-      localStorage.setItem(`wishly_project_${fallbackId}`, JSON.stringify(fallbackPayload));
+        setGenerationStep(3); // Creating Wishly in database
 
-      const baseUrl = APP_BASE_URL.replace(/\/$/, '');
-      const shareUrl = `${baseUrl}/w/${fallbackId}`;
+        const response = await createWish({
+          occasion: template.occasion,
+          templateId: template.id,
+          recipientName: formData.recipientName.trim(),
+          senderName: formData.senderName.trim() || 'Someone who cares',
+          message: formData.message.trim(),
+          photos: normalizedPhotos,
+          customData: customDataPayload
+        });
 
-      setGeneratedModal({
-        projectId: fallbackId,
-        shareUrl,
-        recipientName: fallbackPayload.recipientName,
-        senderName: fallbackPayload.senderName
-      });
-    } finally {
-      setIsGenerating(false);
-    }
+        setGenerationStep(4); // Finishing touches
+
+        setTimeout(() => {
+          setIsGenerating(false);
+          setGenerationStep(0);
+          const projectUrl = `${APP_BASE_URL.replace(/\/$/, '')}/w/${response.projectId}`;
+          setShareModal({
+            projectId: response.projectId,
+            shareUrl: projectUrl,
+            recipientName: formData.recipientName
+          });
+        }, 600);
+      } catch (err) {
+        console.error('Wish generation error:', err);
+        setIsGenerating(false);
+        setGenerationStep(0);
+        alert('Could not generate wish. Please check your connection and try again.');
+      }
+    }, 600);
   };
 
   const handleCopyShareLink = () => {
-    if (generatedModal) {
-      navigator.clipboard.writeText(generatedModal.shareUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    }
+    if (!shareModal) return;
+    navigator.clipboard.writeText(shareModal.shareUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
   };
 
-  // WhatsApp Share Trigger
   const handleWhatsAppShare = () => {
-    if (!generatedModal) return;
-    const text = `I made something special for you on Wishly ✨\nOpen your surprise here: ${generatedModal.shareUrl}`;
+    if (!shareModal) return;
+    const occ = template?.occasion;
+    let text = `I made something special for you on Wishly ✨\nOpen your surprise here: ${shareModal.shareUrl}`;
+
+    if (occ === 'birthday') text = `I made something special for you 🎂✨ Open your Wishly: ${shareModal.shareUrl}`;
+    else if (occ === 'anniversary') text = `I made a little something for us ❤️ Open it here: ${shareModal.shareUrl}`;
+    else if (occ === 'graduation') text = `Your achievement deserves a little celebration 🎓✨ Open this: ${shareModal.shareUrl}`;
+    else if (occ === 'valentines') text = `A little piece of my heart for you ❤️ Open it here: ${shareModal.shareUrl}`;
+    else if (occ === 'farewell') text = `A collection of our fondest memories 👋✨ Open this: ${shareModal.shareUrl}`;
+    else if (occ === 'congratulations') text = `So proud of your achievement! 🎉✨ Open your Wishly: ${shareModal.shareUrl}`;
+    else if (occ === 'just-because') text = `Just a little reminder that you are special 🌸✨ Open it here: ${shareModal.shareUrl}`;
+
     const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
     window.open(waUrl, '_blank', 'noopener,noreferrer');
   };
 
-  // Native Web Share API Trigger
   const handleNativeShare = async () => {
-    if (!generatedModal) return;
+    if (!shareModal) return;
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `A special Wishly for ${generatedModal.recipientName} ✨`,
-          text: `I created a personalized website for you on Wishly! Open it here:`,
-          url: generatedModal.shareUrl
+          title: `A special Wishly for ${shareModal.recipientName} ✨`,
+          text: `A personalized celebration website made with love:`,
+          url: shareModal.shareUrl
         });
-      } catch (err) {
-        // User canceled or failed
-      }
+      } catch (e) {}
     } else {
       handleCopyShareLink();
     }
   };
 
+  // Normalized template preview data
+  const templatePreviewData = {
+    recipientName: formData.recipientName || template.defaultData?.recipientName || 'Someone Special',
+    senderName: formData.senderName || template.defaultData?.senderName || 'From Someone Who Cares',
+    message: formData.message || template.defaultData?.message || 'Wishing you all the joy, love, and wonder in the world!',
+    photos: (formData.photos || []).map((p) => (typeof p === 'string' ? p : p.url)),
+    date: formData.date,
+    age: formData.age,
+    years: formData.years,
+    degree: formData.degree,
+    classYear: formData.classYear,
+    teamName: formData.teamName,
+    achievement: formData.achievement,
+    surpriseMessage: formData.surpriseMessage,
+    customData: {
+      date: formData.date,
+      age: formData.age,
+      years: formData.years,
+      degree: formData.degree,
+      classYear: formData.classYear,
+      teamName: formData.teamName,
+      achievement: formData.achievement,
+      surpriseMessage: formData.surpriseMessage,
+      reasons: formData.reasons,
+      timeline: formData.timeline,
+      milestones: formData.milestones
+    }
+  };
+
+  // Determine section visibility based on supported fields
+  const hasAboutSection = supported.includes('recipientName') || supported.includes('teamName');
+  const hasMessageSection = supported.includes('message') || supported.includes('senderName');
+  const hasPhotosSection = supported.includes('photos');
+  const hasTimelineSection = supported.includes('timeline') || supported.includes('milestones');
+  const hasReasonsSection = supported.includes('reasons');
+  const hasSpecialDetailsSection = [
+    'date',
+    'age',
+    'years',
+    'degree',
+    'classYear',
+    'achievement',
+    'surpriseMessage'
+  ].some((f) => supported.includes(f));
+
   return (
-    <div className="customization-studio">
-      {/* Studio Top Control Bar */}
-      <header className="studio-topbar">
-        <div className="container studio-topbar-inner">
-          <div className="studio-topbar-left">
-            <Link to={`/templates/${template.occasion}`} className="back-link">
-              ← Templates
-            </Link>
-            <div className="studio-badge-group">
-              <span className="studio-occasion-badge" style={{ backgroundColor: `${template.previewColor}15`, color: template.previewColor }}>
-                {occasion?.icon || '✨'} {occasion?.name || template.occasion}
-              </span>
-              <span className="studio-template-name">{template.name}</span>
-            </div>
+    <div className="customize-studio-layout">
+      {/* Top Navbar */}
+      <header className="customize-topbar">
+        <div className="topbar-left">
+          <Link to={`/templates/${template.occasion}`} className="topbar-back-btn">
+            ← Back to Gallery
+          </Link>
+          <div className="topbar-template-info">
+            <span className="template-badge-chip" style={{ backgroundColor: template.previewColor }}>
+              {template.badge || 'Curated'}
+            </span>
+            <h1 className="topbar-template-name">{template.name}</h1>
           </div>
+        </div>
 
-          {/* Desktop/Mobile Device Switcher */}
-          <div className="studio-topbar-center">
-            <div className="device-switcher" role="group" aria-label="Device Preview Mode">
-              <button
-                type="button"
-                className={`device-btn ${deviceMode === 'desktop' ? 'active' : ''}`}
-                onClick={() => setDeviceMode('desktop')}
-                title="Desktop Preview"
-              >
-                🖥️ Desktop
-              </button>
-              <button
-                type="button"
-                className={`device-btn ${deviceMode === 'mobile' ? 'active' : ''}`}
-                onClick={() => setDeviceMode('mobile')}
-                title="Mobile Preview"
-              >
-                📱 Mobile
-              </button>
-            </div>
-          </div>
+        <div className="topbar-center">
+          {isDraftSavedPulse && (
+            <span className="draft-status-pill animate-fade-in">
+              ✓ Draft saved locally
+            </span>
+          )}
+        </div>
 
-          <div className="studio-topbar-right">
-            <div className="draft-indicator">
-              {isDraftSaved ? (
-                <span className="draft-saved-text">✅ Draft saved</span>
-              ) : (
-                <span className="draft-idle-text">● Auto-saving</span>
-              )}
-            </div>
-            <button
-              type="button"
-              className="btn btn-secondary btn-sm"
-              onClick={handleResetToDefault}
-              title="Reset form"
-            >
-              Reset
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary btn-sm studio-generate-btn pulse-glow"
-              onClick={handleGenerateWish}
-              disabled={isGenerating || isUploadingPhotos}
-            >
-              {isUploadingPhotos ? 'Uploading memories... ⏳' : (isGenerating ? 'Creating Wishly... ✨' : '✨ Generate Wish')}
-            </button>
-          </div>
+        <div className="topbar-right">
+          <button
+            type="button"
+            className="btn btn-primary btn-md generate-nav-btn pulse-glow"
+            onClick={handleGenerateWish}
+            disabled={isGenerating || uploading}
+          >
+            {isGenerating ? 'Creating Wishly... ✨' : 'Generate Wish ✨'}
+          </button>
         </div>
       </header>
 
-      {/* Mobile Tab Switcher (Customize vs Preview) */}
-      <div className="mobile-studio-tabs">
+      {/* Mobile Tab Switcher */}
+      <div className="mobile-view-tabs" role="tablist">
         <button
           type="button"
           className={`mobile-tab-btn ${activeTab === 'editor' ? 'active' : ''}`}
           onClick={() => setActiveTab('editor')}
         >
-          ✍️ Customize Form
+          ✏️ Story Editor
         </button>
         <button
           type="button"
           className={`mobile-tab-btn ${activeTab === 'preview' ? 'active' : ''}`}
           onClick={() => setActiveTab('preview')}
         >
-          👁️ Live Preview ({deviceMode})
+          👁️ Live Preview
         </button>
       </div>
 
-      {/* Main Studio Workspace */}
-      <main className="container studio-workspace">
-        {/* Left Side: Customization Sidebar */}
-        <section className={`studio-editor-panel ${activeTab === 'editor' ? 'mobile-visible' : 'mobile-hidden'}`}>
-          {/* Occasion Greeting Card */}
-          <div className="occasion-greeting-banner" style={{ borderLeftColor: template.previewColor }}>
-            <span className="greeting-icon">{occasion?.icon || '✨'}</span>
-            <div className="greeting-text">
-              <h4>{occasion?.tagline || 'Wishes, made personal.'}</h4>
-              <p>Personalize this website for {formData.recipientName || 'your special person'}.</p>
+      {/* Main Studio Body */}
+      <div className="customize-studio-body">
+        {/* LEFT COLUMN: Story Editor Sidebar */}
+        <aside className={`studio-editor-sidebar ${activeTab === 'editor' ? 'mobile-visible' : 'mobile-hidden'}`}>
+          {/* Draft Restored Notice */}
+          {isDraftRestored && (
+            <div className="draft-restored-banner">
+              <span>✨ Previous draft restored</span>
+              <button
+                type="button"
+                className="btn-link-sm"
+                onClick={handleStartFresh}
+                title="Clear draft and use defaults"
+              >
+                Start fresh
+              </button>
+            </div>
+          )}
+
+          <div className="story-editor-sections">
+            {/* SECTION A: ABOUT THEM */}
+            {hasAboutSection && (
+              <section className="editor-story-section">
+                <div className="section-header-row">
+                  <span className="section-num-tag">A</span>
+                  <div className="section-title-wrap">
+                    <h3 className="section-heading">About Them</h3>
+                    <p className="section-subheading">Who is this celebration dedicated to?</p>
+                  </div>
+                </div>
+
+                <div className="section-fields-body">
+                  {supported.includes('recipientName') && (
+                    <div className="form-group">
+                      <div className="label-with-counter">
+                        <label className="field-label required">Recipient's Name</label>
+                        <CharacterCounter current={(formData.recipientName || '').length} max={60} />
+                      </div>
+                      <input
+                        type="text"
+                        className={`form-input ${validationErrors.recipientName ? 'input-error' : ''}`}
+                        placeholder="e.g. Sarah Jenkins or Ananya"
+                        value={formData.recipientName}
+                        maxLength={60}
+                        onChange={(e) => handleFieldChange('recipientName', e.target.value)}
+                        autoFocus
+                      />
+                      {validationErrors.recipientName && (
+                        <span className="field-error-msg">{validationErrors.recipientName}</span>
+                      )}
+                    </div>
+                  )}
+
+                  {supported.includes('teamName') && (
+                    <div className="form-group mt-3">
+                      <label className="field-label">Team / Organization Name</label>
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="e.g. The Design & Product Crew"
+                        value={formData.teamName || ''}
+                        maxLength={80}
+                        onChange={(e) => handleFieldChange('teamName', e.target.value)}
+                      />
+                    </div>
+                  )}
+                </div>
+              </section>
+            )}
+
+            {/* SECTION B: YOUR MESSAGE */}
+            {hasMessageSection && (
+              <section className="editor-story-section">
+                <div className="section-header-row">
+                  <span className="section-num-tag">B</span>
+                  <div className="section-title-wrap">
+                    <h3 className="section-heading">Your Message</h3>
+                    <p className="section-subheading">Write the words they will treasure forever.</p>
+                  </div>
+                </div>
+
+                <div className="section-fields-body">
+                  {supported.includes('message') && (
+                    <div className="form-group">
+                      <div className="label-with-counter">
+                        <label className="field-label required">Heartfelt Message</label>
+                        <CharacterCounter current={(formData.message || '').length} max={800} />
+                      </div>
+                      <textarea
+                        className={`form-textarea ${validationErrors.message ? 'input-error' : ''}`}
+                        rows={5}
+                        placeholder="Write something emotional, warm, or funny..."
+                        value={formData.message}
+                        maxLength={800}
+                        onChange={(e) => handleFieldChange('message', e.target.value)}
+                      />
+                      {validationErrors.message && (
+                        <span className="field-error-msg">{validationErrors.message}</span>
+                      )}
+                    </div>
+                  )}
+
+                  {supported.includes('senderName') && (
+                    <div className="form-group mt-3">
+                      <div className="label-with-counter">
+                        <label className="field-label">From / Signature</label>
+                        <CharacterCounter current={(formData.senderName || '').length} max={60} />
+                      </div>
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="e.g. Alex & Maya, or With love always, Daniel"
+                        value={formData.senderName}
+                        maxLength={60}
+                        onChange={(e) => handleFieldChange('senderName', e.target.value)}
+                      />
+                    </div>
+                  )}
+                </div>
+              </section>
+            )}
+
+            {/* SECTION C: MEMORIES & PHOTOS */}
+            {(hasPhotosSection || hasTimelineSection || hasReasonsSection) && (
+              <section className="editor-story-section">
+                <div className="section-header-row">
+                  <span className="section-num-tag">C</span>
+                  <div className="section-title-wrap">
+                    <h3 className="section-heading">Memories</h3>
+                    <p className="section-subheading">Add photos, milestones, and personal moments.</p>
+                  </div>
+                </div>
+
+                <div className="section-fields-body">
+                  {/* Photo Uploader */}
+                  {hasPhotosSection && (
+                    <PhotoUploader
+                      photos={formData.photos}
+                      onUploadFiles={handleUploadFiles}
+                      onRemovePhoto={handleRemovePhoto}
+                      onReorderPhotos={handleReorderPhotos}
+                      onUpdateCaption={handleUpdateCaption}
+                      uploading={uploading}
+                      uploadError={uploadError}
+                    />
+                  )}
+
+                  {/* Interactive Timeline Editor */}
+                  {hasTimelineSection && (
+                    <div className="mt-4">
+                      <TimelineEditor
+                        items={formData.timeline || formData.milestones || []}
+                        onChange={(updated) => {
+                          if (supported.includes('timeline')) handleFieldChange('timeline', updated);
+                          if (supported.includes('milestones')) handleFieldChange('milestones', updated);
+                        }}
+                      />
+                    </div>
+                  )}
+
+                  {/* Interactive Reasons Editor */}
+                  {hasReasonsSection && (
+                    <div className="mt-4">
+                      <ReasonsEditor
+                        reasons={formData.reasons || []}
+                        onChange={(updated) => handleFieldChange('reasons', updated)}
+                      />
+                    </div>
+                  )}
+                </div>
+              </section>
+            )}
+
+            {/* SECTION D: SPECIAL DETAILS */}
+            {hasSpecialDetailsSection && (
+              <section className="editor-story-section">
+                <div className="section-header-row">
+                  <span className="section-num-tag">D</span>
+                  <div className="section-title-wrap">
+                    <h3 className="section-heading">Special Details</h3>
+                    <p className="section-subheading">Fine-tune occasion-specific details.</p>
+                  </div>
+                </div>
+
+                <div className="section-fields-body special-details-grid">
+                  {supported.includes('date') && (
+                    <div className="form-group">
+                      <label className="field-label">Date / Event Day</label>
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="e.g. September 12 or October 24"
+                        value={formData.date || ''}
+                        maxLength={50}
+                        onChange={(e) => handleFieldChange('date', e.target.value)}
+                      />
+                    </div>
+                  )}
+
+                  {supported.includes('age') && (
+                    <div className="form-group">
+                      <label className="field-label">Age / Milestone</label>
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="e.g. 21 or 30th"
+                        value={formData.age || ''}
+                        maxLength={20}
+                        onChange={(e) => handleFieldChange('age', e.target.value)}
+                      />
+                    </div>
+                  )}
+
+                  {supported.includes('years') && (
+                    <div className="form-group">
+                      <label className="field-label">Years of Togetherness</label>
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="e.g. 5 Beautiful Years"
+                        value={formData.years || ''}
+                        maxLength={40}
+                        onChange={(e) => handleFieldChange('years', e.target.value)}
+                      />
+                    </div>
+                  )}
+
+                  {supported.includes('degree') && (
+                    <div className="form-group">
+                      <label className="field-label">Degree / Major</label>
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="e.g. Bachelor of Computer Science"
+                        value={formData.degree || ''}
+                        maxLength={60}
+                        onChange={(e) => handleFieldChange('degree', e.target.value)}
+                      />
+                    </div>
+                  )}
+
+                  {supported.includes('classYear') && (
+                    <div className="form-group">
+                      <label className="field-label">Class Year</label>
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="e.g. Class of 2026"
+                        value={formData.classYear || ''}
+                        maxLength={30}
+                        onChange={(e) => handleFieldChange('classYear', e.target.value)}
+                      />
+                    </div>
+                  )}
+
+                  {supported.includes('achievement') && (
+                    <div className="form-group">
+                      <label className="field-label">Achievement / Goal</label>
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="e.g. Senior Promotion or Marathon Finisher"
+                        value={formData.achievement || ''}
+                        maxLength={70}
+                        onChange={(e) => handleFieldChange('achievement', e.target.value)}
+                      />
+                    </div>
+                  )}
+
+                  {supported.includes('surpriseMessage') && (
+                    <div className="form-group full-width-field mt-2">
+                      <div className="label-with-counter">
+                        <label className="field-label">Secret Surprise Note</label>
+                        <CharacterCounter current={(formData.surpriseMessage || '').length} max={250} />
+                      </div>
+                      <textarea
+                        className="form-textarea"
+                        rows={2}
+                        placeholder="Revealed when they click the surprise box!"
+                        value={formData.surpriseMessage || ''}
+                        maxLength={250}
+                        onChange={(e) => handleFieldChange('surpriseMessage', e.target.value)}
+                      />
+                    </div>
+                  )}
+                </div>
+              </section>
+            )}
+          </div>
+        </aside>
+
+        {/* RIGHT COLUMN: Live Interactive Preview Frame */}
+        <main className={`studio-preview-pane ${activeTab === 'preview' ? 'mobile-visible' : 'mobile-hidden'}`}>
+          <div className="preview-pane-toolbar">
+            <div className="preview-indicator">
+              <span className="live-dot pulse-glow"></span>
+              <span className="live-text">Live Story Preview</span>
+            </div>
+
+            <div className="device-switcher-pills">
+              <button
+                type="button"
+                className={`device-pill ${deviceMode === 'desktop' ? 'active' : ''}`}
+                onClick={() => setDeviceMode('desktop')}
+                title="Desktop View"
+              >
+                💻 Desktop
+              </button>
+              <button
+                type="button"
+                className={`device-pill ${deviceMode === 'mobile' ? 'active' : ''}`}
+                onClick={() => setDeviceMode('mobile')}
+                title="Mobile View"
+              >
+                📱 Mobile
+              </button>
             </div>
           </div>
 
-          {/* Validation Alert */}
-          {validationError && (
-            <div className="validation-alert" role="alert">
-              <span className="alert-icon">⚠️</span>
-              <span className="alert-msg">{validationError}</span>
-            </div>
-          )}
-
-          {/* Upload Error Alert */}
-          {uploadError && (
-            <div className="validation-alert" style={{ background: '#fff0f0', borderColor: '#ffcdd2', color: '#c62828' }} role="alert">
-              <span className="alert-icon">⚠️</span>
-              <span className="alert-msg">{uploadError}</span>
-            </div>
-          )}
-
-          <form className="studio-form" onSubmit={(e) => e.preventDefault()}>
-            {/* Section 1: Your Person */}
-            <div className="form-section">
-              <h3 className="section-title-sm">1. Your Person</h3>
-
-              {/* Recipient Name (Required) */}
-              <div className="form-field-group">
-                <label htmlFor="recipientName" className="form-label">
-                  What's their name? <span className="required-star">*</span>
-                </label>
-                <div className="input-with-icon">
-                  <span className="input-prefix-icon">✨</span>
-                  <input
-                    id="recipientName"
-                    type="text"
-                    className={`form-control ${validationError ? 'input-error' : ''}`}
-                    placeholder="e.g. Ananya, Alex, Mom & Dad"
-                    value={formData.recipientName}
-                    onChange={(e) => handleFieldChange('recipientName', e.target.value)}
-                    autoFocus
-                  />
+          <div className="preview-viewport-stage">
+            <div className={`preview-device-frame ${deviceMode === 'mobile' ? 'frame-mobile' : 'frame-desktop'}`}>
+              {/* Device Header Bar */}
+              <div className="frame-browser-header">
+                <div className="frame-dots">
+                  <span className="dot red"></span>
+                  <span className="dot yellow"></span>
+                  <span className="dot green"></span>
                 </div>
-                {validationError && (
-                  <span className="field-error-text">{validationError}</span>
-                )}
-              </div>
-
-              {/* Sender Name */}
-              {supported.includes('senderName') && (
-                <div className="form-field-group">
-                  <label htmlFor="senderName" className="form-label">
-                    Your Name / Signature
-                  </label>
-                  <div className="input-with-icon">
-                    <span className="input-prefix-icon">✍️</span>
-                    <input
-                      id="senderName"
-                      type="text"
-                      className="form-control"
-                      placeholder="e.g. Someone who loves you, The Whole Crew"
-                      value={formData.senderName}
-                      onChange={(e) => handleFieldChange('senderName', e.target.value)}
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Section 2: Your Message */}
-            {supported.includes('message') && (
-              <div className="form-section">
-                <h3 className="section-title-sm">2. Your Message</h3>
-                <div className="form-field-group">
-                  <label htmlFor="message" className="form-label">
-                    Write something from the heart...
-                  </label>
-                  <textarea
-                    id="message"
-                    rows="4"
-                    className="form-control textarea-field"
-                    placeholder="Write something from the heart..."
-                    value={formData.message}
-                    onChange={(e) => handleFieldChange('message', e.target.value)}
-                  ></textarea>
-                  <span className="field-hint">
-                    Tips: Share a favorite memory, an inside joke, or heartfelt gratitude.
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* Section 3: Your Memories & Photos */}
-            {supported.includes('photos') && (
-              <div className="form-section">
-                <div className="section-title-row">
-                  <h3 className="section-title-sm">3. Your Memories</h3>
-                  <span className="photos-count-badge">
-                    {formData.photos?.length || 0} photo{formData.photos?.length === 1 ? '' : 's'}
-                  </span>
-                </div>
-
-                {/* Upload Drag/Click Zone */}
-                <div
-                  className="photo-dropzone"
-                  onClick={() => fileInputRef.current?.click()}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === 'Enter' && fileInputRef.current?.click()}
-                >
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    multiple
-                    accept="image/jpeg,image/png,image/webp"
-                    className="hidden-file-input"
-                    onChange={handleFileUpload}
-                  />
-                  <div className="dropzone-icon">📸</div>
-                  <h4 className="dropzone-title">Add your memories</h4>
-                  <p className="dropzone-sub">Upload photos directly to secure cloud storage (JPEG, PNG, WebP)</p>
-                  <button type="button" className="btn btn-secondary btn-sm dropzone-btn">
-                    + Upload Photos
-                  </button>
-                </div>
-
-                {/* Quick Add Sample Photos */}
-                <div className="quick-samples-row">
-                  <span className="quick-sample-label">Or try sample photos:</span>
-                  <div className="quick-sample-pills">
-                    {SAMPLE_PHOTOS.slice(0, 4).map((url, i) => (
-                      <button
-                        key={i}
-                        type="button"
-                        className="sample-pill-btn"
-                        onClick={() => handleAddSamplePhoto(url)}
-                        title="Add sample celebration photo"
-                      >
-                        <img src={url} alt={`Sample ${i}`} />
-                        <span>+ Sample</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Uploaded Photos Grid with Status Indicators & Captions */}
-                {formData.photos && formData.photos.length > 0 && (
-                  <div className="uploaded-thumbnails-list">
-                    {formData.photos.map((item, idx) => {
-                      const photoUrl = typeof item === 'object' ? item.url : item;
-                      const status = typeof item === 'object' ? item.status : 'uploaded';
-                      const caption = typeof item === 'object' ? item.caption : '';
-
-                      return (
-                        <div key={item.id || idx} className="thumbnail-card">
-                          <div className="thumbnail-img-wrap">
-                            <img src={photoUrl} alt={`Memory ${idx + 1}`} />
-
-                            {/* Status Overlay */}
-                            {status === 'uploading' && (
-                              <div className="thumbnail-status-overlay">
-                                <span className="status-spinner">⏳</span>
-                                <span className="status-text">Uploading...</span>
-                              </div>
-                            )}
-
-                            {status === 'uploaded' && (
-                              <div className="thumbnail-status-badge">
-                                <span>✓</span>
-                              </div>
-                            )}
-
-                            {status === 'error' && (
-                              <div className="thumbnail-status-overlay error-overlay">
-                                <span>⚠️ Error</span>
-                              </div>
-                            )}
-
-                            <button
-                              type="button"
-                              className="thumbnail-delete-btn"
-                              onClick={() => handleRemovePhoto(idx)}
-                              title="Remove photo"
-                              aria-label={`Remove photo ${idx + 1}`}
-                            >
-                              ✕
-                            </button>
-                          </div>
-                          <input
-                            type="text"
-                            className="thumbnail-caption-input"
-                            placeholder="Add caption (optional)..."
-                            value={caption}
-                            onChange={(e) => handleCaptionChange(idx, e.target.value)}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Section 4: Extra Details */}
-            {(supported.includes('date') ||
-              supported.includes('age') ||
-              supported.includes('years') ||
-              supported.includes('degree') ||
-              supported.includes('classYear') ||
-              supported.includes('teamName') ||
-              supported.includes('achievement')) && (
-              <div className="form-section">
-                <h3 className="section-title-sm">4. Extra Details</h3>
-
-                {/* Date */}
-                {supported.includes('date') && (
-                  <div className="form-field-group">
-                    <label htmlFor="date" className="form-label">Occasion Date / Subtitle</label>
-                    <input
-                      id="date"
-                      type="text"
-                      className="form-control"
-                      placeholder="e.g. October 14, Special Day"
-                      value={formData.date}
-                      onChange={(e) => handleFieldChange('date', e.target.value)}
-                    />
-                  </div>
-                )}
-
-                {/* Birthday Age */}
-                {supported.includes('age') && (
-                  <div className="form-field-group">
-                    <label htmlFor="age" className="form-label">Age or Milestone</label>
-                    <input
-                      id="age"
-                      type="text"
-                      className="form-control"
-                      placeholder="e.g. 21, 30th, Sweet 16"
-                      value={formData.age}
-                      onChange={(e) => handleFieldChange('age', e.target.value)}
-                    />
-                  </div>
-                )}
-
-                {/* Anniversary Years */}
-                {supported.includes('years') && (
-                  <div className="form-field-group">
-                    <label htmlFor="years" className="form-label">Years of Togetherness</label>
-                    <input
-                      id="years"
-                      type="text"
-                      className="form-control"
-                      placeholder="e.g. 5 Beautiful Years, Silver Jubilee"
-                      value={formData.years}
-                      onChange={(e) => handleFieldChange('years', e.target.value)}
-                    />
-                  </div>
-                )}
-
-                {/* Graduation Degree & Class */}
-                {supported.includes('degree') && (
-                  <div className="form-field-group">
-                    <label htmlFor="degree" className="form-label">Degree / Field of Study</label>
-                    <input
-                      id="degree"
-                      type="text"
-                      className="form-control"
-                      placeholder="e.g. Bachelor of Computer Science"
-                      value={formData.degree}
-                      onChange={(e) => handleFieldChange('degree', e.target.value)}
-                    />
-                  </div>
-                )}
-
-                {supported.includes('classYear') && (
-                  <div className="form-field-group">
-                    <label htmlFor="classYear" className="form-label">Class Year</label>
-                    <input
-                      id="classYear"
-                      type="text"
-                      className="form-control"
-                      placeholder="e.g. 2026"
-                      value={formData.classYear}
-                      onChange={(e) => handleFieldChange('classYear', e.target.value)}
-                    />
-                  </div>
-                )}
-
-                {/* Farewell Team */}
-                {supported.includes('teamName') && (
-                  <div className="form-field-group">
-                    <label htmlFor="teamName" className="form-label">Team / Organization Name</label>
-                    <input
-                      id="teamName"
-                      type="text"
-                      className="form-control"
-                      placeholder="e.g. Design & Tech Crew"
-                      value={formData.teamName}
-                      onChange={(e) => handleFieldChange('teamName', e.target.value)}
-                    />
-                  </div>
-                )}
-
-                {/* Congratulations Achievement */}
-                {supported.includes('achievement') && (
-                  <div className="form-field-group">
-                    <label htmlFor="achievement" className="form-label">Achievement / Milestone Title</label>
-                    <input
-                      id="achievement"
-                      type="text"
-                      className="form-control"
-                      placeholder="e.g. Senior Promotion, Marathon Finisher"
-                      value={formData.achievement}
-                      onChange={(e) => handleFieldChange('achievement', e.target.value)}
-                    />
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Bottom Generate Button inside sidebar */}
-            <div className="editor-bottom-cta">
-              <button
-                type="button"
-                className="btn btn-primary btn-block btn-lg pulse-glow"
-                onClick={handleGenerateWish}
-                disabled={isGenerating || isUploadingPhotos}
-              >
-                {isUploadingPhotos ? 'Uploading memories... ⏳' : (isGenerating ? 'Creating your Wishly... ✨' : '✨ Generate Wish')}
-              </button>
-            </div>
-          </form>
-        </section>
-
-        {/* Right Side: Reactive Live Preview Studio */}
-        <section className={`studio-preview-panel ${activeTab === 'preview' ? 'mobile-visible' : 'mobile-hidden'}`}>
-          <div className="preview-stage-wrapper">
-            <div className={`preview-device-mockup frame-${deviceMode}`}>
-              {/* Device Browser Chrome Header */}
-              <div className="mockup-chrome-header">
-                <div className="browser-dots">
-                  <span className="dot dot-red"></span>
-                  <span className="dot dot-yellow"></span>
-                  <span className="dot dot-green"></span>
-                </div>
-                <div className="mockup-address-bar">
-                  <span className="lock-icon">🔒</span>
-                  <span className="mockup-url">
-                    wishly.app/{template.occasion}/{formData.recipientName ? encodeURIComponent(formData.recipientName.toLowerCase().replace(/\s+/g, '-')) : 'your-wish'}
-                  </span>
-                </div>
-                <div className="mockup-live-tag">
-                  <span className="live-dot"></span> LIVE
+                <div className="frame-url-bar">
+                  wishly.app/preview/{template.id}
                 </div>
               </div>
 
-              {/* Live Preview Viewport */}
-              <div className="mockup-viewport">
+              {/* Template Component Canvas */}
+              <div className="frame-canvas-scroller">
                 {React.createElement(template.component, {
-                  data: previewData
+                  data: templatePreviewData
                 })}
               </div>
             </div>
           </div>
-        </section>
-      </main>
+        </main>
+      </div>
 
-      {/* Generated Wish Celebration Share Modal */}
-      {generatedModal && (
-        <div className="preview-modal-backdrop" onClick={() => setGeneratedModal(null)}>
-          <div className="share-modal-dialog" onClick={(e) => e.stopPropagation()}>
-            <div className="share-modal-content text-center">
-              <span className="share-celebrate-emoji">🎉</span>
-              <h2>Your Wishly is ready!</h2>
-              <p>
-                Your personalized website for <strong>{generatedModal.recipientName}</strong> has been generated with permanent cloud storage. Anyone opening this link can experience it instantly without logging in!
-              </p>
+      {/* Sticky Mobile Bottom Bar */}
+      <div className="mobile-sticky-bottom-bar">
+        {activeTab === 'editor' ? (
+          <button
+            type="button"
+            className="btn btn-secondary btn-md"
+            onClick={() => setActiveTab('preview')}
+          >
+            👁️ Preview
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="btn btn-secondary btn-md"
+            onClick={() => setActiveTab('editor')}
+          >
+            ✏️ Edit Story
+          </button>
+        )}
+        <button
+          type="button"
+          className="btn btn-primary btn-md pulse-glow"
+          onClick={handleGenerateWish}
+          disabled={isGenerating || uploading}
+        >
+          {isGenerating ? 'Creating... ✨' : 'Generate Wish ✨'}
+        </button>
+      </div>
 
-              {/* Public Share Link Box */}
-              <div className="share-link-input-box">
-                <input
-                  type="text"
-                  readOnly
-                  value={generatedModal.shareUrl}
-                  className="share-link-input"
-                  onClick={(e) => e.target.select()}
-                />
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={handleCopyShareLink}
-                >
-                  {copied ? 'Link copied! ✨' : 'Copy Link'}
-                </button>
+      {/* Generating Progress Overlay Modal */}
+      {isGenerating && (
+        <div className="generating-overlay-backdrop" role="dialog" aria-modal="true">
+          <div className="generating-card text-center">
+            <div className="generating-sparkle-crest">✦</div>
+            <h3 className="generating-title">Bringing Your Wishly to Life</h3>
+
+            <div className="generating-steps-list">
+              <div className={`gen-step-item ${generationStep >= 1 ? 'active' : ''}`}>
+                <span className="step-icon">{generationStep > 1 ? '✓' : '1'}</span>
+                <span>Preparing your memories...</span>
               </div>
-
-              {/* Share Actions Grid: WhatsApp, Web Share, Open, Edit */}
-              <div className="share-actions-grid">
-                <button
-                  type="button"
-                  className="btn btn-whatsapp"
-                  onClick={handleWhatsAppShare}
-                  title="Share directly via WhatsApp"
-                >
-                  <span className="action-btn-icon">💬</span> Share on WhatsApp
-                </button>
-
-                {typeof navigator !== 'undefined' && navigator.share && (
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={handleNativeShare}
-                    title="Share using your device options"
-                  >
-                    <span className="action-btn-icon">📤</span> Share
-                  </button>
-                )}
-
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => navigate(`/w/${generatedModal.projectId}`)}
-                >
-                  Open Wish ↗
-                </button>
+              <div className={`gen-step-item ${generationStep >= 2 ? 'active' : ''}`}>
+                <span className="step-icon">{generationStep > 2 ? '✓' : '2'}</span>
+                <span>Uploading & optimizing photos...</span>
               </div>
-
-              <div className="share-modal-footer-note">
-                <button
-                  type="button"
-                  className="btn-text-link"
-                  onClick={() => setGeneratedModal(null)}
-                >
-                  ← Keep Editing
-                </button>
+              <div className={`gen-step-item ${generationStep >= 3 ? 'active' : ''}`}>
+                <span className="step-icon">{generationStep > 3 ? '✓' : '3'}</span>
+                <span>Creating your permanent Wishly website...</span>
               </div>
+              <div className={`gen-step-item ${generationStep >= 4 ? 'active' : ''}`}>
+                <span className="step-icon">{generationStep >= 4 ? '✓' : '4'}</span>
+                <span>Adding the finishing touches ✨</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Generated Celebration & Share Modal */}
+      {shareModal && (
+        <div className="share-modal-backdrop animate-fade-in" role="dialog" aria-modal="true">
+          <div className="share-modal-card text-center">
+            <button
+              type="button"
+              className="share-close-btn"
+              onClick={() => setShareModal(null)}
+              aria-label="Close share dialog"
+            >
+              ✕
+            </button>
+
+            <span className="share-celebrate-badge">🎉 YOUR WISHLY IS READY!</span>
+            <h2 className="share-modal-title">A Gift for {shareModal.recipientName} ✨</h2>
+            <p className="share-modal-subtitle">
+              Your personalized celebration website is live and ready to bring smiles.
+            </p>
+
+            {/* Visual Link Preview Card */}
+            <div className="visual-link-preview-card">
+              <div className="preview-card-header-bar">
+                <span className="preview-brand-tag">✦ Wishly</span>
+                <span className="preview-occasion-pill">{occasion?.name || 'Celebration'}</span>
+              </div>
+              <div className="preview-card-body">
+                <h4 className="preview-card-title">A little something for you</h4>
+                <p className="preview-card-subtitle">A personalized celebration website made with love</p>
+                <span className="preview-card-url-display">{shareModal.shareUrl}</span>
+              </div>
+            </div>
+
+            {/* Share Link Box */}
+            <div className="share-link-pill-box mt-3">
+              <span className="share-link-url">{shareModal.shareUrl}</span>
+              <button
+                type="button"
+                className="btn btn-primary btn-sm copy-btn"
+                onClick={handleCopyShareLink}
+              >
+                {copied ? '✓ Link Copied' : 'Copy Link'}
+              </button>
+            </div>
+
+            {/* Action Grid */}
+            <div className="share-actions-grid mt-3">
+              <button
+                type="button"
+                className="btn btn-whatsapp btn-md"
+                onClick={handleWhatsAppShare}
+              >
+                💬 WhatsApp
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary btn-md"
+                onClick={handleNativeShare}
+              >
+                📤 Share Link
+              </button>
+              <a
+                href={shareModal.shareUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary btn-md"
+              >
+                Open Wishly ✨
+              </a>
             </div>
           </div>
         </div>
