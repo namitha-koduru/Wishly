@@ -30,7 +30,7 @@ export function GeneratedWish() {
         console.warn('API getWish failed, checking local backup:', apiErr.message);
       }
 
-      // 2. Fallback to localStorage
+      // 2. Fallback to localStorage (for offline/creator immediate view)
       try {
         const localSaved = localStorage.getItem(`wishly_project_${projectId}`);
         if (localSaved) {
@@ -105,12 +105,36 @@ export function GeneratedWish() {
   // Retrieve template from central Template Registry
   const template = getTemplateById(wish.templateId);
 
+  if (!template) {
+    return (
+      <div className="generated-wish-error-screen">
+        <div className="error-card text-center">
+          <div className="error-emoji">⚠️</div>
+          <h2>Template Not Available</h2>
+          <p>The template for this wish could not be loaded.</p>
+          <Link to="/templates" className="btn btn-primary mt-3">Browse Templates</Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Normalize photos: extract plain URLs for template compatibility
+  const normalizedPhotos = Array.isArray(wish.photos)
+    ? wish.photos
+        .map((p) => {
+          if (typeof p === 'string') return p;
+          if (typeof p === 'object' && p !== null && p.url) return p.url;
+          return null;
+        })
+        .filter(Boolean)
+    : [];
+
   // Combine wish fields & customData
   const templateData = {
     recipientName: wish.recipientName,
     senderName: wish.senderName,
     message: wish.message,
-    photos: wish.photos || [],
+    photos: normalizedPhotos,
     ...(wish.customData || {})
   };
 

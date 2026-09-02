@@ -1,6 +1,7 @@
 // Wishly Frontend API Service Layer
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+export const APP_BASE_URL = import.meta.env.VITE_APP_URL || (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173');
 
 /**
  * Check backend API health status
@@ -20,6 +21,57 @@ export async function checkHealth() {
 }
 
 /**
+ * Upload one or multiple images to Cloudinary via backend upload endpoint
+ * @param {File[]} files - Array of File objects from input/dropzone
+ * @param {string} [occasion='general'] - Occasion category for folder organization
+ * @returns {Promise<{success: boolean, images: Array<{url: string, publicId: string, width: number, height: number}>}>}
+ */
+export async function uploadImages(files, occasion = 'general') {
+  try {
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append('images', file);
+    });
+    formData.append('occasion', occasion);
+
+    const response = await fetch(`${API_BASE_URL}/uploads/images`, {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || `Failed to upload images (${response.status})`);
+    }
+
+    return data;
+  } catch (error) {
+    console.error('API uploadImages error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Delete an uploaded image from Cloudinary
+ * @param {string} publicId
+ * @returns {Promise<{success: boolean, message: string}>}
+ */
+export async function deleteImage(publicId) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/uploads/images/${encodeURIComponent(publicId)}`, {
+      method: 'DELETE'
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.warn('API deleteImage error:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+/**
  * Save and create a new personalized wish on the backend
  * @param {Object} wishData
  * @param {string} wishData.occasion - e.g. "birthday"
@@ -27,7 +79,7 @@ export async function checkHealth() {
  * @param {string} wishData.recipientName - e.g. "Ananya"
  * @param {string} [wishData.senderName] - e.g. "Namitha"
  * @param {string} [wishData.message] - Heartfelt message text
- * @param {string[]} [wishData.photos] - Image URLs or placeholder references
+ * @param {Array<Object|string>} [wishData.photos] - Cloudinary photo objects or image URLs
  * @param {Object} [wishData.customData] - Template specific dynamic extra data
  * @returns {Promise<{success: boolean, projectId: string}>}
  */
@@ -79,6 +131,9 @@ export async function getWish(projectId) {
 
 export default {
   checkHealth,
+  uploadImages,
+  deleteImage,
   createWish,
-  getWish
+  getWish,
+  APP_BASE_URL
 };

@@ -11,9 +11,9 @@
 Wishly/
 ├── frontend/                     # React 18 + Vite + React Router (Plain CSS)
 │   ├── src/
-│   │   ├── components/           # Navbar, Footer, OccasionCard, TemplateCard, TemplateGallery, HowItWorks, UI
-│   │   ├── data/                 # Occasions (7 categories) and sample curated photos
-│   │   ├── services/             # API Service layer (createWish, getWish, checkHealth)
+│   │   ├── components/           # Navbar, Footer, OccasionCard, TemplateCard, TemplateGallery, HowItWorks, etc.
+│   │   ├── data/                 # Occasions (7 categories) and curated sample photos
+│   │   ├── services/             # API Service layer (createWish, getWish, uploadImages, deleteImage)
 │   │   ├── templates/            # Central registry & 35 modular template components
 │   │   │   ├── birthday/         # 5 Birthday templates
 │   │   │   ├── anniversary/      # 5 Anniversary templates
@@ -23,26 +23,29 @@ Wishly/
 │   │   │   ├── congratulations/  # 5 Congratulations templates
 │   │   │   ├── justBecause/      # 5 Just Because templates
 │   │   │   └── templateRegistry.js
-│   │   ├── pages/                # Home, Templates, OccasionTemplates, TemplatePreview, Customize, GeneratedWish, NotFound
+│   │   ├── pages/                # Home, Templates, OccasionTemplates, TemplatePreview, Customize, GeneratedWish
 │   │   ├── styles/               # Plain CSS stylesheets (templates, components, customize)
+│   │   ├── utils/                # photoUtils.js
 │   │   ├── App.jsx               # Route configurations
-│   │   ├── index.css             # Main stylesheet & design tokens
+│   │   ├── index.css             # Main design system & design tokens
 │   │   └── main.jsx
 │   ├── .env.example
+│   ├── .env
 │   ├── index.html
 │   ├── package.json
 │   └── vite.config.js
-└── backend/                      # Node.js + Express + MongoDB (Mongoose)
-    ├── config/                   # MongoDB connection manager (db.js)
-    ├── controllers/              # wishController.js (createWish, getWishByProjectId)
-    ├── middleware/               # errorHandler.js
+└── backend/                      # Node.js + Express + MongoDB + Cloudinary
+    ├── config/                   # db.js (MongoDB), cloudinary.js (Cloudinary SDK)
+    ├── controllers/              # wishController.js, uploadController.js
+    ├── middleware/               # uploadMiddleware.js (Multer), errorHandler.js
     ├── models/                   # Wish.js (Mongoose Schema)
-    ├── routes/                   # healthRoutes.js, wishRoutes.js
+    ├── routes/                   # healthRoutes.js, wishRoutes.js, uploadRoutes.js
     ├── utils/                    # idGenerator.js (Short unique public ID generator)
     ├── .env.example
+    ├── .env
     ├── .gitignore
     ├── package.json
-    └── server.js                 # Express server with CORS & health endpoint
+    └── server.js                 # Express server with CORS & API routing
 ```
 
 ---
@@ -51,7 +54,7 @@ Wishly/
 
 ### 1. Backend Server Setup
 
-1. Open a terminal and navigate to the backend folder:
+1. Navigate to the backend folder:
    ```bash
    cd backend
    ```
@@ -59,15 +62,18 @@ Wishly/
    ```bash
    npm install
    ```
-3. Configure environment variables:
-   Copy `.env.example` to `.env`:
+3. Configure environment variables in `backend/.env`:
    ```bash
-   # backend/.env
    PORT=5000
    MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.example.mongodb.net/wishly?retryWrites=true&w=majority
+
+   # Cloudinary Image Storage Credentials
+   CLOUDINARY_CLOUD_NAME=your_cloud_name
+   CLOUDINARY_API_KEY=your_api_key
+   CLOUDINARY_API_SECRET=your_api_secret
    ```
-   *(Note: If `MONGODB_URI` is left empty, the server automatically runs with a built-in development memory fallback store so you can build and test immediately).*
-4. Start the backend API server:
+   *(Note: If `MONGODB_URI` or Cloudinary credentials are omitted in local development, the backend automatically runs with a built-in fallback store so you can build and test immediately).*
+4. Start the backend server:
    ```bash
    npm start
    ```
@@ -86,10 +92,10 @@ Wishly/
    ```bash
    npm install
    ```
-3. Configure environment variables (optional):
+3. Configure environment variables in `frontend/.env`:
    ```bash
-   # frontend/.env
    VITE_API_URL=http://localhost:5000/api
+   VITE_APP_URL=http://localhost:5173
    ```
 4. Start the frontend development server:
    ```bash
@@ -99,18 +105,34 @@ Wishly/
 
 ---
 
-## 🗄️ MongoDB Setup Guide
+## ☁️ Cloudinary Image Storage Setup
 
-To connect a cloud MongoDB Atlas database:
-1. Create a free account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
-2. Create a new free cluster (Shared M0).
-3. Under **Database Access**, create a database user with a username and password.
-4. Under **Network Access**, add IP address `0.0.0.0/0` (Allow Access from Anywhere).
-5. Click **Connect** → **Drivers** (Node.js) and copy the connection string.
-6. Paste the connection string into `backend/.env` as `MONGODB_URI`.
-7. Restart the backend server (`npm start`). You will see:
+1. Create a free account at [Cloudinary](https://cloudinary.com).
+2. Go to your **Dashboard** and copy your:
+   - **Cloud Name**
+   - **API Key**
+   - **API Secret**
+3. Paste these values into `backend/.env`:
+   ```env
+   CLOUDINARY_CLOUD_NAME=dxyz123abc
+   CLOUDINARY_API_KEY=123456789012345
+   CLOUDINARY_API_SECRET=abcdefghijklmnopqrstuvwxyz12345
    ```
-   📦 MongoDB Connected: cluster0-shard-00-00.example.mongodb.net
+4. Restart the backend (`npm start`). You will see:
+   ```
+   ☁️  Cloudinary configured successfully for image storage.
+   ```
+
+---
+
+## 🗄️ MongoDB Database Setup
+
+1. Create a free cluster at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
+2. Under **Database Access**, create a user with read/write privileges.
+3. Under **Network Access**, add IP `0.0.0.0/0` (Allow from anywhere).
+4. Copy the connection string and paste into `backend/.env`:
+   ```env
+   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.example.mongodb.net/wishly?retryWrites=true&w=majority
    ```
 
 ---
@@ -120,59 +142,42 @@ To connect a cloud MongoDB Atlas database:
 | Method | Endpoint | Description | Request Body / Params |
 |---|---|---|---|
 | `GET` | `/api/health` | Server health check | None |
+| `POST` | `/api/uploads/images` | Upload 1-10 images to Cloudinary | `multipart/form-data` with `images` and optional `occasion` |
+| `DELETE` | `/api/uploads/images/:publicId` | Delete an image from Cloudinary | URL parameter `:publicId` |
 | `POST` | `/api/wishes` | Create & save a new personalized wish | `{ occasion, templateId, recipientName, senderName, message, photos, customData }` |
-| `GET` | `/api/wishes/:projectId` | Fetch a personalized wish by its unique ID | URL param `:projectId` (e.g. `7xK29p`) |
+| `GET` | `/api/wishes/:projectId` | Fetch a personalized wish by unique ID | URL parameter `:projectId` (e.g. `7xK29p`) |
 
-### Example API Response (`POST /api/wishes`):
+### Example Upload API Response (`POST /api/uploads/images`):
 ```json
 {
   "success": true,
-  "projectId": "7xK29p"
-}
-```
-
-### Example API Response (`GET /api/wishes/7xK29p`):
-```json
-{
-  "success": true,
-  "wish": {
-    "projectId": "7xK29p",
-    "occasion": "birthday",
-    "templateId": "birthday-memories",
-    "recipientName": "Ananya",
-    "senderName": "Alex",
-    "message": "Wishing you the brightest year yet! 🎂",
-    "photos": ["https://images.unsplash.com/..."],
-    "customData": { "date": "September 12" },
-    "createdAt": "2026-09-01T18:30:00.000Z"
-  }
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/demo/image/upload/v1234567890/wishly/birthday/photo1.jpg",
+      "publicId": "wishly/birthday/photo1",
+      "width": 1200,
+      "height": 800,
+      "format": "jpg"
+    }
+  ]
 }
 ```
 
 ---
 
-## 🧭 Routes Overview
+## 📸 Image Storage Architecture
 
-* `/` — Landing page with Visual Hero Composition, 7 Occasions, How It Works, and Template Gallery
-* `/templates` — Full template catalog with occasion filter tabs and search
-* `/templates/:occasion` — Dedicated occasion gallery (e.g. `/templates/birthday`, `/templates/anniversary`)
-* `/templates/:templateId/preview` — Dedicated template preview with Desktop/Mobile toggles & "Use This Template" CTA
-* `/customize/:templateId` — Customization Studio (form on left, live reactive preview on right)
-* `/w/:projectId` — Public recipient website displaying the personalized keepsake without login
-
----
-
-## 📸 Image Handling & Current Development Limitation
-
-- **In this phase**: The Wish data model supports photo URLs, curated sample photos, and client-side browser previews (`URL.createObjectURL()`).
-- **Limitation**: Local file object URLs (`blob:...`) exist in the local browser session.
-- **Next Phase**: Cloudinary will be integrated to upload user device images to cloud storage and persist public image URLs permanently across all devices.
+1. **User selects photos** in the Customization Studio (`image/jpeg`, `image/png`, `image/webp` up to 10MB).
+2. **Instant Local Preview**: Local object URLs render immediately so the user experiences zero perceived delay.
+3. **Background Upload**: Photos stream to `POST /api/uploads/images` using Multer memory storage and Cloudinary's upload stream with automatic optimization (`fetch_format: auto`, `quality: auto`, max width 1400px).
+4. **Permanent URL Persistence**: Cloudinary URLs and metadata are returned and stored in MongoDB when the user clicks **✨ Generate Wish**.
+5. **Universal Recipient Rendering**: Any device opening `/w/:projectId` displays the optimized Cloudinary images without needing local browser cache or creator session data.
 
 ---
 
-## 🔮 Future Roadmap
+## 💬 WhatsApp & Social Sharing
 
-1. **Cloudinary Photo Uploads**: Direct cloud photo uploads from phone and computer.
-2. **One-Click WhatsApp & Social Sharing**: Share generated wish links directly with rich OpenGraph preview cards.
-3. **Background Melodies**: Optional sweet background music (e.g. birthday song, soft acoustic melody) with interactive play/pause controls.
-4. **Confetti & Interactive Surprise Reveals**: Floating confetti cannons and scratch-off cards on recipient view.
+Generated wishes can be shared in multiple ways:
+- **One-Click WhatsApp Sharing**: Launches `https://wa.me/?text=...` with a personalized pre-filled message and link.
+- **Web Share API**: Native mobile/desktop share sheet (`navigator.share`).
+- **One-Click Copy Link**: Instant clipboard copying with feedback.

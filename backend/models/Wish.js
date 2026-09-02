@@ -38,7 +38,7 @@ const WishSchema = new mongoose.Schema(
       maxLength: [5000, 'Message cannot exceed 5000 characters']
     },
     photos: {
-      type: [String],
+      type: [mongoose.Schema.Types.Mixed], // Accommodates both Cloudinary photo objects and photo URL strings
       default: []
     },
     customData: {

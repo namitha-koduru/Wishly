@@ -468,6 +468,54 @@
   background: #e74c3c;
 }
 
+/* Thumbnail Status Overlay & Badges */
+.thumbnail-status-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  gap: 3px;
+  backdrop-filter: blur(2px);
+}
+
+.status-spinner {
+  font-size: 1.2rem;
+  animation: spinSlow 2s linear infinite;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.thumbnail-status-badge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background: #27ae60;
+  color: #fff;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 0.68rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.error-overlay {
+  background: rgba(231, 76, 60, 0.85);
+  font-size: 0.75rem;
+}
+
 .thumbnail-caption-input {
   width: 100%;
   border: 1px solid #e9ecef;
@@ -681,11 +729,48 @@
   outline: none;
 }
 
-.share-modal-footer-btns {
+.share-modal-footer-btns, .share-actions-grid {
   display: flex;
   gap: 0.8rem;
   justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 1.2rem;
+}
+
+.btn-whatsapp {
+  background-color: #25D366;
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.28);
+}
+
+.btn-whatsapp:hover {
+  background-color: #1ebc59;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(37, 211, 102, 0.38);
+}
+
+.action-btn-icon {
+  font-size: 1.1rem;
+}
+
+.share-modal-footer-note {
+  margin-top: 0.6rem;
+}
+
+.btn-text-link {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.btn-text-link:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
 }
 
 /* Generated Wish Recipient View */

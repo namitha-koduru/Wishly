@@ -3,10 +3,10 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getTemplateById } from '../templates/templateRegistry.js';
 import { getOccasionById } from '../data/occasions.js';
 import { SAMPLE_PHOTOS } from '../data/samplePhotos.js';
-import { createWish } from '../services/api.js';
+import { createWish, uploadImages, deleteImage, APP_BASE_URL } from '../services/api.js';
 
 export function Customize() {
-  const { templateId, occasion: routeOccasion } = useParams();
+  const { templateId } = useParams();
   const navigate = useNavigate();
   const template = getTemplateById(templateId);
   const fileInputRef = useRef(null);
@@ -17,12 +17,20 @@ export function Customize() {
   // Customization Form State
   const [formData, setFormData] = useState(() => {
     if (!template) return {};
+    const defaultPhotos = template.defaultData?.photos
+      ? template.defaultData.photos.map((url, i) => ({
+          id: `sample_${i}`,
+          url,
+          status: 'uploaded',
+          caption: ''
+        }))
+      : [];
+
     return {
       recipientName: '',
       senderName: '',
       message: '',
-      photos: template.defaultData?.photos ? [...template.defaultData.photos] : [],
-      photoCaptions: {},
+      photos: defaultPhotos,
       date: template.defaultData?.date || '',
       age: template.defaultData?.age || '',
       years: template.defaultData?.years || '',
@@ -46,23 +54,7 @@ export function Customize() {
   const [generatedModal, setGeneratedModal] = useState(null);
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState('editor'); // For mobile: 'editor' | 'preview'
-
-  // Update when templateId changes
-  useEffect(() => {
-    if (template) {
-      setFormData((prev) => ({
-        ...prev,
-        photos: template.defaultData?.photos ? [...template.defaultData.photos] : prev.photos,
-        date: template.defaultData?.date || prev.date,
-        age: template.defaultData?.age || prev.age,
-        years: template.defaultData?.years || prev.years,
-        degree: template.defaultData?.degree || prev.degree,
-        classYear: template.defaultData?.classYear || prev.classYear,
-        teamName: template.defaultData?.teamName || prev.teamName,
-        achievement: template.defaultData?.achievement || prev.achievement
-      }));
-    }
-  }, [templateId]);
+  const [uploadError, setUploadError] = useState('');
 
   // Clean up object URLs on component unmount
   useEffect(() => {
@@ -71,9 +63,7 @@ export function Customize() {
       urls.forEach((url) => {
         try {
           URL.revokeObjectURL(url);
-        } catch (e) {
-          // ignore cleanup errors
-        }
+        } catch (e) {}
       });
     };
   }, []);
@@ -89,6 +79,7 @@ export function Customize() {
   }
 
   const supported = template.supportedFields || [];
+  const isUploadingPhotos = formData.photos?.some((p) => p.status === 'uploading');
 
   // Field change handler
   const handleFieldChange = (field, value) => {
@@ -108,37 +99,92 @@ export function Customize() {
     setTimeout(() => setIsDraftSaved(false), 2000);
   };
 
-  // Browser Multi-Photo Upload Handler
-  const handleFileUpload = (e) => {
+  // Multi-Photo Upload Handler with Instant Preview + Background Cloudinary Upload
+  const handleFileUpload = async (e) => {
     const files = Array.from(e.target.files || []);
     if (!files.length) return;
+    setUploadError('');
 
-    const newPhotoUrls = [];
-    files.forEach((file) => {
+    // 1. Validate files
+    const validFiles = [];
+    for (const file of files) {
       if (!file.type.startsWith('image/')) {
-        alert(`File "${file.name}" is not an image.`);
+        setUploadError(`File "${file.name}" is not an image (JPEG, PNG, WebP only).`);
         return;
       }
       if (file.size > 10 * 1024 * 1024) {
-        alert(`File "${file.name}" is too large (max 10MB).`);
+        setUploadError(`File "${file.name}" is too large (maximum 10MB).`);
         return;
       }
+      validFiles.push(file);
+    }
 
-      const objectUrl = URL.createObjectURL(file);
-      createdObjectUrlsRef.current.add(objectUrl);
-      newPhotoUrls.push(objectUrl);
+    if (!validFiles.length) return;
+
+    // 2. Create instant local previews immediately for zero perceived latency
+    const pendingItems = validFiles.map((file, i) => {
+      const tempUrl = URL.createObjectURL(file);
+      createdObjectUrlsRef.current.add(tempUrl);
+      return {
+        id: `upload_${Date.now()}_${i}`,
+        file,
+        url: tempUrl,
+        status: 'uploading', // 'uploading' | 'uploaded' | 'error'
+        caption: ''
+      };
     });
 
-    if (newPhotoUrls.length > 0) {
-      setFormData((prev) => ({
-        ...prev,
-        photos: [...(prev.photos || []), ...newPhotoUrls]
-      }));
-      triggerDraftSaved();
-    }
+    setFormData((prev) => ({
+      ...prev,
+      photos: [...(prev.photos || []), ...pendingItems]
+    }));
 
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
+    }
+
+    // 3. Upload to backend/Cloudinary concurrently
+    try {
+      const uploadRes = await uploadImages(validFiles, template.occasion || 'general');
+
+      if (uploadRes.success && uploadRes.images) {
+        setFormData((prev) => {
+          const updated = [...(prev.photos || [])];
+          pendingItems.forEach((pending, index) => {
+            const uploadedImage = uploadRes.images[index];
+            const targetIdx = updated.findIndex((p) => p.id === pending.id);
+            if (targetIdx !== -1 && uploadedImage) {
+              updated[targetIdx] = {
+                ...updated[targetIdx],
+                url: uploadedImage.url,
+                publicId: uploadedImage.publicId,
+                width: uploadedImage.width,
+                height: uploadedImage.height,
+                status: 'uploaded'
+              };
+            }
+          });
+          return { ...prev, photos: updated };
+        });
+        triggerDraftSaved();
+      }
+    } catch (err) {
+      console.error('Photo upload failed:', err);
+      setUploadError('Failed to upload photos to cloud storage. You can still preview locally.');
+      // Mark failed uploads
+      setFormData((prev) => {
+        const updated = [...(prev.photos || [])];
+        pendingItems.forEach((pending) => {
+          const targetIdx = updated.findIndex((p) => p.id === pending.id);
+          if (targetIdx !== -1 && updated[targetIdx].status === 'uploading') {
+            updated[targetIdx] = {
+              ...updated[targetIdx],
+              status: 'error'
+            };
+          }
+        });
+        return { ...prev, photos: updated };
+      });
     }
   };
 
@@ -146,18 +192,30 @@ export function Customize() {
   const handleAddSamplePhoto = (sampleUrl) => {
     setFormData((prev) => ({
       ...prev,
-      photos: [...(prev.photos || []), sampleUrl]
+      photos: [
+        ...(prev.photos || []),
+        {
+          id: `sample_${Date.now()}`,
+          url: sampleUrl,
+          status: 'uploaded',
+          caption: ''
+        }
+      ]
     }));
     triggerDraftSaved();
   };
 
   // Remove photo
   const handleRemovePhoto = (index) => {
-    const removedUrl = formData.photos[index];
-    if (createdObjectUrlsRef.current.has(removedUrl)) {
+    const photo = formData.photos[index];
+    if (photo?.publicId) {
+      // Background delete from Cloudinary
+      deleteImage(photo.publicId).catch(() => {});
+    }
+    if (photo?.url && createdObjectUrlsRef.current.has(photo.url)) {
       try {
-        URL.revokeObjectURL(removedUrl);
-        createdObjectUrlsRef.current.delete(removedUrl);
+        URL.revokeObjectURL(photo.url);
+        createdObjectUrlsRef.current.delete(photo.url);
       } catch (e) {}
     }
 
@@ -170,29 +228,49 @@ export function Customize() {
 
   // Photo caption update
   const handleCaptionChange = (index, caption) => {
-    setFormData((prev) => ({
-      ...prev,
-      photoCaptions: {
-        ...prev.photoCaptions,
-        [index]: caption
+    setFormData((prev) => {
+      const updatedPhotos = [...prev.photos];
+      if (updatedPhotos[index]) {
+        updatedPhotos[index] = {
+          ...updatedPhotos[index],
+          caption
+        };
       }
-    }));
+      return {
+        ...prev,
+        photos: updatedPhotos
+      };
+    });
   };
 
   // Reset form to template defaults
   const handleResetToDefault = () => {
     if (window.confirm('Reset all fields to template default preview?')) {
+      const defaultPhotos = template.defaultData?.photos
+        ? template.defaultData.photos.map((url, i) => ({
+            id: `sample_${i}`,
+            url,
+            status: 'uploaded',
+            caption: ''
+          }))
+        : [];
+
       setFormData({
         recipientName: '',
         senderName: '',
         message: '',
-        photos: template.defaultData?.photos ? [...template.defaultData.photos] : [],
-        photoCaptions: {},
+        photos: defaultPhotos,
         ...template.defaultData
       });
       setValidationError('');
+      setUploadError('');
     }
   };
+
+  // Extract plain photo URLs for template rendering
+  const photoUrls = (formData.photos || [])
+    .map((p) => (typeof p === 'object' ? p.url : p))
+    .filter(Boolean);
 
   // Prepare safe preview data with graceful fallback defaults
   const previewData = {
@@ -200,10 +278,10 @@ export function Customize() {
     recipientName: formData.recipientName?.trim() || 'Someone Special',
     senderName: formData.senderName?.trim() || 'Someone who cares',
     message: formData.message?.trim() || template.defaultData?.message || 'Your heartfelt wishes and memories will appear here.',
-    photos: formData.photos && formData.photos.length > 0 ? formData.photos : (template.defaultData?.photos || SAMPLE_PHOTOS.slice(0, 2))
+    photos: photoUrls.length > 0 ? photoUrls : (template.defaultData?.photos || SAMPLE_PHOTOS.slice(0, 2))
   };
 
-  // Generate Wish Handler with Backend API integration
+  // Generate Wish Handler with Cloudinary image URLs and backend persistence
   const handleGenerateWish = async () => {
     // 1. Validation
     if (!formData.recipientName || !formData.recipientName.trim()) {
@@ -216,20 +294,34 @@ export function Customize() {
       return;
     }
 
+    if (isUploadingPhotos) {
+      alert('Please wait for photos to finish uploading before generating.');
+      return;
+    }
+
     setIsGenerating(true);
 
     try {
-      // 2. Prepare payload for POST /api/wishes
+      // 2. Prepare permanent photos payload
+      const permanentPhotos = (formData.photos || []).map((p) => {
+        if (typeof p === 'object' && p.url) {
+          return {
+            url: p.url,
+            publicId: p.publicId || null,
+            caption: p.caption || ''
+          };
+        }
+        return { url: p };
+      });
+
       const wishPayload = {
         occasion: template.occasion,
         templateId: template.id,
         recipientName: formData.recipientName.trim(),
         senderName: formData.senderName.trim() || '',
         message: formData.message.trim() || template.defaultData?.message || '',
-        // For development, keep URLs/sample URLs in payload (blob URLs are maintained in local state)
-        photos: formData.photos || [],
+        photos: permanentPhotos,
         customData: {
-          photoCaptions: formData.photoCaptions || {},
           date: formData.date || '',
           age: formData.age || '',
           years: formData.years || '',
@@ -244,7 +336,7 @@ export function Customize() {
       const result = await createWish(wishPayload);
       const projectId = result.projectId;
 
-      // Also mirror to localStorage for instant offline access
+      // Also mirror to localStorage for instant local backup
       try {
         localStorage.setItem(`wishly_project_${projectId}`, JSON.stringify({
           projectId,
@@ -253,12 +345,15 @@ export function Customize() {
         }));
       } catch (e) {}
 
-      // 4. Show success modal with generated shareable URL
-      const shareUrl = `${window.location.origin}/w/${projectId}`;
+      // 4. Construct share URL with configurable base URL
+      const baseUrl = APP_BASE_URL.replace(/\/$/, '');
+      const shareUrl = `${baseUrl}/w/${projectId}`;
+
       setGeneratedModal({
         projectId,
         shareUrl,
-        recipientName: wishPayload.recipientName
+        recipientName: wishPayload.recipientName,
+        senderName: wishPayload.senderName
       });
     } catch (error) {
       console.error('Failed to save wish to backend:', error);
@@ -272,7 +367,7 @@ export function Customize() {
         recipientName: formData.recipientName.trim(),
         senderName: formData.senderName.trim() || '',
         message: formData.message.trim() || '',
-        photos: formData.photos || [],
+        photos: (formData.photos || []).map((p) => (typeof p === 'object' ? p.url : p)),
         customData: {
           date: formData.date,
           age: formData.age,
@@ -287,11 +382,14 @@ export function Customize() {
 
       localStorage.setItem(`wishly_project_${fallbackId}`, JSON.stringify(fallbackPayload));
 
-      const shareUrl = `${window.location.origin}/w/${fallbackId}`;
+      const baseUrl = APP_BASE_URL.replace(/\/$/, '');
+      const shareUrl = `${baseUrl}/w/${fallbackId}`;
+
       setGeneratedModal({
         projectId: fallbackId,
         shareUrl,
-        recipientName: fallbackPayload.recipientName
+        recipientName: fallbackPayload.recipientName,
+        senderName: fallbackPayload.senderName
       });
     } finally {
       setIsGenerating(false);
@@ -303,6 +401,32 @@ export function Customize() {
       navigator.clipboard.writeText(generatedModal.shareUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
+    }
+  };
+
+  // WhatsApp Share Trigger
+  const handleWhatsAppShare = () => {
+    if (!generatedModal) return;
+    const text = `I made something special for you on Wishly ✨\nOpen your surprise here: ${generatedModal.shareUrl}`;
+    const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  // Native Web Share API Trigger
+  const handleNativeShare = async () => {
+    if (!generatedModal) return;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `A special Wishly for ${generatedModal.recipientName} ✨`,
+          text: `I created a personalized website for you on Wishly! Open it here:`,
+          url: generatedModal.shareUrl
+        });
+      } catch (err) {
+        // User canceled or failed
+      }
+    } else {
+      handleCopyShareLink();
     }
   };
 
@@ -365,9 +489,9 @@ export function Customize() {
               type="button"
               className="btn btn-primary btn-sm studio-generate-btn pulse-glow"
               onClick={handleGenerateWish}
-              disabled={isGenerating}
+              disabled={isGenerating || isUploadingPhotos}
             >
-              {isGenerating ? 'Creating Wishly... ✨' : '✨ Generate Wish'}
+              {isUploadingPhotos ? 'Uploading memories... ⏳' : (isGenerating ? 'Creating Wishly... ✨' : '✨ Generate Wish')}
             </button>
           </div>
         </div>
@@ -412,15 +536,23 @@ export function Customize() {
             </div>
           )}
 
+          {/* Upload Error Alert */}
+          {uploadError && (
+            <div className="validation-alert" style={{ background: '#fff0f0', borderColor: '#ffcdd2', color: '#c62828' }} role="alert">
+              <span className="alert-icon">⚠️</span>
+              <span className="alert-msg">{uploadError}</span>
+            </div>
+          )}
+
           <form className="studio-form" onSubmit={(e) => e.preventDefault()}>
-            {/* Section 1: Basic Details */}
+            {/* Section 1: Your Person */}
             <div className="form-section">
-              <h3 className="section-title-sm">1. Basic Details</h3>
+              <h3 className="section-title-sm">1. Your Person</h3>
 
               {/* Recipient Name (Required) */}
               <div className="form-field-group">
                 <label htmlFor="recipientName" className="form-label">
-                  Recipient Name <span className="required-star">*</span>
+                  What's their name? <span className="required-star">*</span>
                 </label>
                 <div className="input-with-icon">
                   <span className="input-prefix-icon">✨</span>
@@ -466,7 +598,7 @@ export function Customize() {
                 <h3 className="section-title-sm">2. Your Message</h3>
                 <div className="form-field-group">
                   <label htmlFor="message" className="form-label">
-                    Heartfelt Message / Wishes
+                    Write something from the heart...
                   </label>
                   <textarea
                     id="message"
@@ -483,11 +615,11 @@ export function Customize() {
               </div>
             )}
 
-            {/* Section 3: Photos Uploader */}
+            {/* Section 3: Your Memories & Photos */}
             {supported.includes('photos') && (
               <div className="form-section">
                 <div className="section-title-row">
-                  <h3 className="section-title-sm">3. Photos & Memories</h3>
+                  <h3 className="section-title-sm">3. Your Memories</h3>
                   <span className="photos-count-badge">
                     {formData.photos?.length || 0} photo{formData.photos?.length === 1 ? '' : 's'}
                   </span>
@@ -505,13 +637,13 @@ export function Customize() {
                     ref={fileInputRef}
                     type="file"
                     multiple
-                    accept="image/*"
+                    accept="image/jpeg,image/png,image/webp"
                     className="hidden-file-input"
                     onChange={handleFileUpload}
                   />
                   <div className="dropzone-icon">📸</div>
                   <h4 className="dropzone-title">Add your memories</h4>
-                  <p className="dropzone-sub">Click to browse or drag photos from your device</p>
+                  <p className="dropzone-sub">Upload photos directly to secure cloud storage (JPEG, PNG, WebP)</p>
                   <button type="button" className="btn btn-secondary btn-sm dropzone-btn">
                     + Upload Photos
                   </button>
@@ -536,38 +668,65 @@ export function Customize() {
                   </div>
                 </div>
 
-                {/* Selected Photos Grid with Captions & Remove Buttons */}
+                {/* Uploaded Photos Grid with Status Indicators & Captions */}
                 {formData.photos && formData.photos.length > 0 && (
                   <div className="uploaded-thumbnails-list">
-                    {formData.photos.map((url, idx) => (
-                      <div key={idx} className="thumbnail-card">
-                        <div className="thumbnail-img-wrap">
-                          <img src={url} alt={`Memory ${idx + 1}`} />
-                          <button
-                            type="button"
-                            className="thumbnail-delete-btn"
-                            onClick={() => handleRemovePhoto(idx)}
-                            title="Remove photo"
-                            aria-label={`Remove photo ${idx + 1}`}
-                          >
-                            ✕
-                          </button>
+                    {formData.photos.map((item, idx) => {
+                      const photoUrl = typeof item === 'object' ? item.url : item;
+                      const status = typeof item === 'object' ? item.status : 'uploaded';
+                      const caption = typeof item === 'object' ? item.caption : '';
+
+                      return (
+                        <div key={item.id || idx} className="thumbnail-card">
+                          <div className="thumbnail-img-wrap">
+                            <img src={photoUrl} alt={`Memory ${idx + 1}`} />
+
+                            {/* Status Overlay */}
+                            {status === 'uploading' && (
+                              <div className="thumbnail-status-overlay">
+                                <span className="status-spinner">⏳</span>
+                                <span className="status-text">Uploading...</span>
+                              </div>
+                            )}
+
+                            {status === 'uploaded' && (
+                              <div className="thumbnail-status-badge">
+                                <span>✓</span>
+                              </div>
+                            )}
+
+                            {status === 'error' && (
+                              <div className="thumbnail-status-overlay error-overlay">
+                                <span>⚠️ Error</span>
+                              </div>
+                            )}
+
+                            <button
+                              type="button"
+                              className="thumbnail-delete-btn"
+                              onClick={() => handleRemovePhoto(idx)}
+                              title="Remove photo"
+                              aria-label={`Remove photo ${idx + 1}`}
+                            >
+                              ✕
+                            </button>
+                          </div>
+                          <input
+                            type="text"
+                            className="thumbnail-caption-input"
+                            placeholder="Add caption (optional)..."
+                            value={caption}
+                            onChange={(e) => handleCaptionChange(idx, e.target.value)}
+                          />
                         </div>
-                        <input
-                          type="text"
-                          className="thumbnail-caption-input"
-                          placeholder="Add caption (optional)..."
-                          value={formData.photoCaptions?.[idx] || ''}
-                          onChange={(e) => handleCaptionChange(idx, e.target.value)}
-                        />
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
               </div>
             )}
 
-            {/* Section 4: Template-Specific Dynamic Fields */}
+            {/* Section 4: Extra Details */}
             {(supported.includes('date') ||
               supported.includes('age') ||
               supported.includes('years') ||
@@ -690,9 +849,9 @@ export function Customize() {
                 type="button"
                 className="btn btn-primary btn-block btn-lg pulse-glow"
                 onClick={handleGenerateWish}
-                disabled={isGenerating}
+                disabled={isGenerating || isUploadingPhotos}
               >
-                {isGenerating ? 'Creating your Wishly... ✨' : '✨ Generate Wish'}
+                {isUploadingPhotos ? 'Uploading memories... ⏳' : (isGenerating ? 'Creating your Wishly... ✨' : '✨ Generate Wish')}
               </button>
             </div>
           </form>
@@ -731,7 +890,7 @@ export function Customize() {
         </section>
       </main>
 
-      {/* Generated Wish Celebration Modal */}
+      {/* Generated Wish Celebration Share Modal */}
       {generatedModal && (
         <div className="preview-modal-backdrop" onClick={() => setGeneratedModal(null)}>
           <div className="share-modal-dialog" onClick={(e) => e.stopPropagation()}>
@@ -739,9 +898,10 @@ export function Customize() {
               <span className="share-celebrate-emoji">🎉</span>
               <h2>Your Wishly is ready!</h2>
               <p>
-                Your little surprise for <strong>{generatedModal.recipientName}</strong> is ready to share. Anyone opening this link can view it instantly without logging in.
+                Your personalized website for <strong>{generatedModal.recipientName}</strong> has been generated with permanent cloud storage. Anyone opening this link can experience it instantly without logging in!
               </p>
 
+              {/* Public Share Link Box */}
               <div className="share-link-input-box">
                 <input
                   type="text"
@@ -759,20 +919,44 @@ export function Customize() {
                 </button>
               </div>
 
-              <div className="share-modal-footer-btns">
+              {/* Share Actions Grid: WhatsApp, Web Share, Open, Edit */}
+              <div className="share-actions-grid">
                 <button
                   type="button"
-                  className="btn btn-secondary btn-lg"
+                  className="btn btn-whatsapp"
+                  onClick={handleWhatsAppShare}
+                  title="Share directly via WhatsApp"
+                >
+                  <span className="action-btn-icon">💬</span> Share on WhatsApp
+                </button>
+
+                {typeof navigator !== 'undefined' && navigator.share && (
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={handleNativeShare}
+                    title="Share using your device options"
+                  >
+                    <span className="action-btn-icon">📤</span> Share
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  className="btn btn-primary"
                   onClick={() => navigate(`/w/${generatedModal.projectId}`)}
                 >
                   Open Wish ↗
                 </button>
+              </div>
+
+              <div className="share-modal-footer-note">
                 <button
                   type="button"
-                  className="btn btn-outline"
+                  className="btn-text-link"
                   onClick={() => setGeneratedModal(null)}
                 >
-                  Keep Editing
+                  ← Keep Editing
                 </button>
               </div>
             </div>

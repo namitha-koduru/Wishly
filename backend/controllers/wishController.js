@@ -14,25 +14,66 @@ export const createWish = async (req, res) => {
     const { occasion, templateId, recipientName, senderName, message, photos, customData } = req.body;
 
     // Validation
-    if (!occasion || !occasion.trim()) {
+    if (!occasion || typeof occasion !== 'string' || !occasion.trim()) {
       return res.status(400).json({
         success: false,
-        message: 'Occasion is required'
+        message: 'Occasion is required.'
       });
     }
 
-    if (!templateId || !templateId.trim()) {
+    if (!templateId || typeof templateId !== 'string' || !templateId.trim()) {
       return res.status(400).json({
         success: false,
-        message: 'Template ID is required'
+        message: 'Template ID is required.'
       });
     }
 
-    if (!recipientName || !recipientName.trim()) {
+    if (!recipientName || typeof recipientName !== 'string' || !recipientName.trim()) {
       return res.status(400).json({
         success: false,
-        message: 'Recipient name is required'
+        message: 'Recipient name is required.'
       });
+    }
+
+    // Size / Length constraints
+    if (recipientName.length > 100) {
+      return res.status(400).json({
+        success: false,
+        message: 'Recipient name cannot exceed 100 characters.'
+      });
+    }
+
+    if (senderName && senderName.length > 100) {
+      return res.status(400).json({
+        success: false,
+        message: 'Sender name cannot exceed 100 characters.'
+      });
+    }
+
+    if (message && message.length > 5000) {
+      return res.status(400).json({
+        success: false,
+        message: 'Message cannot exceed 5000 characters.'
+      });
+    }
+
+    // Normalize photos array
+    let normalizedPhotos = [];
+    if (Array.isArray(photos)) {
+      normalizedPhotos = photos.map((item) => {
+        if (typeof item === 'string') {
+          return { url: item };
+        }
+        if (typeof item === 'object' && item !== null && item.url) {
+          return {
+            url: item.url,
+            publicId: item.publicId || null,
+            width: item.width || null,
+            height: item.height || null
+          };
+        }
+        return null;
+      }).filter(Boolean);
     }
 
     // Generate unique project ID
@@ -40,19 +81,18 @@ export const createWish = async (req, res) => {
 
     const wishData = {
       projectId,
-      occasion: occasion.trim(),
+      occasion: occasion.trim().toLowerCase(),
       templateId: templateId.trim(),
       recipientName: recipientName.trim(),
       senderName: senderName ? senderName.trim() : '',
       message: message ? message.trim() : '',
-      photos: Array.isArray(photos) ? photos : [],
+      photos: normalizedPhotos,
       customData: customData && typeof customData === 'object' ? customData : {},
       createdAt: new Date().toISOString()
     };
 
     // Save to MongoDB if connected
     if (getIsConnected()) {
-      // Ensure unique collision safety
       let exists = await Wish.findOne({ projectId });
       while (exists) {
         projectId = generateProjectId(8);
@@ -71,10 +111,10 @@ export const createWish = async (req, res) => {
       projectId
     });
   } catch (error) {
-    console.error('Error in createWish:', error);
+    console.error('Error in createWish controller:', error);
     return res.status(500).json({
       success: false,
-      message: 'Failed to create wish',
+      message: 'Failed to create wish. Please try again.',
       error: error.message
     });
   }
@@ -91,7 +131,7 @@ export const getWishByProjectId = async (req, res) => {
     if (!projectId || !projectId.trim()) {
       return res.status(400).json({
         success: false,
-        message: 'Project ID is required'
+        message: 'Project ID is required.'
       });
     }
 
@@ -113,7 +153,7 @@ export const getWishByProjectId = async (req, res) => {
     if (!wish) {
       return res.status(404).json({
         success: false,
-        message: 'Wish not found'
+        message: 'Wish not found.'
       });
     }
 
@@ -122,10 +162,10 @@ export const getWishByProjectId = async (req, res) => {
       wish
     });
   } catch (error) {
-    console.error('Error in getWishByProjectId:', error);
+    console.error('Error in getWishByProjectId controller:', error);
     return res.status(500).json({
       success: false,
-      message: 'Failed to retrieve wish',
+      message: 'Failed to retrieve wish.',
       error: error.message
     });
   }
