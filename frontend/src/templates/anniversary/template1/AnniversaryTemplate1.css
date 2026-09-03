@@ -1,0 +1,45 @@
+/* Anniversary Template 1 - Our Story Styles */
+.tpl-anniversary-our-story {
+  background: linear-gradient(135deg, #fff9fb 0%, #f7f1f8 100%);
+  border: 1px solid #ebd4eb;
+}
+
+.tpl-anniversary-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: #9b51e0;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+}
+
+.tpl-years-badge {
+  display: inline-block;
+  background: #9b51e0;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
+  margin-bottom: 1.5rem;
+}
+
+.our-story-hero-frame {
+  margin: 1.5rem auto;
+  border-radius: 20px;
+  overflow: hidden;
+  max-width: 480px;
+  box-shadow: 0 12px 30px rgba(155, 81, 224, 0.2);
+}
+
+.our-story-hero-frame img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.anniversary-timeline-section {
+  margin-top: 2rem;
+  text-align: left;
+}

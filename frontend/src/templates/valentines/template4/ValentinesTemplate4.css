@@ -1,0 +1,36 @@
+/* Valentine's Template 4 - Our Moments Styles */
+.tpl-val-moments {
+  background: #fff;
+  border: 1px solid #ffe4e6;
+}
+
+.val-moments-gallery {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.val-moment-card {
+  background: #fff;
+  padding: 10px 10px 24px 10px;
+  box-shadow: 0 10px 25px rgba(244, 63, 94, 0.1);
+  border-radius: 4px;
+  max-width: 220px;
+}
+
+.val-moment-card img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.val-moment-caption {
+  display: block;
+  font-size: 0.8rem;
+  color: #9f1239;
+  font-style: italic;
+  margin-top: 8px;
+}

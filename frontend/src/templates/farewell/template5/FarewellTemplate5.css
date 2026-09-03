@@ -1,0 +1,25 @@
+/* Farewell Template 5 - Shared Chapters Timeline Styles */
+.tpl-farewell-timeline {
+  background: #fdfbf7;
+  border: 1px solid #e2d9cc;
+}
+
+.farewell-timeline-portrait {
+  margin: 1.8rem auto;
+  max-width: 440px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.farewell-timeline-portrait img {
+  width: 100%;
+  height: 270px;
+  object-fit: cover;
+  display: block;
+}
+
+.farewell-timeline-wrap {
+  margin-top: 2rem;
+  text-align: left;
+}

@@ -1,0 +1,44 @@
+/* Congratulations Template 2 - Outstanding Feat Styles */
+.tpl-congrat-achievement {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+}
+
+.congrat-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: #10b981;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+}
+
+.achievement-title-sub {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #059669;
+  margin-bottom: 1.5rem;
+}
+
+.achievement-portrait-frame {
+  margin: 1.8rem auto;
+  max-width: 440px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.2);
+}
+
+.achievement-portrait-frame img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.achievement-card-box {
+  background: #f0fdf4;
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid #dcfce7;
+  margin-top: 2rem;
+}

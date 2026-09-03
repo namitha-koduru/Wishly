@@ -1,0 +1,98 @@
+/* Anniversary Template 2 - Love Letter Styles */
+.tpl-anniversary-love-letter {
+  background: #fdfaf6;
+  border: 1px solid #ebd9c8;
+  padding: 3rem 1.8rem;
+}
+
+.wax-seal-crest {
+  width: 54px;
+  height: 54px;
+  background: #c0392b;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin: 0 auto 1.2rem;
+  box-shadow: 0 6px 18px rgba(192, 57, 43, 0.3);
+}
+
+.letter-paper-sheet {
+  background: #fffefb;
+  border: 1px solid #f0e6dc;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  text-align: left;
+}
+
+.letter-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.8rem;
+  border-bottom: 1px dashed #e2d5c5;
+  padding-bottom: 0.8rem;
+}
+
+.letter-date-stamp {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  font-family: var(--font-display);
+}
+
+.letter-seal-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #c0392b;
+}
+
+.letter-salutation {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1.2rem;
+}
+
+.letter-body-text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #34495e;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.letter-polaroid-tuck {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.letter-polaroid-tuck img {
+  width: 220px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  margin: 1rem 0;
+}
+
+.letter-polaroid-caption {
+  display: block;
+  font-size: 0.8rem;
+  color: #95a5a6;
+  font-style: italic;
+}
+
+.letter-signoff {
+  margin-top: 2rem;
+  text-align: right;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: #c0392b;
+  font-weight: 700;
+}

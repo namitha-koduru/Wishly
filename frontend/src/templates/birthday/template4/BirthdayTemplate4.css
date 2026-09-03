@@ -1,0 +1,41 @@
+/* Birthday Template 4 - Surprise Party Styles */
+.tpl-birthday-surprise {
+  background: linear-gradient(135deg, #fff5eb 0%, #ffeaa7 100%);
+  border: 2px solid #fdcb6e;
+}
+
+.surprise-header-badge {
+  display: inline-block;
+  background: #e17055;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0.4rem 1.2rem;
+  border-radius: 30px;
+  letter-spacing: 1.5px;
+  margin-bottom: 1rem;
+}
+
+.surprise-photo-frame {
+  margin: 1.5rem auto;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border: 6px solid #fff;
+  box-shadow: 0 10px 30px rgba(225, 112, 85, 0.3);
+}
+
+.surprise-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.surprise-main-msg {
+  background: #ffffff;
+  padding: 1.8rem;
+  border-radius: 16px;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}

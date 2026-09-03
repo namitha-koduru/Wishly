@@ -1,0 +1,39 @@
+/* Congratulations Template 5 - Success Story Styles */
+.tpl-congrat-story {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.story-header {
+  margin-bottom: 2rem;
+}
+
+.story-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: #0d9488;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+}
+
+.story-sub {
+  color: #0f766e;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-top: 0.4rem;
+}
+
+.story-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  margin: 1.8rem 0;
+}
+
+.story-card-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}

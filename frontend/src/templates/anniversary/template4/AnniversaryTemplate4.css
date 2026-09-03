@@ -1,0 +1,52 @@
+/* Anniversary Template 4 - Memory Scrapbook Styles */
+.tpl-anniversary-memories {
+  background: #fdfaf4;
+  border: 1px solid #ebd7bf;
+  position: relative;
+}
+
+.scrapbook-pin {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.scrapbook-sub {
+  color: #a29bfe;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.anniversary-polaroid-gallery {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.polaroid-pin-card {
+  background: #fff;
+  padding: 12px 12px 28px 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  max-width: 220px;
+}
+
+.pin-tilt-1 { transform: rotate(-2deg); }
+.pin-tilt-2 { transform: rotate(3deg); }
+
+.polaroid-pin-card img {
+  width: 190px;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.polaroid-pin-caption {
+  display: block;
+  font-size: 0.8rem;
+  color: #636e72;
+  font-style: italic;
+  margin-top: 10px;
+}

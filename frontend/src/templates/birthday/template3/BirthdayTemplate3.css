@@ -1,0 +1,86 @@
+/* Birthday Template 3 - Photo Story Styles */
+.tpl-birthday-photo-story {
+  background: #1a1a24;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.photo-story-hero {
+  margin-bottom: 2rem;
+}
+
+.photo-story-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #e17055;
+  margin-bottom: 0.8rem;
+}
+
+.photo-story-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.photo-story-sub {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.story-image-section {
+  position: relative;
+  margin: 2rem 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.story-full-img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+.story-text-overlay {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  padding: 0.35rem 0.9rem;
+  border-radius: 20px;
+}
+
+.story-chapter-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fab1a0;
+}
+
+.photo-story-closing {
+  margin-top: 2.5rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.photo-story-quote {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.8;
+  color: #f5f6fa;
+  margin-bottom: 1rem;
+}
+
+.photo-story-author {
+  font-size: 0.95rem;
+  color: #e17055;
+  font-weight: 600;
+}

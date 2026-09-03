@@ -1,0 +1,45 @@
+/* Just Because Template 3 - Thinking Of You Styles */
+.tpl-just-thinking {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.thinking-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: #6366f1;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+}
+
+.thinking-polaroids-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.thinking-polaroid {
+  background: #fff;
+  padding: 10px 10px 24px 10px;
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.1);
+  border-radius: 4px;
+  max-width: 220px;
+}
+
+.thinking-polaroid img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.thinking-caption {
+  display: block;
+  font-size: 0.8rem;
+  color: #4f46e5;
+  font-style: italic;
+  margin-top: 8px;
+}

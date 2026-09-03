@@ -1,0 +1,51 @@
+/* Graduation Template 5 - Future Begins Styles */
+.tpl-grad-future {
+  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+  border: 1px solid #ddd6fe;
+}
+
+.future-crest {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.future-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  color: #4c1d95;
+  margin-bottom: 0.5rem;
+}
+
+.future-tagline {
+  display: inline-block;
+  background: #7c3aed;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
+  margin-bottom: 1.5rem;
+}
+
+.future-portrait-wrap {
+  margin: 1.8rem auto;
+  max-width: 440px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.2);
+}
+
+.future-portrait-wrap img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.future-card-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid #e9d5ff;
+  margin-top: 2rem;
+}

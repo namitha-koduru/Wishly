@@ -1,0 +1,61 @@
+/* Just Because Template 1 - Just For You Styles */
+.tpl-just-minimal {
+  background: #fdfdfd;
+  border: 1px solid #f1f5f9;
+}
+
+.just-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: #a855f7;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+}
+
+.just-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 2.8rem);
+  color: #1e293b;
+  margin-bottom: 2rem;
+}
+
+.just-photo-circle {
+  margin: 1.5rem auto;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(168, 85, 247, 0.2);
+  border: 5px solid #fff;
+}
+
+.just-photo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.just-note-box {
+  max-width: 520px;
+  margin: 2rem auto 0;
+  background: #faf5ff;
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid #f3e8ff;
+}
+
+.just-text {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  line-height: 1.8;
+  font-style: italic;
+  color: #4a044e;
+  margin-bottom: 1rem;
+}
+
+.just-author {
+  font-size: 0.95rem;
+  color: #9333ea;
+  font-weight: 600;
+}

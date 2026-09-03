@@ -1,0 +1,72 @@
+/* Farewell Template 1 - Memory Wall Styles */
+.tpl-farewell-memory-wall {
+  background: #fdfbf7;
+  border: 1px solid #eadecb;
+}
+
+.farewell-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: #d97706;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+}
+
+.team-badge {
+  display: inline-block;
+  background: #fef3c7;
+  color: #b45309;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
+  margin-bottom: 1.5rem;
+}
+
+.farewell-polaroid-wall {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.polaroid-wall-item {
+  position: relative;
+  background: #fff;
+  padding: 12px 12px 28px 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  max-width: 220px;
+}
+
+.wall-tilt-1 { transform: rotate(-3deg); }
+.wall-tilt-2 { transform: rotate(2deg); }
+.wall-tilt-3 { transform: rotate(-1deg); }
+
+.washi-tape {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 20px;
+  background: rgba(251, 191, 36, 0.7);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.polaroid-wall-item img {
+  width: 190px;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.wall-caption {
+  display: block;
+  font-size: 0.8rem;
+  color: #78716c;
+  font-style: italic;
+  margin-top: 10px;
+}

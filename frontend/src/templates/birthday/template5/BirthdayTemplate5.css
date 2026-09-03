@@ -1,0 +1,66 @@
+/* Birthday Template 5 - Minimal Birthday Styles */
+.tpl-birthday-minimal {
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  color: #2c3e50;
+  padding: 3.5rem 2rem;
+}
+
+.minimal-tag {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  color: #95a5a6;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.minimal-name {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.minimal-date {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+}
+
+.minimal-portrait-wrap {
+  margin: 2rem auto;
+  max-width: 320px;
+}
+
+.minimal-portrait-wrap img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 4px;
+  filter: grayscale(15%);
+}
+
+.minimal-message-wrap {
+  max-width: 500px;
+  margin: 2rem auto 0;
+}
+
+.minimal-text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: #34495e;
+  font-style: italic;
+}
+
+.minimal-signature {
+  display: block;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #7f8c8d;
+  letter-spacing: 1px;
+}

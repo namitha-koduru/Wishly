@@ -1,0 +1,55 @@
+/* Just Because Template 4 - You Are Special Styles */
+.tpl-just-special {
+  background: #0f172a;
+  color: #fff;
+  border: 1px solid #1e293b;
+  padding: 3.5rem 2rem;
+}
+
+.special-big-text {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 700;
+  color: #f8fafc;
+  line-height: 1.3;
+  margin-bottom: 2rem;
+}
+
+.special-portrait-frame {
+  margin: 2rem auto;
+  max-width: 440px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.special-portrait-frame img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.special-card-box {
+  max-width: 520px;
+  margin: 2.5rem auto 0;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.special-quote-text {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.9;
+  font-style: italic;
+  color: #f1f5f9;
+  margin-bottom: 1.2rem;
+}
+
+.special-author {
+  display: block;
+  font-size: 1rem;
+  color: #a855f7;
+}

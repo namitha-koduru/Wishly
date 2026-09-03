@@ -1,0 +1,88 @@
+/* Birthday Template 2 - Sweet Celebration Styles */
+.tpl-birthday-memory-lane {
+  background: linear-gradient(135deg, #fff6f6 0%, #fff0f5 100%);
+  border: 1px dashed #ffb8b8;
+  position: relative;
+}
+
+.scrapbook-tape-top {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 24px;
+  background: rgba(255, 230, 150, 0.7);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.scrapbook-badge {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #ff6b81;
+  letter-spacing: 1px;
+  margin-bottom: 0.8rem;
+}
+
+.scrapbook-subtitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #e84118;
+  margin-bottom: 1.5rem;
+}
+
+.scrapbook-photo-stack {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.scrapbook-item {
+  position: relative;
+  background: #fff;
+  padding: 10px 10px 24px 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  max-width: 220px;
+}
+
+.item-tilt-1 { transform: rotate(-3deg); }
+.item-tilt-2 { transform: rotate(2deg); }
+.item-tilt-3 { transform: rotate(-1deg); }
+
+.scrapbook-tape-corner {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 50px;
+  height: 18px;
+  background: rgba(255, 204, 204, 0.8);
+  transform: rotate(-30deg);
+}
+
+.scrapbook-item img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.scrapbook-item-caption {
+  display: block;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #7f8c8d;
+  margin-top: 8px;
+}
+
+.scrapbook-note-card {
+  background: #fffdf9;
+  border-radius: 16px;
+  padding: 1.8rem;
+  border: 1px solid #fae1dd;
+  margin-top: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}

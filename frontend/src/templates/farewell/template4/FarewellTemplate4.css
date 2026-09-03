@@ -1,0 +1,36 @@
+/* Farewell Template 4 - Team Memories Styles */
+.tpl-farewell-team {
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+}
+
+.team-header-row {
+  margin-bottom: 2rem;
+}
+
+.team-icon {
+  font-size: 2.5rem;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.team-sub {
+  color: #ef4444;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-top: 0.3rem;
+}
+
+.team-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  margin: 1.8rem 0;
+}
+
+.team-photo-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}

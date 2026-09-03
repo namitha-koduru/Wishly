@@ -1,0 +1,34 @@
+/* Valentine's Template 3 - Our Story Styles */
+.tpl-val-story {
+  background: #fff8f8;
+  border: 1px solid #fecdd3;
+}
+
+.val-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: #e11d48;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+}
+
+.val-story-frame {
+  margin: 1.5rem auto;
+  max-width: 440px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(225, 29, 72, 0.2);
+}
+
+.val-story-frame img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+.val-timeline-section {
+  margin-top: 2rem;
+  text-align: left;
+}

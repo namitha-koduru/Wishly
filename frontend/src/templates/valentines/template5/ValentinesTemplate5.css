@@ -1,0 +1,60 @@
+/* Valentine's Template 5 - Forever Valentine Styles */
+.tpl-val-forever {
+  background: #09090b;
+  color: #fff;
+  border: 1px solid #27272a;
+  padding: 3.5rem 2rem;
+}
+
+.val-forever-heart {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.val-forever-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 400;
+  color: #fafafa;
+  margin-bottom: 2rem;
+}
+
+.val-forever-portrait {
+  margin: 2rem auto;
+  max-width: 440px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(225, 29, 72, 0.25);
+  border: 1px solid rgba(225, 29, 72, 0.4);
+}
+
+.val-forever-portrait img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.val-forever-note {
+  max-width: 500px;
+  margin: 2.5rem auto 0;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.val-forever-text {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.9;
+  font-style: italic;
+  color: #f4f4f5;
+  margin-bottom: 1.2rem;
+}
+
+.val-forever-sig {
+  display: block;
+  font-size: 1rem;
+  color: #f43f5e;
+}

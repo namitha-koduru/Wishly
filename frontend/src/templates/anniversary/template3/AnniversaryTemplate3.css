@@ -1,0 +1,70 @@
+/* Anniversary Template 3 - Forever & Always Styles */
+.tpl-anniversary-forever {
+  background: #111116;
+  color: #fff;
+  border: 1px solid #d4af37;
+  padding: 3.5rem 2rem;
+}
+
+.forever-crest {
+  font-size: 2.8rem;
+  color: #d4af37;
+  margin-bottom: 0.8rem;
+}
+
+.forever-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 400;
+  color: #f5f6fa;
+  margin-bottom: 0.5rem;
+}
+
+.forever-date {
+  color: #d4af37;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+  margin-bottom: 2rem;
+}
+
+.forever-portrait-frame {
+  margin: 2rem auto;
+  max-width: 440px;
+  border: 2px solid #d4af37;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
+}
+
+.forever-portrait-frame img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+
+.forever-note-box {
+  max-width: 540px;
+  margin: 2.5rem auto 0;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.forever-text {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.9;
+  font-style: italic;
+  color: #f1f2f6;
+  margin-bottom: 1.2rem;
+}
+
+.forever-signature {
+  display: block;
+  font-size: 1rem;
+  color: #d4af37;
+  letter-spacing: 1px;
+}

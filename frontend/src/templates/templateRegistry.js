@@ -1,59 +1,52 @@
 // Template Registry - Centralized configuration for all 35 initial Wishly templates
-import {
-  BirthdayMemoriesTemplate,
-  SweetCelebrationTemplate,
-  PhotoStoryTemplate,
-  SurprisePartyTemplate,
-  MinimalBirthdayTemplate
-} from './birthday/BirthdayTemplates.jsx';
+// Birthday (5)
+import { BirthdayTemplate1 as BirthdayMemoriesTemplate } from './birthday/template1/BirthdayTemplate1.jsx';
+import { BirthdayTemplate2 as SweetCelebrationTemplate } from './birthday/template2/BirthdayTemplate2.jsx';
+import { BirthdayTemplate3 as PhotoStoryTemplate } from './birthday/template3/BirthdayTemplate3.jsx';
+import { BirthdayTemplate4 as SurprisePartyTemplate } from './birthday/template4/BirthdayTemplate4.jsx';
+import { BirthdayTemplate5 as MinimalBirthdayTemplate } from './birthday/template5/BirthdayTemplate5.jsx';
 
-import {
-  OurStoryTemplate,
-  ForeverAlwaysTemplate,
-  MemoryTimelineTemplate,
-  LoveLetterAnniversaryTemplate,
-  OurJourneyTemplate
-} from './anniversary/AnniversaryTemplates.jsx';
+// Anniversary (5)
+import { AnniversaryTemplate1 as OurStoryTemplate } from './anniversary/template1/AnniversaryTemplate1.jsx';
+import { AnniversaryTemplate2 as LoveLetterAnniversaryTemplate } from './anniversary/template2/AnniversaryTemplate2.jsx';
+import { AnniversaryTemplate3 as ForeverAlwaysTemplate } from './anniversary/template3/AnniversaryTemplate3.jsx';
+import { AnniversaryTemplate4 as MemoryTimelineTemplate } from './anniversary/template4/AnniversaryTemplate4.jsx';
+import { AnniversaryTemplate5 as OurJourneyTemplate } from './anniversary/template5/AnniversaryTemplate5.jsx';
 
-import {
-  ClassOf2026Template,
-  TheJourneyGradTemplate,
-  AchievementGradTemplate,
-  PhotoMemoriesGradTemplate,
-  FutureBeginsTemplate
-} from './graduation/GraduationTemplates.jsx';
+// Graduation (5)
+import { GraduationTemplate1 as ClassOf2026Template } from './graduation/template1/GraduationTemplate1.jsx';
+import { GraduationTemplate2 as TheJourneyGradTemplate } from './graduation/template2/GraduationTemplate2.jsx';
+import { GraduationTemplate3 as AchievementGradTemplate } from './graduation/template3/GraduationTemplate3.jsx';
+import { GraduationTemplate4 as PhotoMemoriesGradTemplate } from './graduation/template4/GraduationTemplate4.jsx';
+import { GraduationTemplate5 as FutureBeginsTemplate } from './graduation/template5/GraduationTemplate5.jsx';
 
-import {
-  GoodbyeMemoriesTemplate,
-  MemoryWallTemplate,
-  UntilWeMeetAgainTemplate,
-  TeamMemoriesTemplate,
-  GoodbyeLetterTemplate
-} from './farewell/FarewellTemplates.jsx';
+// Farewell (5)
+import { FarewellTemplate1 as MemoryWallTemplate } from './farewell/template1/FarewellTemplate1.jsx';
+import { FarewellTemplate2 as GoodbyeLetterTemplate } from './farewell/template2/FarewellTemplate2.jsx';
+import { FarewellTemplate3 as UntilWeMeetAgainTemplate } from './farewell/template3/FarewellTemplate3.jsx';
+import { FarewellTemplate4 as TeamMemoriesTemplate } from './farewell/template4/FarewellTemplate4.jsx';
+import { FarewellTemplate5 as GoodbyeMemoriesTemplate } from './farewell/template5/FarewellTemplate5.jsx';
 
-import {
-  LoveLetterValTemplate,
-  OurMomentsValTemplate,
-  ForeverValTemplate,
-  ReasonsILoveYouTemplate,
-  OurStoryValTemplate
-} from './valentines/ValentinesTemplates.jsx';
+// Valentine's (5)
+import { ValentinesTemplate1 as LoveLetterValTemplate } from './valentines/template1/ValentinesTemplate1.jsx';
+import { ValentinesTemplate2 as ReasonsILoveYouTemplate } from './valentines/template2/ValentinesTemplate2.jsx';
+import { ValentinesTemplate3 as OurStoryValTemplate } from './valentines/template3/ValentinesTemplate3.jsx';
+import { ValentinesTemplate4 as OurMomentsValTemplate } from './valentines/template4/ValentinesTemplate4.jsx';
+import { ValentinesTemplate5 as ForeverValTemplate } from './valentines/template5/ValentinesTemplate5.jsx';
 
-import {
-  YouDidItTemplate,
-  AchievementCelebrationTemplate,
-  ProudMomentTemplate,
-  SuccessStoryTemplate,
-  CelebrateCheerTemplate
-} from './congratulations/CongratulationsTemplates.jsx';
+// Congratulations (5)
+import { CongratulationsTemplate1 as YouDidItTemplate } from './congratulations/template1/CongratulationsTemplate1.jsx';
+import { CongratulationsTemplate2 as AchievementCelebrationTemplate } from './congratulations/template2/CongratulationsTemplate2.jsx';
+import { CongratulationsTemplate3 as ProudMomentTemplate } from './congratulations/template3/CongratulationsTemplate3.jsx';
+import { CongratulationsTemplate4 as CelebrateCheerTemplate } from './congratulations/template4/CongratulationsTemplate4.jsx';
+import { CongratulationsTemplate5 as SuccessStoryTemplate } from './congratulations/template5/CongratulationsTemplate5.jsx';
 
-import {
-  JustForYouTemplate,
-  ALittleNoteTemplate,
-  ThinkingOfYouTemplate,
-  YouAreSpecialTemplate,
-  FromMyHeartTemplate
-} from './justBecause/JustBecauseTemplates.jsx';
+// Just Because (5)
+import { JustBecauseTemplate1 as JustForYouTemplate } from './justBecause/template1/JustBecauseTemplate1.jsx';
+import { JustBecauseTemplate2 as ALittleNoteTemplate } from './justBecause/template2/JustBecauseTemplate2.jsx';
+import { JustBecauseTemplate3 as ThinkingOfYouTemplate } from './justBecause/template3/JustBecauseTemplate3.jsx';
+import { JustBecauseTemplate4 as YouAreSpecialTemplate } from './justBecause/template4/JustBecauseTemplate4.jsx';
+import { JustBecauseTemplate5 as FromMyHeartTemplate } from './justBecause/template5/JustBecauseTemplate5.jsx';
 
 export const TEMPLATES = [
   // ================= BIRTHDAY (5) =================
