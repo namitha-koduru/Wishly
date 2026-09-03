@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Happy Birthday Anu 🎂</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;600;700&family=Dancing+Script:wght@600;700&family=Lato:wght@300;400&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #2c1a0e;
+      font-family: 'Lato', sans-serif;
+    }
+
+    :root {
+      --gold: #d4a017;
+      --gold-light: #f0c842;
+      --gold-pale: #fdf0c0;
+      --brown-deep: #1a0d05;
+      --brown-warm: #7a4520;
+    }
+
+    #app {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* pages */
+    .page {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .85s cubic-bezier(.77, 0, .18, 1), opacity .85s;
+      will-change: transform, opacity;
+    }
+
+    .page.hidden {
+      transform: translateX(100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .page.exit-left {
+      transform: translateX(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .page.active {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* ══════════ PAGE 0 — COVER ══════════ */
+    #page-cover {
+      background: radial-gradient(ellipse at 30% 40%, #5c2e0a, #2c1a0e 50%, #1a0d05);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #page-cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c8895a' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .card-container {
+      width: min(380px, 90vw);
+      perspective: 1200px;
+    }
+
+    .card-face {
+      background: linear-gradient(145deg, #4a2508, #2c1a0e, #3d2010);
+      border-radius: 18px;
+      padding: 50px 36px 44px;
+      border: 1px solid rgba(212, 160, 23, .25);
+      box-shadow: 0 0 0 1px rgba(212, 160, 23, .1), 0 30px 80px rgba(0, 0, 0, .7), inset 0 1px 0 rgba(212, 160, 23, .2);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: cardReveal .9s cubic-bezier(.34, 1.56, .64, 1) both;
+    }
+
+    @keyframes cardReveal {
+      0% {
+        transform: scale(.85) rotateY(8deg);
+        opacity: 0
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1
+      }
+    }
+
+    .card-face::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      border: 1px solid rgba(212, 160, 23, .15);
+      border-radius: 12px;
+      pointer-events: none;
+    }
+
+    .card-face::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -60%;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(212, 160, 23, .08), transparent);
+      transform: skewX(-15deg);
+      animation: sheen 4s ease-in-out infinite;
+    }
+
+    @keyframes sheen {
+
+      0%,
+      100% {
+        left: -60%
+      }
+
+      50% {
+        left: 120%
+      }
+    }
+
+    .card-ornament {
+      font-size: .85rem;
+      letter-spacing: 8px;
+      color: rgba(212, 160, 23, .5);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      font-family: 'Cinzel', serif;
+    }
+
+    .card-rose {
+      font-size: 3rem;
+      display: block;
+      margin: 0 auto 18px;
+      animation: roseSway 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 12px rgba(212, 160, 23, .5));
+    }
+
+    @keyframes roseSway {
+
+      0%,
+      100% {
+        transform: rotate(-5deg) scale(1)
+      }
+
+      50% {
+        transform: rotate(5deg) scale(1.05)
+      }
+    }
+
+    .card-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.4rem, 5vw, 1.8rem);
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 3px;
+      line-height: 1.3;
+      text-shadow: 0 0 30px rgba(212, 160, 23, .6);
+    }
+
+    .card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(2.2rem, 8vw, 3rem);
+      color: var(--gold-pale);
+      margin: 8px 0;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 20px rgba(212, 160, 23, .4);
+    }
+
+    .card-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0;
+      justify-content: center;
+    }
+
+    .card-divider span {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212, 160, 23, .6), transparent);
+    }
+
+    .card-divider i {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .card-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: rgba(212, 160, 23, .6);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .tap-hint {
+      margin-top: 30px;
+      font-size: .78rem;
+      letter-spacing: 3px;
+      color: rgba(212, 160, 23, .35);
+      text-transform: uppercase;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: .35
+      }
+
+      50% {
+        opacity: .7
+      }
+    }
+
+    .corner {
+      position: absolute;
+      font-size: 1.2rem;
+      color: rgba(212, 160, 23, .35);
+    }
+
+    .corner.tl {
+      top: 22px;
+      left: 22px;
+    }
+
+    .corner.tr {
+      top: 22px;
+      right: 22px;
+      transform: scaleX(-1);
+    }
+
+    .corner.bl {
+      bottom: 22px;
+      left: 22px;
+      transform: scaleY(-1);
+    }
+
+    .corner.br {
+      bottom: 22px;
+      right: 22px;
+      transform: scale(-1);
+    }
+
+    /* ══════════ PAGE 1 — CAKE ══════════ */
+    #page-cake {
+      background: #000;
+      overflow: hidden;
+    }
+
+    .cake-page-inner {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 12px 16px;
+    }
+
+    #stars-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hb-badge {
+      position: relative;
+      z-index: 2;
+      font-family: 'Cinzel', serif;
+      font-size: .65rem;
+      letter-spacing: 8px;
+      color: rgba(212, 160, 23, .5);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .hb-title {
+      position: relative;
+      z-index: 2;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: clamp(1.6rem, 6vw, 3rem);
+      background: linear-gradient(135deg, #7a5200, #d4a017, #f0c842, #d4a017, #7a5200);
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 4px;
+      animation: gShimmer 4s linear infinite;
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    @keyframes gShimmer {
+      0% {
+        background-position: 0%
+      }
+
+      100% {
+        background-position: 300%
+      }
+    }
+
+    .hb-name {
+      position: relative;
+      z-index: 2;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.8rem, 7vw, 3.5rem);
+      color: var(--gold-pale);
+      text-shadow: 0 0 40px rgba(212, 160, 23, .8);
+      line-height: 1;
+      text-align: center;
+    }
+
+    .hb-age {
+      position: relative;
+      z-index: 2;
+      font-family: 'Cinzel', serif;
+      font-size: .75rem;
+      letter-spacing: 6px;
+      color: rgba(212, 160, 23, .4);
+      margin: 4px 0 12px;
+    }
+
+    /* BIG CAKE */
+    .cake-scene {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: cakeFloat 4s ease-in-out infinite;
+      cursor: pointer;
+    }
+
+    @keyframes cakeFloat {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-7px)
+      }
+    }
+
+    .cake-top-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* candle grid sits above top layer */
+    .candles-grid {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: grid;
+      grid-template-columns: repeat(23, 1fr);
+      gap: 2px 3px;
+      padding-bottom: 1px;
+      width: max-content;
+    }
+
+    .candle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .flame {
+      width: 7px;
+      height: 14px;
+      background: radial-gradient(ellipse at 50% 85%, #fffde7, #ffb300 35%, #e65100 72%, transparent);
+      border-radius: 50% 50% 30% 30%/60% 60% 40% 40%;
+      animation: flicker .35s ease-in-out infinite alternate;
+      box-shadow: 0 0 7px #ff9800, 0 0 16px #ff6600, 0 0 28px rgba(255, 140, 0, .3);
+      transition: opacity .5s, box-shadow .5s, background .5s;
+    }
+
+    .flame.out {
+      opacity: 0 !important;
+      box-shadow: none !important;
+      background: transparent !important;
+      animation: none !important;
+    }
+
+    @keyframes flicker {
+      0% {
+        transform: scaleX(1) scaleY(1) skewX(-2deg)
+      }
+
+      100% {
+        transform: scaleX(.82) scaleY(1.12) skewX(2deg)
+      }
+    }
+
+    .wick {
+      width: 2px;
+      height: 5px;
+      background: #555;
+      border-radius: 1px;
+    }
+
+    .candle-stick {
+      width: 6px;
+      height: 20px;
+      border-radius: 3px 3px 1px 1px;
+      box-shadow: inset 1px 0 0 rgba(255, 255, 255, .25);
+    }
+
+    .candle:nth-child(5n+1) .candle-stick {
+      background: linear-gradient(180deg, #ff80ab, #c2185b);
+    }
+
+    .candle:nth-child(5n+2) .candle-stick {
+      background: linear-gradient(180deg, #ffd54f, #e65100);
+    }
+
+    .candle:nth-child(5n+3) .candle-stick {
+      background: linear-gradient(180deg, #b39ddb, #311b92);
+    }
+
+    .candle:nth-child(5n+4) .candle-stick {
+      background: linear-gradient(180deg, #80cbc4, #00695c);
+    }
+
+    .candle:nth-child(5n) .candle-stick {
+      background: linear-gradient(180deg, #ef9a9a, #b71c1c);
+    }
+
+    .cake-top {
+      width: clamp(200px, 50vw, 290px);
+      height: clamp(46px, 7vw, 62px);
+      background: linear-gradient(180deg, #f8bbd0, #e91e63);
+      border-radius: 8px 8px 3px 3px;
+      position: relative;
+      box-shadow: 0 4px 18px rgba(233, 30, 99, .5);
+    }
+
+    .cake-top::before {
+      content: '';
+      position: absolute;
+      top: -9px;
+      left: -5px;
+      right: -5px;
+      height: 16px;
+      background: rgba(255, 255, 255, .75);
+      border-radius: 10px;
+      filter: blur(2px);
+    }
+
+    .cake-mid {
+      width: clamp(240px, 60vw, 340px);
+      height: clamp(50px, 8vw, 68px);
+      background: linear-gradient(180deg, #ce93d8, #7b1fa2);
+      border-radius: 4px;
+      position: relative;
+      box-shadow: 0 4px 18px rgba(123, 31, 162, .5);
+    }
+
+    .cake-mid::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: -5px;
+      right: -5px;
+      height: 14px;
+      background: rgba(255, 255, 255, .65);
+      border-radius: 8px;
+      filter: blur(2px);
+    }
+
+    .cake-bot {
+      width: clamp(280px, 70vw, 390px);
+      height: clamp(56px, 9vw, 76px);
+      background: linear-gradient(180deg, #ffcc80, #e65100);
+      border-radius: 4px 4px 12px 12px;
+      position: relative;
+      box-shadow: 0 6px 22px rgba(230, 81, 0, .5);
+    }
+
+    .cake-bot::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: -5px;
+      right: -5px;
+      height: 14px;
+      background: rgba(255, 255, 255, .65);
+      border-radius: 8px;
+      filter: blur(2px);
+    }
+
+    .cake-bot::after {
+      content: 'Happy Birthday Anu ♥';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(.65rem, 2.3vw, .95rem);
+      color: rgba(255, 255, 255, .8);
+      white-space: nowrap;
+    }
+
+    .cake-plate {
+      width: clamp(310px, 76vw, 420px);
+      height: 13px;
+      background: linear-gradient(180deg, #d4a017, #7a5200);
+      border-radius: 50%;
+      margin-top: 3px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .6);
+    }
+
+    .cake-hint {
+      font-size: .68rem;
+      letter-spacing: 3px;
+      color: rgba(212, 160, 23, .4);
+      text-transform: uppercase;
+      margin-top: 12px;
+      animation: pulse 2s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ══════════ PAGE 2 — PHOTOS ══════════ */
+    #page-photos {
+      background: linear-gradient(135deg, #1a0d05, #2c1a0e, #1a0d05);
+      align-items: flex-start;
+    }
+
+    .photos-inner {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 22px 16px 0;
+      overflow-y: auto;
+      height: 100vh;
+      scrollbar-width: none;
+    }
+
+    .photos-inner::-webkit-scrollbar {
+      display: none;
+    }
+
+    .sec-title {
+      font-family: 'Cinzel', serif;
+      font-size: .75rem;
+      letter-spacing: 8px;
+      color: rgba(212, 160, 23, .5);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .pgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .pcell {
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 1;
+      border: 1px solid rgba(212, 160, 23, .18);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .5);
+      background: linear-gradient(135deg, #3d2010, #2c1a0e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      cursor: pointer;
+      transition: transform .3s, box-shadow .3s;
+    }
+
+    .pcell:hover,
+    .pcell:active {
+      transform: scale(1.03);
+      box-shadow: 0 12px 34px rgba(212, 160, 23, .3);
+    }
+
+    .pcell.wide {
+      grid-column: span 2;
+      aspect-ratio: 2.2/1;
+    }
+
+    .pcell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .pph {
+      font-size: 1.8rem;
+      opacity: .28;
+    }
+
+    .ppt {
+      font-size: .6rem;
+      letter-spacing: 2px;
+      color: rgba(212, 160, 23, .28);
+      text-transform: uppercase;
+    }
+
+    .pcap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, .8));
+      padding: 18px 10px 8px;
+      font-family: 'Dancing Script', cursive;
+      font-size: .88rem;
+      color: rgba(212, 160, 23, .9);
+      text-align: center;
+      transform: translateY(100%);
+      transition: transform .3s;
+    }
+
+    .pcell:hover .pcap,
+    .pcell:active .pcap {
+      transform: translateY(0);
+    }
+
+    .gold-btn {
+      margin-top: 40px;
+      margin-bottom: 80px;
+      /* extra bottom space */
+      background: linear-gradient(135deg, var(--gold), var(--brown-warm));
+      color: var(--brown-deep);
+      border: none;
+      padding: 13px 38px;
+      border-radius: 999px;
+      font-family: 'Cinzel', serif;
+      font-size: .76rem;
+      letter-spacing: 4px;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(212, 160, 23, .35);
+      transition: transform .2s;
+      text-transform: uppercase;
+    }
+
+    .gold-btn:active {
+      transform: scale(.97);
+    }
+
+    /* ══════════ PAGE 3 — ENVELOPE ══════════ */
+    #page-envelope {
+      align-items: flex-start;
+      overflow: hidden;
+    }
+
+    .env-scene {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 34px 20px 0;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+
+    .env-scene::-webkit-scrollbar {
+      display: none;
+    }
+
+    .env-hint {
+      font-size: .68rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 16px;
+      animation: pulse 2s ease-in-out infinite;
+      font-family: 'Cinzel', serif;
+      color: rgba(200, 160, 120, .7);
+    }
+
+    .envelope-wrap {
+      position: relative;
+      width: min(295px, 80vw);
+      cursor: pointer;
+      margin-bottom: 22px;
+      flex-shrink: 0;
+    }
+
+    .env-body {
+      width: 100%;
+      padding-top: 65%;
+      background: #fff;
+      border-radius: 6px;
+      position: relative;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, .2);
+      border: 1px solid rgba(0, 0, 0, .05);
+      overflow: hidden;
+    }
+
+    .env-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 55%;
+      background: linear-gradient(160deg, #f5e6d3, #e8d0b8);
+      clip-path: polygon(0 0, 100% 0, 50% 65%);
+      transform-origin: top center;
+      transition: transform .85s cubic-bezier(.34, 1.1, .64, 1);
+      z-index: 3;
+    }
+
+    .env-flap.open {
+      transform: rotateX(-180deg);
+    }
+
+    .env-lf {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 52%;
+      height: 60%;
+      background: linear-gradient(135deg, #ede0d0, #d4c0aa);
+      clip-path: polygon(0 100%, 100% 100%, 0 0);
+    }
+
+    .env-rf {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 52%;
+      height: 60%;
+      background: linear-gradient(225deg, #ede0d0, #d4c0aa);
+      clip-path: polygon(100% 100%, 0 100%, 100% 0);
+    }
+
+    .env-cf {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: #fff;
+    }
+
+    .env-seal {
+      position: absolute;
+      bottom: calc(40% - 22px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 44px;
+      background: radial-gradient(circle, #b8860b, #8b6914);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      z-index: 4;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
+      transition: opacity .4s;
+    }
+
+    .env-seal.gone {
+      opacity: 0;
+    }
+
+    .letter {
+      width: min(295px, 80vw);
+      background: #fffdf8;
+      border-radius: 4px 4px 0 0;
+      padding: 34px 24px 42px;
+      box-shadow: 0 -4px 30px rgba(0, 0, 0, .1), 0 8px 30px rgba(0, 0, 0, .06);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 1.1s cubic-bezier(.34, 1.1, .64, 1), opacity .8s;
+      opacity: 0;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .letter.open {
+      max-height: 1100px;
+      opacity: 1;
+    }
+
+    .letter::before {
+      content: '';
+      position: absolute;
+      left: 36px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(220, 150, 150, .28);
+    }
+
+    .letter-lines {
+      background: repeating-linear-gradient(transparent, transparent 27px, rgba(180, 180, 220, .13) 28px);
+      padding-bottom: 10px;
+    }
+
+    .l-dear {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.45rem;
+      color: #b8860b;
+      margin-bottom: 16px;
+    }
+
+    .l-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.02rem;
+      line-height: 2;
+      color: #3a2010;
+    }
+
+    .l-body p {
+      margin-bottom: 14px;
+    }
+
+    .l-sig {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.25rem;
+      color: #b8860b;
+      text-align: right;
+      margin-top: 20px;
+    }
+
+    .continue-btn {
+      display: none;
+      margin: 18px auto 0;
+      background: linear-gradient(135deg, #e91e63, #ad1457);
+      color: #fff;
+      border: none;
+      padding: 13px 32px;
+      border-radius: 999px;
+      font-family: 'Cinzel', serif;
+      font-size: .72rem;
+      letter-spacing: 3px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(233, 30, 99, .35);
+      transition: transform .2s;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      margin-bottom: 50px;
+    }
+
+    .continue-btn.show {
+      display: block;
+    }
+
+    .continue-btn:active {
+      transform: scale(.97);
+    }
+
+    /* ══════════ PAGE 4 — TREE ══════════ */
+    #page-tree {
+      overflow-y: auto;
+      overflow-x: hidden;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 20px 50px;
+      background: linear-gradient(180deg, #fce4ec, #f8bbd0 55%, #f48fb1);
+    }
+
+    #page-tree::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tree-title {
+      font-family: 'Cinzel', serif;
+      font-size: .72rem;
+      letter-spacing: 6px;
+      color: rgba(100, 40, 60, .5);
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+
+    .tree-scene {
+      width: min(360px, 96vw);
+      height: min(390px, 54vh);
+      margin: 0 auto;
+      flex-shrink: 0;
+    }
+
+    #heart-tree {
+      width: 100%;
+      height: 100%;
+    }
+
+    .finale {
+      text-align: center;
+      margin-top: 10px;
+      flex-shrink: 0;
+    }
+
+    .f-hb {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: clamp(1.3rem, 5vw, 2.1rem);
+      background: linear-gradient(135deg, #ad1457, #e91e63, #f06292, #e91e63, #ad1457);
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gShimmer 4s linear infinite;
+      letter-spacing: 3px;
+    }
+
+    .f-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(2rem, 7vw, 3.2rem);
+      color: #880e4f;
+      text-shadow: 0 2px 16px rgba(136, 14, 79, .3);
+      line-height: 1;
+    }
+
+    .f-msg {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: .92rem;
+      color: rgba(100, 30, 60, .62);
+      margin-top: 8px;
+      line-height: 1.7;
+      max-width: 290px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .f-hearts {
+      font-size: 1.35rem;
+      letter-spacing: 6px;
+      margin-top: 12px;
+      animation: hb 1.4s ease-in-out infinite;
+    }
+
+    @keyframes hb {
+
+      0%,
+      100% {
+        transform: scale(1)
+      }
+
+      50% {
+        transform: scale(1.12)
+      }
+    }
+
+    /* popper */
+    #popper-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    #popper-canvas.on {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <canvas id="popper-canvas"></canvas>
+
+    <!-- PAGE 0 — COVER -->
+    <div class="page active" id="page-cover">
+      <div class="card-container" onclick="openCard()">
+        <div class="card-face">
+          <span class="corner tl">❧</span><span class="corner tr">❧</span>
+          <span class="corner bl">❧</span><span class="corner br">❧</span>
+          <p class="card-ornament">✦ A Special Greeting ✦</p>
+          <span class="card-rose">🌹</span>
+          <h2 class="card-title">Happy Birthday</h2>
+          <h1 class="card-name">Anu</h1>
+          <div class="card-divider"><span></span><i>✦</i><span></span></div>
+          <p class="card-sub">With Love &amp; Warmth</p>
+          <p class="tap-hint">✦ Tap to Open ✦</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 1 — CAKE -->
+    <div class="page hidden" id="page-cake">
+      <canvas id="stars-canvas"></canvas>
+      <div class="cake-page-inner">
+        <p class="hb-badge">✦ Today Is Your Day ✦</p>
+        <h2 class="hb-title">Happy Birthday</h2>
+        <h1 class="hb-name">Anu</h1>
+        <p class="hb-age">Twenty Three · २३</p>
+
+        <div class="cake-scene" id="cakeEl" onclick="blowCandle()">
+          <div class="cake-top-wrap">
+            <div class="candles-grid" id="candlesGrid"></div>
+            <div class="cake-top"></div>
+          </div>
+          <div class="cake-mid"></div>
+          <div class="cake-bot"></div>
+          <div class="cake-plate"></div>
+        </div>
+        <p class="cake-hint" id="cakeHint">✦ Tap cake to blow out candles ✦</p>
+      </div>
+    </div>
+
+    <!-- PAGE 2 — PHOTOS -->
+    <div class="page hidden" id="page-photos">
+      <div class="photos-inner">
+        <p class="sec-title">✦ Memories ✦</p>
+        <div class="pgrid">
+
+          <div class="pcell wide">
+            <img src="photo1.jpeg">
+            <div class="pcap">Our favourite moment 💕</div>
+          </div>
+
+          <div class="pcell">
+            <img src="photo2.jpeg">
+            <div class="pcap">Always smiling ✨</div>
+          </div>
+
+          <div class="pcell">
+            <img src="photo3.jpeg">
+            <div class="pcap">Pure joy 🌸</div>
+          </div>
+
+          <div class="pcell">
+            <img src="photo4.jpeg">
+            <div class="pcap">Shining bright 🌟</div>
+          </div>
+
+          <div class="pcell">
+            <img src="photo5.jpeg">
+            <div class="pcap">Precious 💛</div>
+          </div>
+
+          <div class="pcell wide">
+            <img src="photo6.jpeg">
+            <div class="pcap">The very best of us 🌺</div>
+          </div>
+
+        </div>
+        <button class="gold-btn" onclick="goTo('page-envelope')">Continue →</button>
+        <div style="height:28px;flex-shrink:0;"></div>
+      </div>
+    </div>
+
+    <!-- PAGE 3 — ENVELOPE -->
+    <div class="page hidden" id="page-envelope">
+      <div class="env-scene" id="envScene">
+        <p class="env-hint" id="envHint">✦ Tap the envelope to open ✦</p>
+        <div class="envelope-wrap" onclick="openEnv()">
+          <div class="env-body">
+            <div class="env-flap" id="envFlap"></div>
+            <div class="env-lf"></div>
+            <div class="env-rf"></div>
+            <div class="env-cf"></div>
+            <div class="env-seal" id="envSeal">🌹</div>
+          </div>
+        </div>
+        <div class="letter" id="letter">
+          <div class="letter-lines">
+            <p class="l-dear">Dear Anu,</p>
+            <div class="l-body">
+              <p>Today is a really special day — the day my amazing sister came into this world. And even though I’m the
+                younger one, I still feel so lucky that I get to call you my sister.</p>
+
+              <p>You’ve always been someone I look up to. The way you care for people, the way you handle things so
+                calmly, and the way you make everyone around you feel comfortable — it’s something really special.</p>
+
+              <p>Growing up with you has been one of the best parts of my life. Sometimes you guide me, sometimes you
+                scold me, but most of the time you just make everything feel better by being there.</p>
+
+              <p>Now that you’re stepping into 23, I just want you to know how proud I am of you. I hope life gives you
+                all the happiness, success, and love that you truly deserve.</p>
+
+              <p>No matter how big we grow, I’ll always be the little brother who looks up to his big sister.</p>
+
+              <p>Happy Birthday, Akka. I’m really lucky to have you. ❤️</p>
+
+            </div>
+            <div class="l-sig">With all my love ❤️</div>
+          </div>
+        </div>
+        <button class="continue-btn" id="continueBtn" onclick="goTo('page-tree')">✦ Continue ✦</button>
+        <div style="height:50px;flex-shrink:0;"></div>
+      </div>
+    </div>
+
+    <!-- PAGE 4 — TREE -->
+    <div class="page hidden" id="page-tree">
+      <p class="tree-title">✦ A Tree Full of Love ✦</p>
+      <div class="tree-scene">
+        <svg id="heart-tree" viewBox="0 0 360 390" xmlns="http://www.w3.org/2000/svg">
+          <!-- trunk -->
+          <rect x="167" y="258" width="26" height="100" rx="9" fill="#6d3a00" />
+          <rect x="173" y="268" width="5" height="80" rx="2" fill="rgba(255,255,255,.1)" />
+          <!-- main -->
+          <line x1="180" y1="268" x2="86" y2="198" stroke="#6d3a00" stroke-width="13" stroke-linecap="round" />
+          <line x1="180" y1="268" x2="274" y2="198" stroke="#6d3a00" stroke-width="13" stroke-linecap="round" />
+          <line x1="180" y1="258" x2="180" y2="172" stroke="#6d3a00" stroke-width="12" stroke-linecap="round" />
+          <!-- secondary -->
+          <line x1="86" y1="198" x2="40" y2="150" stroke="#6d3a00" stroke-width="9" stroke-linecap="round" />
+          <line x1="86" y1="198" x2="124" y2="148" stroke="#6d3a00" stroke-width="9" stroke-linecap="round" />
+          <line x1="274" y1="198" x2="320" y2="150" stroke="#6d3a00" stroke-width="9" stroke-linecap="round" />
+          <line x1="274" y1="198" x2="236" y2="148" stroke="#6d3a00" stroke-width="9" stroke-linecap="round" />
+          <line x1="180" y1="172" x2="144" y2="124" stroke="#6d3a00" stroke-width="8" stroke-linecap="round" />
+          <line x1="180" y1="172" x2="216" y2="124" stroke="#6d3a00" stroke-width="8" stroke-linecap="round" />
+          <line x1="180" y1="172" x2="180" y2="104" stroke="#6d3a00" stroke-width="8" stroke-linecap="round" />
+          <!-- tertiary -->
+          <line x1="40" y1="150" x2="14" y2="112" stroke="#6d3a00" stroke-width="6" stroke-linecap="round" />
+          <line x1="40" y1="150" x2="58" y2="110" stroke="#6d3a00" stroke-width="6" stroke-linecap="round" />
+          <line x1="124" y1="148" x2="104" y2="110" stroke="#6d3a00" stroke-width="6" stroke-linecap="round" />
+          <line x1="124" y1="148" x2="144" y2="112" stroke="#6d3a00" stroke-width="6" stroke-linecap="round" />
+          <line x1="320" y1="150" x2="342" y2="110" stroke="#6d3a00" stroke-width="6" stroke-linecap="round" />
+          <line x1="320" y1="150" x2="302" y2="110" stroke="#6d3a00" stroke-width="6" stroke-linecap="round" />
+          <line x1="236" y1="148" x2="218" y2="110" stroke="#6d3a00" stroke-width="6" stroke-linecap="round" />
+          <line x1="236" y1="148" x2="254" y2="112" stroke="#6d3a00" stroke-width="6" stroke-linecap="round" />
+          <line x1="144" y1="124" x2="126" y2="90" stroke="#6d3a00" stroke-width="5" stroke-linecap="round" />
+          <line x1="144" y1="124" x2="158" y2="88" stroke="#6d3a00" stroke-width="5" stroke-linecap="round" />
+          <line x1="216" y1="124" x2="234" y2="90" stroke="#6d3a00" stroke-width="5" stroke-linecap="round" />
+          <line x1="216" y1="124" x2="202" y2="88" stroke="#6d3a00" stroke-width="5" stroke-linecap="round" />
+          <line x1="180" y1="104" x2="163" y2="68" stroke="#6d3a00" stroke-width="5" stroke-linecap="round" />
+          <line x1="180" y1="104" x2="197" y2="68" stroke="#6d3a00" stroke-width="5" stroke-linecap="round" />
+          <line x1="180" y1="104" x2="180" y2="58" stroke="#6d3a00" stroke-width="4" stroke-linecap="round" />
+          <g id="heartSpots"></g>
+        </svg>
+      </div>
+      <div class="finale">
+        <h2 class="f-hb">Happy Birthday</h2>
+        <h1 class="f-name">Anu 🌸</h1>
+        <p class="f-msg">May your 23rd year be filled with everything your beautiful heart desires.</p>
+        <div class="f-hearts">💕 🌸 🌺 💕 🌸 🌺 💕</div>
+      </div>
+    </div>
+
+  </div>
+  <script>
+    // ── PAGE NAV ──
+    function goTo(id) {
+      document.querySelectorAll('.page').forEach(p => {
+        if (p.id === id) return;
+        if (!p.classList.contains('hidden')) {
+          p.classList.remove('active'); p.classList.add('exit-left');
+          setTimeout(() => { p.classList.add('hidden'); p.classList.remove('exit-left'); }, 900);
+        }
+      });
+      const to = document.getElementById(id);
+      to.classList.remove('hidden', 'exit-left');
+      setTimeout(() => to.classList.add('active'), 20);
+      if (id === 'page-cake') { candlesBlown = 0; initStars(); }
+      if (id === 'page-envelope') { initEnvPage(); }
+      if (id === 'page-tree') { initTree(); }
+    }
+
+    // ── COVER ──
+    function openCard() {
+      const c = document.querySelector('.card-face');
+      c.style.transition = 'all .48s cubic-bezier(.77,0,.18,1)';
+      c.style.transform = 'scale(.88) rotateY(-10deg)'; c.style.opacity = '0';
+      setTimeout(() => goTo('page-cake'), 420);
+    }
+
+    // ── STARS ──
+    let starRAF;
+    function initStars() {
+      if (starRAF) cancelAnimationFrame(starRAF);
+      const cv = document.getElementById('stars-canvas'), ctx = cv.getContext('2d');
+      cv.width = innerWidth; cv.height = innerHeight;
+      const s = Array.from({ length: 130 }, () => ({ x: Math.random() * cv.width, y: Math.random() * cv.height, r: Math.random() * 1.6 + .3, a: Math.random(), sp: .005 + Math.random() * .018 }));
+      function draw() {
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        s.forEach(p => { p.a += p.sp; if (p.a > 1) p.a = 0; ctx.save(); ctx.globalAlpha = Math.sin(p.a * Math.PI) * .85 + .1; ctx.fillStyle = p.r > 1.3 ? '#f0c842' : '#fff'; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill(); ctx.restore(); });
+        starRAF = requestAnimationFrame(draw);
+      }
+      draw(); buildCandles();
+    }
+
+    // ── CANDLES ──
+    const TOTAL = 23;
+    let candlesBlown = 0, litSet = new Set();
+    function buildCandles() {
+      const g = document.getElementById('candlesGrid'); g.innerHTML = ''; litSet.clear(); candlesBlown = 0;
+      for (let i = 0; i < TOTAL; i++) {
+        litSet.add(i);
+        g.innerHTML += `<div class="candle" id="cdl${i}"><div class="flame" id="f${i}"></div><div class="wick"></div><div class="candle-stick"></div></div>`;
+      }
+      document.getElementById('cakeHint').textContent = '✦ Tap cake to blow out candles ✦';
+    }
+    function blowCandle() {
+      if (!litSet.size) return;
+      const pool = [...litSet], pick = [], count = Math.min(5, pool.length);
+      while (pick.length < count) {
+        const r = Math.floor(Math.random() * pool.length);
+        if (!pick.includes(pool[r])) pick.push(pool.splice(r, 1)[0]);
+      }
+      pick.forEach(id => { document.getElementById('f' + id)?.classList.add('out'); litSet.delete(id); });
+      candlesBlown += pick.length;
+      const h = document.getElementById('cakeHint');
+      if (!litSet.size) {
+        h.textContent = '🎉 All blown! Happy Birthday Anu!';
+        setTimeout(() => { launchPoppers(); setTimeout(() => goTo('page-photos'), 1900); }, 450);
+      } else {
+        h.textContent = `✦ ${litSet.size} candle${litSet.size !== 1 ? 's' : ''} still glowing ✦`;
+      }
+    }
+
+    // ── POPPERS ──
+    const PCOL = ['#f0c842', '#e91e63', '#9c27b0', '#06d6a0', '#ff5722', '#fff', '#f48fb1', '#7c4dff', '#00bcd4'];
+    let PP = [];
+    function launchPoppers() {
+      const cv = document.getElementById('popper-canvas');
+      cv.width = innerWidth; cv.height = innerHeight; cv.classList.add('on');
+      const ctx = cv.getContext('2d'); PP = [];
+      [[.12, .8], [.3, .6], [.5, .5], [.7, .6], [.88, .8], [.22, .88], [.78, .88]].forEach(([fx, fy]) => burst(cv.width * fx, cv.height * fy));
+      function burst(x, y) { for (let i = 0; i < 80; i++) { const a = Math.random() * Math.PI * 2, sp = 4 + Math.random() * 9, t = Math.random() > .5 ? 'r' : 'c'; PP.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 7, life: .95, color: PCOL[Math.floor(Math.random() * PCOL.length)], t, w: 3 + Math.random() * 7, h: 2 + Math.random() * 5, r: 2 + Math.random() * 3, rot: Math.random() * Math.PI * 2, rv: (.02 + Math.random() * .09) * (Math.random() > .5 ? 1 : -1) }); } }
+      function run() {
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        PP.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += .11; p.vx *= .99; p.life -= .013; p.rot += p.rv; if (p.life <= 0) return; ctx.save(); ctx.globalAlpha = p.life; ctx.fillStyle = p.color; ctx.translate(p.x, p.y); ctx.rotate(p.rot); if (p.t === 'r') ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); else { ctx.beginPath(); ctx.arc(0, 0, p.r, 0, Math.PI * 2); ctx.fill(); } ctx.restore(); });
+        PP = PP.filter(p => p.life > 0);
+        if (PP.length) requestAnimationFrame(run);
+        else { cv.classList.remove('on'); ctx.clearRect(0, 0, cv.width, cv.height); }
+      }
+      requestAnimationFrame(run);
+    }
+
+    // ── ENVELOPE PAGE ──
+    let envOpen = false;
+    function initEnvPage() {
+      envOpen = false;
+      document.getElementById('envFlap').classList.remove('open');
+      document.getElementById('envSeal').classList.remove('gone');
+      document.getElementById('letter').classList.remove('open');
+      document.getElementById('continueBtn').classList.remove('show');
+      document.getElementById('envHint').textContent = '✦ Tap the envelope to open ✦';
+      const sc = document.getElementById('envScene'); sc.scrollTop = 0;
+      document.getElementById('page-envelope').style.background = 'rgb(10,5,2)';
+      sc.removeEventListener('scroll', onEnvScroll);
+      sc.addEventListener('scroll', onEnvScroll);
+    }
+    function openEnv() {
+      if (envOpen) return; envOpen = true;
+      document.getElementById('envFlap').classList.add('open');
+      document.getElementById('envSeal').classList.add('gone');
+      document.getElementById('envHint').textContent = '✦ Scroll down to read the letter ✦';
+      setTimeout(() => document.getElementById('letter').classList.add('open'), 780);
+    }
+
+    // scroll → black-to-pink bg; also show continue btn at bottom
+    function onEnvScroll() {
+      const sc = document.getElementById('envScene');
+      const ratio = Math.min(Math.max(sc.scrollTop / Math.max(sc.scrollHeight - sc.clientHeight, 1), 0), 1);
+      // black rgb(10,5,2) → pink rgb(244,143,177)
+      const r = Math.round(10 + 234 * ratio);
+      const g = Math.round(5 + 138 * ratio);
+      const b = Math.round(2 + 175 * ratio);
+      document.getElementById('page-envelope').style.background = `rgb(${r},${g},${b})`;
+      // tint letter paper white→blush
+      const ltr = document.getElementById('letter');
+      ltr.style.background = `rgb(255,${Math.round(253 - 53 * ratio)},${Math.round(248 - 78 * ratio)})`;
+      // hint text color
+      document.getElementById('envHint').style.color = ratio > .4 ? 'rgba(120,30,60,.6)' : 'rgba(200,160,120,.7)';
+      // show continue btn near bottom
+      if (ratio > .87 && envOpen) document.getElementById('continueBtn').classList.add('show');
+      else if (ratio < .7) document.getElementById('continueBtn').classList.remove('show');
+    }
+
+    // ── HEART TREE ──
+    const HS = [
+      // very tip
+      { x: 180, y: 50 }, { x: 168, y: 60 }, { x: 192, y: 60 },
+      // upper center cluster
+      { x: 174, y: 74 }, { x: 186, y: 74 }, { x: 164, y: 84 }, { x: 196, y: 84 }, { x: 178, y: 92 }, { x: 182, y: 92 },
+      // left mid-upper
+      { x: 130, y: 84 }, { x: 118, y: 96 }, { x: 144, y: 94 }, { x: 108, y: 108 },
+      // right mid-upper
+      { x: 230, y: 84 }, { x: 242, y: 96 }, { x: 216, y: 94 }, { x: 252, y: 108 },
+      // far left top
+      { x: 14, y: 100 }, { x: 30, y: 110 }, { x: 48, y: 120 }, { x: 65, y: 132 },
+      // far right top
+      { x: 346, y: 100 }, { x: 330, y: 110 }, { x: 312, y: 120 }, { x: 295, y: 132 },
+      // secondary left
+      { x: 82, y: 148 }, { x: 100, y: 162 }, { x: 118, y: 174 }, { x: 136, y: 186 },
+      // secondary right
+      { x: 278, y: 148 }, { x: 260, y: 162 }, { x: 242, y: 174 }, { x: 224, y: 186 },
+      // centre left
+      { x: 148, y: 134 }, { x: 158, y: 148 }, { x: 166, y: 162 },
+      // centre right
+      { x: 212, y: 134 }, { x: 202, y: 148 }, { x: 194, y: 162 },
+      // mid centre
+      { x: 172, y: 178 }, { x: 180, y: 188 }, { x: 188, y: 178 },
+      // lower spread
+      { x: 90, y: 200 }, { x: 108, y: 212 }, { x: 128, y: 222 }, { x: 150, y: 232 },
+      { x: 210, y: 232 }, { x: 232, y: 222 }, { x: 252, y: 212 }, { x: 270, y: 200 },
+      // trunk sides
+      { x: 156, y: 244 }, { x: 204, y: 244 }, { x: 162, y: 256 }, { x: 198, y: 256 },
+      // extra fill along branches
+      { x: 52, y: 142 }, { x: 72, y: 156 }, { x: 290, y: 142 }, { x: 308, y: 156 },
+      { x: 140, y: 108 }, { x: 220, y: 108 }, { x: 94, y: 180 }, { x: 266, y: 180 },
+    ];
+    const HC = ['#e91e63', '#f06292', '#ad1457', '#ff80ab', '#f48fb1', '#ff4081', '#c2185b', '#ff1744', '#ec407a', '#ff80ab'];
+    function hp(cx, cy, s) { return `M${cx} ${cy + s * .35}C${cx} ${cy + s * .25},${cx - s * .5} ${cy - s * .1},${cx - s * .5} ${cy - s * .2}C${cx - s * .5} ${cy - s * .5},${cx} ${cy - s * .4},${cx} ${cy - s * .1}C${cx} ${cy - s * .4},${cx + s * .5} ${cy - s * .5},${cx + s * .5} ${cy - s * .2}C${cx + s * .5} ${cy - s * .1},${cx} ${cy + s * .25},${cx} ${cy + s * .35}Z`; }
+    function initTree() {
+      const g = document.getElementById('heartSpots'); g.innerHTML = '';
+      const sh = [...HS].sort(() => Math.random() - .5);
+      sh.forEach((pt, i) => {
+        const color = HC[Math.floor(Math.random() * HC.length)];
+        const sz = 8 + Math.random() * 10;
+        const el = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        el.setAttribute('d', hp(pt.x, pt.y, sz));
+        el.setAttribute('fill', color);
+        el.setAttribute('opacity', '0');
+        el.style.transition = `opacity .38s ${i * 55}ms, transform .38s ${i * 55}ms`;
+        el.style.transformOrigin = `${pt.x}px ${pt.y}px`;
+        el.style.transform = 'scale(0)';
+        el.style.filter = 'drop-shadow(0 1px 2px rgba(0,0,0,.15))';
+        g.appendChild(el);
+        setTimeout(() => { el.setAttribute('opacity', '0.93'); el.style.transform = 'scale(1)'; }, 150 + i * 55);
+      });
+    }
+
+    window.addEventListener('resize', () => {
+      const pc = document.getElementById('popper-canvas'); pc.width = innerWidth; pc.height = innerHeight;
+      const sc = document.getElementById('stars-canvas'); if (sc) { sc.width = innerWidth; sc.height = innerHeight; }
+    });
+  </script>
+</body>
+
+</html>
