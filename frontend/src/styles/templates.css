@@ -14,6 +14,9 @@
   overflow: hidden;
   position: relative;
   text-align: center;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* 1. Birthday Memories */
@@ -35,11 +38,13 @@
 }
 
 .tpl-title {
-  font-size: 2.4rem;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
   font-weight: 800;
   color: #2d3436;
   margin-bottom: 0.5rem;
-  line-height: 1.2;
+  line-height: 1.25;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .tpl-date {
@@ -1359,8 +1364,9 @@
   .tpl-root {
     padding: 1.8rem 1.2rem;
   }
-  .tpl-title, .minimal-name, .forever-title, .grad-bold-title, .congrat-bold-title {
-    font-size: 1.8rem;
+  .tpl-title, .minimal-name, .forever-title, .grad-bold-title, .congrat-bold-title, .special-big-text {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    line-height: 1.25;
   }
   .yearbook-grid, .team-photos-grid, .story-photos-grid, .heart-scrapbook-grid, .thinking-polaroids-grid {
     grid-template-columns: 1fr;
@@ -1370,6 +1376,10 @@
   }
   .tpl-featured-photo, .minimal-portrait-wrap img, .forever-portrait-frame img {
     height: 200px;
+  }
+  .tpl-message-text, .minimal-text, .forever-text, .cinematic-text, .special-quote-text {
+    font-size: 1.02rem;
+    line-height: 1.6;
   }
 }
 

@@ -33,6 +33,7 @@ function AppLayout() {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/occasions" element={<Templates />} />
           <Route path="/templates" element={<Templates />} />
           <Route path="/templates/:occasion" element={<OccasionTemplates />} />
           <Route path="/templates/:templateId/preview" element={<TemplatePreview />} />
