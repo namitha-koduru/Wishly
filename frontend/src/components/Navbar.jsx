@@ -8,7 +8,7 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 15);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -46,8 +46,21 @@ export function Navbar() {
 
         {/* Actions */}
         <div className="header-actions">
+          {/* Subtle GitHub / Community Support Pill */}
+          <a
+            href="https://github.com/namitha-koduru/Wishly"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="github-star-pill"
+            aria-label="Star Wishly on GitHub"
+            title="Star Wishly on GitHub"
+          >
+            <span className="github-star-icon">⭐</span>
+            <span className="github-star-label">Star on GitHub</span>
+          </a>
+
           <Link to="/templates" className="btn btn-primary btn-sm cta-header">
-            Create Your Wish ✨
+            Create a Wish ✨
           </Link>
 
           {/* Mobile hamburger toggle */}
@@ -66,21 +79,47 @@ export function Navbar() {
       {mobileMenuOpen && (
         <div className="mobile-drawer" onClick={closeMenu}>
           <div className="mobile-drawer-content" onClick={(e) => e.stopPropagation()}>
-            <Link to="/" className={`mobile-nav-item ${isActive('/') ? 'active' : ''}`} onClick={closeMenu}>
-              Home
-            </Link>
-            <a href="/#occasions" className="mobile-nav-item" onClick={closeMenu}>
-              Occasions
-            </a>
-            <Link to="/templates" className={`mobile-nav-item ${isActive('/templates') ? 'active' : ''}`} onClick={closeMenu}>
-              Templates
-            </Link>
-            <a href="/#how-it-works" className="mobile-nav-item" onClick={closeMenu}>
-              How It Works
-            </a>
-            <div className="mobile-drawer-cta">
+            <div className="mobile-drawer-header">
+              <Link to="/" className="brand-logo" onClick={closeMenu}>
+                <span className="brand-sparkle">✦</span>
+                <span className="brand-text">Wishly</span>
+              </Link>
+              <button
+                className="mobile-drawer-close"
+                onClick={closeMenu}
+                aria-label="Close Navigation"
+              >
+                ✕
+              </button>
+            </div>
+
+            <nav className="mobile-drawer-nav">
+              <Link to="/" className={`mobile-nav-item ${isActive('/') ? 'active' : ''}`} onClick={closeMenu}>
+                Home
+              </Link>
+              <a href="/#occasions" className="mobile-nav-item" onClick={closeMenu}>
+                Occasions
+              </a>
+              <Link to="/templates" className={`mobile-nav-item ${isActive('/templates') ? 'active' : ''}`} onClick={closeMenu}>
+                Templates
+              </Link>
+              <a href="/#how-it-works" className="mobile-nav-item" onClick={closeMenu}>
+                How It Works
+              </a>
+            </nav>
+
+            <div className="mobile-drawer-footer">
+              <a
+                href="https://github.com/namitha-koduru/Wishly"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mobile-github-link"
+                onClick={closeMenu}
+              >
+                ⭐ Star on GitHub
+              </a>
               <Link to="/templates" className="btn btn-primary btn-block" onClick={closeMenu}>
-                Create Your Wish ✨
+                Create a Wish ✨
               </Link>
             </div>
           </div>

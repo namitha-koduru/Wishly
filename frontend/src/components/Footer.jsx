@@ -12,7 +12,7 @@ export function Footer() {
           </div>
           <p className="footer-tagline">Wishes, made personal.</p>
           <p className="footer-desc">
-            The internet's little way of saying I care. Create beautiful personalized websites for every milestone, celebration, and cherished memory.
+            The internet's little way of saying I care. Create beautiful, shareable keepsake websites for every milestone, celebration, and heartfelt human moment.
           </p>
         </div>
 
@@ -20,7 +20,7 @@ export function Footer() {
           <h4>Explore</h4>
           <ul>
             <li><a href="/#occasions">Occasions</a></li>
-            <li><Link to="/templates">Templates</Link></li>
+            <li><Link to="/templates">All 35 Templates</Link></li>
             <li><a href="/#how-it-works">How It Works</a></li>
           </ul>
         </div>
@@ -36,11 +36,19 @@ export function Footer() {
         </div>
 
         <div className="footer-links-col">
-          <h4>Company</h4>
+          <h4>Community</h4>
           <ul>
+            <li>
+              <a
+                href="https://github.com/namitha-koduru/Wishly"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ⭐ Star on GitHub
+              </a>
+            </li>
+            <li><Link to="/templates">Create a Wish</Link></li>
             <li><a href="#about" onClick={(e) => e.preventDefault()}>About Wishly</a></li>
-            <li><a href="#privacy" onClick={(e) => e.preventDefault()}>Privacy Policy</a></li>
-            <li><a href="#terms" onClick={(e) => e.preventDefault()}>Terms of Service</a></li>
           </ul>
         </div>
       </div>
