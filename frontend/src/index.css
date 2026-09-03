@@ -1,9 +1,10 @@
 /* =========================================================
-   Wishly Editorial Design System
+   WISHLY — GLOBAL DESIGN SYSTEM
    "Wishes, made personal."
+   An editorial, luxury creative publishing platform.
    ========================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 @import './styles/templates.css';
 @import './styles/components.css';
@@ -15,63 +16,64 @@
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-accent: 'Cinzel', serif;
 
-  /* Global Color Palette: Warm Neutral Foundation with Refined Accents */
-  --wishly-bg: #FAF8F5;
+  /* Master Palette: Warm Editorial Neutral Foundation with Parisian Accents */
+  --wishly-canvas: #F9F7F4;
   --wishly-surface: #FFFFFF;
-  --wishly-surface-soft: #F5EFEB;
-  --wishly-surface-subtle: #ECE6DC;
+  --wishly-surface-warm: #F3EFE8;
+  --wishly-surface-subtle: #EAE4D8;
   
-  --wishly-text: #181513;
-  --wishly-text-secondary: #58534C;
-  --wishly-text-muted: #8C867E;
+  --wishly-ink: #141210;
+  --wishly-ink-secondary: #56514A;
+  --wishly-ink-muted: #8A847B;
 
-  /* Restrained Rose-Berry & Warm Gold Accents */
-  --wishly-accent: #D44458;
-  --wishly-accent-hover: #B83446;
-  --wishly-accent-soft: rgba(212, 68, 88, 0.08);
-  --wishly-accent-subtle: rgba(212, 68, 88, 0.14);
+  /* Restrained Accents */
+  --wishly-accent: #C23B4E;
+  --wishly-accent-hover: #A62D3E;
+  --wishly-accent-soft: rgba(194, 59, 78, 0.07);
+  --wishly-accent-subtle: rgba(194, 59, 78, 0.14);
   
-  --wishly-gold: #C59328;
-  --wishly-gold-soft: rgba(197, 147, 40, 0.12);
-  --wishly-gold-light: #F4D068;
+  --wishly-gold: #B8860B;
+  --wishly-gold-soft: rgba(184, 134, 11, 0.09);
+  --wishly-gold-light: #F0D078;
 
   /* Functional Status */
-  --wishly-success: #15803D;
-  --wishly-success-soft: rgba(21, 128, 61, 0.08);
-  --wishly-danger: #DC2626;
+  --wishly-success: #276738;
+  --wishly-success-soft: rgba(39, 103, 56, 0.08);
+  --wishly-danger: #C02626;
 
-  /* Precise Borders */
-  --wishly-border: #E8E2D8;
-  --wishly-border-light: #F2ECE2;
-  --wishly-border-hover: #D5CCC0;
-  --wishly-border-focus: rgba(212, 68, 88, 0.45);
+  /* Architectural Hairline Borders */
+  --wishly-border: #E6E0D5;
+  --wishly-border-light: #F0ECE3;
+  --wishly-border-dark: #CBC3B5;
+  --wishly-border-focus: rgba(194, 59, 78, 0.4);
 
-  /* Sophisticated Diffused Shadows */
-  --wishly-shadow-xs: 0 1px 3px rgba(24, 21, 19, 0.04);
-  --wishly-shadow-sm: 0 4px 12px rgba(24, 21, 19, 0.05);
-  --wishly-shadow-md: 0 10px 28px rgba(24, 21, 19, 0.07), 0 2px 8px rgba(24, 21, 19, 0.03);
-  --wishly-shadow-lg: 0 20px 48px rgba(24, 21, 19, 0.09), 0 4px 14px rgba(24, 21, 19, 0.04);
-  --wishly-shadow-xl: 0 30px 70px rgba(24, 21, 19, 0.12);
+  /* Diffused Ambient Shadows (Non-muddy) */
+  --wishly-shadow-xs: 0 1px 3px rgba(20, 18, 16, 0.03);
+  --wishly-shadow-sm: 0 2px 8px rgba(20, 18, 16, 0.04);
+  --wishly-shadow-md: 0 8px 24px rgba(20, 18, 16, 0.06), 0 2px 6px rgba(20, 18, 16, 0.02);
+  --wishly-shadow-lg: 0 16px 42px rgba(20, 18, 16, 0.08), 0 4px 12px rgba(20, 18, 16, 0.03);
+  --wishly-shadow-xl: 0 28px 65px rgba(20, 18, 16, 0.11);
 
-  /* Radii */
+  /* Precise Structural Radii */
+  --wishly-radius-xs: 4px;
   --wishly-radius-sm: 8px;
-  --wishly-radius-md: 14px;
-  --wishly-radius-lg: 20px;
-  --wishly-radius-xl: 28px;
+  --wishly-radius-md: 12px;
+  --wishly-radius-lg: 18px;
+  --wishly-radius-xl: 24px;
   --wishly-radius-full: 9999px;
 
   /* Transitions */
-  --wishly-transition-fast: 160ms cubic-bezier(0.16, 1, 0.3, 1);
-  --wishly-transition: 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  --wishly-transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --wishly-transition: 250ms cubic-bezier(0.16, 1, 0.3, 1);
   --wishly-transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Backwards Compatibility Aliases */
-  --bg-cream: var(--wishly-bg);
+  /* Backwards Compatibility Token Aliases */
+  --bg-cream: var(--wishly-canvas);
   --bg-surface: var(--wishly-surface);
-  --bg-surface-soft: var(--wishly-surface-soft);
-  --text-primary: var(--wishly-text);
-  --text-secondary: var(--wishly-text-secondary);
-  --text-muted: var(--wishly-text-muted);
+  --bg-surface-soft: var(--wishly-surface-warm);
+  --text-primary: var(--wishly-ink);
+  --text-secondary: var(--wishly-ink-secondary);
+  --text-muted: var(--wishly-ink-muted);
   --primary-color: var(--wishly-accent);
   --primary-hover: var(--wishly-accent-hover);
   --accent-gold: var(--wishly-gold);
@@ -86,7 +88,10 @@
   --radius-xl: var(--wishly-radius-xl);
 }
 
-/* Reset & Base HTML */
+/* =========================================================
+   BASE RESET & TYPOGRAPHY FOUNDATIONS
+   ========================================================= */
+
 * {
   margin: 0;
   padding: 0;
@@ -100,16 +105,15 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--wishly-bg);
-  color: var(--wishly-text);
+  background-color: var(--wishly-canvas);
+  color: var(--wishly-ink);
   min-height: 100vh;
-  line-height: 1.65;
+  line-height: 1.62;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Base Link */
 a {
   color: inherit;
   text-decoration: none;
@@ -119,14 +123,14 @@ a {
 .container {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 0 1.75rem;
+  padding: 0 2rem;
 }
 
 .app-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: var(--wishly-bg);
+  background-color: var(--wishly-canvas);
 }
 
 .main-content {
@@ -134,7 +138,7 @@ a {
 }
 
 /* =========================================================
-   PLATFORM BUTTON SYSTEM
+   BUTTON SYSTEM
    ========================================================= */
 
 .btn {
@@ -144,7 +148,7 @@ a {
   gap: 0.55rem;
   font-family: var(--font-body);
   font-weight: 600;
-  border-radius: var(--wishly-radius-md);
+  border-radius: var(--wishly-radius-sm);
   text-decoration: none;
   cursor: pointer;
   transition: var(--wishly-transition);
@@ -160,12 +164,12 @@ a {
 }
 
 .btn:active {
-  transform: scale(0.98);
+  transform: scale(0.985);
 }
 
 .btn:disabled,
 .btn[aria-disabled="true"] {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: not-allowed;
   transform: none !important;
   box-shadow: none !important;
@@ -174,88 +178,88 @@ a {
 /* Sizes */
 .btn-sm {
   padding: 0.55rem 1.15rem;
-  font-size: 0.85rem;
-  border-radius: var(--wishly-radius-sm);
+  font-size: 0.84rem;
+  border-radius: var(--wishly-radius-xs);
 }
 
 .btn-md {
   padding: 0.8rem 1.75rem;
-  font-size: 0.95rem;
+  font-size: 0.94rem;
 }
 
 .btn-lg {
   padding: 0.95rem 2.25rem;
-  font-size: 1.05rem;
-  border-radius: var(--wishly-radius-md);
+  font-size: 1.02rem;
+  border-radius: var(--wishly-radius-sm);
 }
 
 .btn-block {
   width: 100%;
 }
 
-/* Button Variants */
+/* Variants */
 .btn-primary {
-  background-color: var(--wishly-accent);
+  background-color: var(--wishly-ink);
   color: #ffffff;
-  border-color: var(--wishly-accent);
-  box-shadow: 0 4px 14px rgba(212, 68, 88, 0.28);
+  border-color: var(--wishly-ink);
+  box-shadow: 0 3px 12px rgba(20, 18, 16, 0.18);
 }
 
 .btn-primary:hover {
+  background-color: var(--wishly-accent);
+  border-color: var(--wishly-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(194, 59, 78, 0.3);
+}
+
+.btn-accent {
+  background-color: var(--wishly-accent);
+  color: #ffffff;
+  border-color: var(--wishly-accent);
+  box-shadow: 0 3px 12px rgba(194, 59, 78, 0.25);
+}
+
+.btn-accent:hover {
   background-color: var(--wishly-accent-hover);
   border-color: var(--wishly-accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(212, 68, 88, 0.38);
+  box-shadow: 0 6px 20px rgba(194, 59, 78, 0.35);
 }
 
 .btn-secondary {
   background-color: var(--wishly-surface);
-  color: var(--wishly-text);
+  color: var(--wishly-ink);
   border-color: var(--wishly-border);
   box-shadow: var(--wishly-shadow-xs);
 }
 
 .btn-secondary:hover {
-  border-color: var(--wishly-border-hover);
-  background-color: var(--wishly-surface-soft);
+  border-color: var(--wishly-border-dark);
+  background-color: var(--wishly-surface-warm);
   transform: translateY(-2px);
   box-shadow: var(--wishly-shadow-sm);
 }
 
 .btn-outline {
   background-color: transparent;
-  color: var(--wishly-accent);
+  color: var(--wishly-ink);
   border-color: var(--wishly-border);
 }
 
 .btn-outline:hover {
-  background-color: var(--wishly-accent-soft);
-  border-color: var(--wishly-accent);
+  background-color: var(--wishly-surface);
+  border-color: var(--wishly-ink);
 }
 
 .btn-ghost {
   background-color: transparent;
-  color: var(--wishly-text-secondary);
+  color: var(--wishly-ink-secondary);
   border-color: transparent;
 }
 
 .btn-ghost:hover {
-  background-color: var(--wishly-surface-soft);
-  color: var(--wishly-text);
-}
-
-/* Subtle Pulse Glow */
-.pulse-glow {
-  animation: wishlyPulse 3s infinite ease-in-out;
-}
-
-@keyframes wishlyPulse {
-  0%, 100% {
-    box-shadow: 0 4px 14px rgba(212, 68, 88, 0.28);
-  }
-  50% {
-    box-shadow: 0 8px 28px rgba(212, 68, 88, 0.45);
-  }
+  background-color: var(--wishly-surface-warm);
+  color: var(--wishly-ink);
 }
 
 /* =========================================================
@@ -263,7 +267,7 @@ a {
    ========================================================= */
 
 .section-heading {
-  margin-bottom: 3.2rem;
+  margin-bottom: 3.5rem;
 }
 
 .text-center {
@@ -274,7 +278,8 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.74rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 2px;
   color: var(--wishly-accent);
@@ -288,10 +293,10 @@ a {
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 5vw, 3.2rem);
-  font-weight: 700;
-  color: var(--wishly-text);
+  font-weight: 600;
+  color: var(--wishly-ink);
   letter-spacing: -0.5px;
-  line-height: 1.18;
+  line-height: 1.16;
 }
 
 .section-title em {
@@ -301,15 +306,15 @@ a {
 }
 
 .section-subtitle {
-  font-size: clamp(1rem, 2.5vw, 1.15rem);
-  color: var(--wishly-text-secondary);
-  max-width: 620px;
+  font-size: clamp(0.98rem, 2.2vw, 1.12rem);
+  color: var(--wishly-ink-secondary);
+  max-width: 600px;
   margin: 0.9rem auto 0;
   line-height: 1.65;
 }
 
 /* =========================================================
-   ANIMATION & TRANSITION UTILITIES
+   ANIMATION & UTILITY CLASSES
    ========================================================= */
 
 .animate-fade-in {

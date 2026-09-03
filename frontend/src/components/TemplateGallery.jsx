@@ -20,15 +20,17 @@ export function TemplateGallery({ initialOccasion = 'all' }) {
 
   return (
     <div className="template-gallery-wrapper">
-      {/* Category Filter Tabs */}
-      <div className="gallery-filters-container">
-        <div className="gallery-filter-tabs">
+      {/* Category Filter Tabs & Search */}
+      <div className="gallery-toolbar">
+        <div className="gallery-filter-tabs" role="tablist">
           <button
             type="button"
             className={`filter-tab ${selectedOccasion === 'all' ? 'active' : ''}`}
             onClick={() => setSelectedOccasion('all')}
+            role="tab"
+            aria-selected={selectedOccasion === 'all'}
           >
-            ✨ All ({TEMPLATES.length})
+            All Designs ({TEMPLATES.length})
           </button>
           {OCCASIONS.map((occ) => {
             const count = getTemplatesByOccasion(occ.id).length;
@@ -38,21 +40,24 @@ export function TemplateGallery({ initialOccasion = 'all' }) {
                 type="button"
                 className={`filter-tab ${selectedOccasion === occ.id ? 'active' : ''}`}
                 onClick={() => setSelectedOccasion(occ.id)}
+                role="tab"
+                aria-selected={selectedOccasion === occ.id}
               >
-                {occ.icon} {occ.name} ({count})
+                {occ.name} ({count})
               </button>
             );
           })}
         </div>
 
         {/* Search Bar */}
-        <div className="gallery-search">
+        <div className="gallery-search-box">
           <input
             type="text"
-            placeholder="Search templates (e.g. Polaroid, Memory, Letter)..."
+            placeholder="Search 35 designs (e.g. Polaroid, Letter, Timeline)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="search-input"
+            aria-label="Search templates"
           />
         </div>
       </div>
@@ -70,12 +75,12 @@ export function TemplateGallery({ initialOccasion = 'all' }) {
         </div>
       ) : (
         <div className="empty-gallery">
-          <p className="empty-emoji">🔍</p>
-          <h3>No templates found</h3>
-          <p>Try clearing your search query or selecting a different occasion tab.</p>
+          <p className="empty-icon">🔍</p>
+          <h3 className="empty-title">No matching designs found</h3>
+          <p className="empty-desc">Try resetting your search query or selecting a different occasion tab.</p>
           <button
             type="button"
-            className="btn btn-outline btn-sm"
+            className="btn btn-secondary btn-sm"
             onClick={() => {
               setSelectedOccasion('all');
               setSearchQuery('');
@@ -98,15 +103,16 @@ export function TemplateGallery({ initialOccasion = 'all' }) {
               <div className="preview-modal-actions">
                 <Link
                   to={`/customize/${previewTemplate.id}`}
-                  className="btn btn-primary btn-sm"
+                  className="btn btn-accent btn-sm"
                   onClick={() => setPreviewTemplate(null)}
                 >
-                  Use This Template ✨
+                  Use This Design →
                 </Link>
                 <button
                   type="button"
                   className="modal-close-btn"
                   onClick={() => setPreviewTemplate(null)}
+                  aria-label="Close Preview"
                 >
                   ✕
                 </button>
@@ -114,7 +120,6 @@ export function TemplateGallery({ initialOccasion = 'all' }) {
             </div>
 
             <div className="preview-modal-body">
-              {/* Render the actual template component with its default rich demo data */}
               {React.createElement(previewTemplate.component, {
                 data: previewTemplate.defaultData
               })}

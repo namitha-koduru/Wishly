@@ -5,48 +5,60 @@ export function EmotionalSection() {
   return (
     <section className="emotional-section">
       <div className="container emotional-container">
+        {/* Left Editorial Narrative */}
         <div className="emotional-content">
-          <span className="section-tag">WISHES WITH MEANING</span>
+          <span className="section-tag">THE EMOTIONAL DIFFERENCE</span>
           <h2 className="emotional-title">
-            Because sometimes,<br />
-            <em>a message isn't enough.</em>
+            Because a disposable text message<br />
+            <em>was never meant for your biggest feelings.</em>
           </h2>
           <p className="emotional-desc">
-            Text messages get lost in the scroll. Social posts disappear. Wishly turns your memories, photos, and heartfelt words into a dedicated personal webpage they can open, smile at, and treasure forever.
+            Chat messages get buried in notification feeds. Social media posts fade in hours. Wishly creates a permanent, dedicated space on the web — crafted with your words, your photos, and your shared history.
           </p>
-          <div className="emotional-quote-box">
+          
+          <div className="emotional-quote-card">
             <p className="quote-text">
-              "When I opened the link, I cried happy tears. It wasn't just a birthday wish — it felt like someone bottled up all our best memories."
+              "Opening the link felt like receiving a physical handwritten letter from across the world. It was the most thoughtful surprise anyone had ever made for me."
             </p>
-            <span className="quote-author">— Ananya, Recipient</span>
+            <div className="quote-author-row">
+              <span className="quote-author-name">Ananya K.</span>
+              <span className="quote-author-role">Recipient • 21st Birthday Keepsake</span>
+            </div>
           </div>
-          <Link to="/templates" className="btn btn-primary btn-md">
-            Start Your Wishly ✨
-          </Link>
+
+          <div className="emotional-cta-wrap">
+            <Link to="/templates" className="btn btn-primary btn-md">
+              Create a Keepsake →
+            </Link>
+          </div>
         </div>
 
-        {/* Editorial Scrapbook Composition */}
-        <div className="emotional-visual-stack" aria-hidden="true">
-          <div className="scrapbook-card card-top">
-            <div className="scrapbook-tape"></div>
-            <img
-              src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&auto=format&fit=crop&q=80"
-              alt="Romantic memories"
-            />
-            <span className="scrapbook-caption">"5 years & thousands of laughs ✨"</span>
+        {/* Right Photographic Monograph Composition */}
+        <div className="emotional-monograph" aria-hidden="true">
+          <div className="monograph-card card-primary">
+            <div className="monograph-photo-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&auto=format&fit=crop&q=80"
+                alt="Romantic memory keepsake"
+              />
+            </div>
+            <div className="monograph-caption">
+              <span className="monograph-tag">ANNIVERSARY CHAPTER</span>
+              <p className="monograph-note">"Five years of laughing at the same silly jokes."</p>
+            </div>
           </div>
 
-          <div className="scrapbook-card card-bottom">
-            <div className="scrapbook-tape"></div>
-            <img
-              src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&auto=format&fit=crop&q=80"
-              alt="Graduation smiles"
-            />
-            <span className="scrapbook-caption">"Class of 2026 • Proud of you! 🎓"</span>
-          </div>
-
-          <div className="floating-love-pill">
-            <span>💌 Made just for you</span>
+          <div className="monograph-card card-secondary">
+            <div className="monograph-photo-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&auto=format&fit=crop&q=80"
+                alt="Graduation celebration"
+              />
+            </div>
+            <div className="monograph-caption">
+              <span className="monograph-tag">HONORS & MILESTONES</span>
+              <p className="monograph-note">"Class of 2026 • Proud of everything you built."</p>
+            </div>
           </div>
         </div>
       </div>

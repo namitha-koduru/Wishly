@@ -3,25 +3,19 @@ import React from 'react';
 export function HowItWorks() {
   const steps = [
     {
-      step: '01',
-      title: 'Choose your occasion',
-      desc: 'Pick from 7 occasions — Birthday, Anniversary, Graduation, Farewell, Valentine’s, Congratulations, or Just Because.',
-      icon: '✨',
-      color: '#E05368'
+      num: '01',
+      title: 'Select the mood',
+      desc: 'Choose from 7 occasions and 35 distinct designs — ranging from intimate wax-seal love letters to vibrant photo albums and milestones.'
     },
     {
-      step: '02',
-      title: 'Make it yours',
-      desc: 'Add their name, upload memorable photos, and craft your heartfelt note. Watch the live preview update in real time.',
-      icon: '✍️',
-      color: '#8E44AD'
+      num: '02',
+      title: 'Compose from memory',
+      desc: 'Add their name, write your personal message, and upload up to six cherished photos. Customize special timeline moments in real-time.'
     },
     {
-      step: '03',
-      title: 'Send the link',
-      desc: 'Generate your unique Wishly link and send it. The recipient opens an emotional digital keepsake instantly without logging in.',
-      icon: '💌',
-      color: '#27AE60'
+      num: '03',
+      title: 'Deliver the keepsake',
+      desc: 'Wishly instantly generates a unique link. When your recipient opens it on mobile or desktop, it unfolds like a bespoke digital gift.'
     }
   ];
 
@@ -29,28 +23,27 @@ export function HowItWorks() {
     <section className="how-it-works-section" id="how-it-works">
       <div className="container">
         <div className="section-heading text-center">
-          <span className="section-tag">HOW IT WORKS</span>
-          <h2 className="section-title">Three little steps.<br />One unforgettable surprise.</h2>
+          <span className="section-tag">THE PROCESS</span>
+          <h2 className="section-title">
+            Crafted in minutes.<br />
+            <em>Remembered for years.</em>
+          </h2>
           <p className="section-subtitle">
-            Crafting a meaningful personalized digital keepsake takes less than two minutes.
+            A simple three-step journey to create an unforgettable personal webpage for someone who matters.
           </p>
         </div>
 
-        {/* Visual 3-step connected journey */}
-        <div className="steps-journey-container">
-          <div className="steps-connector-line" aria-hidden="true"></div>
-          <div className="steps-grid steps-grid-3">
-            {steps.map((item, index) => (
-              <div key={index} className="step-card" style={{ '--step-color': item.color }}>
-                <div className="step-number-badge">{item.step}</div>
-                <div className="step-icon-wrapper" style={{ backgroundColor: `${item.color}14` }}>
-                  <span className="step-icon">{item.icon}</span>
-                </div>
-                <h3 className="step-title">{item.title}</h3>
-                <p className="step-desc">{item.desc}</p>
+        <div className="process-grid">
+          {steps.map((item, index) => (
+            <div key={index} className="process-col">
+              <div className="process-num-row">
+                <span className="process-num">{item.num}</span>
+                <span className="process-line"></span>
               </div>
-            ))}
-          </div>
+              <h3 className="process-title">{item.title}</h3>
+              <p className="process-desc">{item.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -2,32 +2,26 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export function OccasionCard({ occasion }) {
-  const { id, name, icon, tagline, description, hoverPreview, color, bgLight, featuredBadge } = occasion;
+  const { id, name, icon, tagline, description, hoverPreview, color } = occasion;
 
   return (
     <Link to={`/templates/${id}`} className="occasion-card" style={{ '--card-accent': color }}>
-      <div className="occasion-card-inner" style={{ background: bgLight || '#FAF7F2' }}>
-        <div className="occasion-top">
+      <div className="occasion-card-inner">
+        <div className="occasion-card-header">
           <span className="occasion-icon">{icon}</span>
-          {featuredBadge && (
-            <span className="occasion-badge" style={{ backgroundColor: color }}>
-              {featuredBadge}
-            </span>
-          )}
+          <span className="occasion-card-index">05 Designs</span>
         </div>
 
         <h3 className="occasion-name">{name}</h3>
         <p className="occasion-tagline">{tagline}</p>
         <p className="occasion-desc">{description}</p>
 
-        {/* Interactive Hover Website Preview Snippet */}
-        <div className="occasion-hover-preview">
-          <span className="preview-label">Live Preview Style:</span>
-          <span className="preview-text">{hoverPreview || `Personalized ${name} Keepsake`}</span>
-        </div>
-
-        <div className="occasion-action">
-          <span className="occasion-link-text">Browse 5 Designs →</span>
+        <div className="occasion-card-footer">
+          <div className="occasion-preview-tag">
+            <span className="preview-label">Tone:</span>
+            <span className="preview-text">{hoverPreview || `Personalized ${name}`}</span>
+          </div>
+          <span className="occasion-arrow">→</span>
         </div>
       </div>
     </Link>
