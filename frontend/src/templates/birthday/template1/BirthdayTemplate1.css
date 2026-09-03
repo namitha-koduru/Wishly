@@ -1,0 +1,65 @@
+/* Birthday Template 1 - Birthday Memories Styles */
+.tpl-birthday-celebration {
+  background: linear-gradient(145deg, #ffffff 0%, #fff5f7 100%);
+  border: 1px solid #ffe3ea;
+}
+
+.tpl-birthday-celebration .tpl-hero-badge {
+  display: inline-block;
+  background: #ff5e7e;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.tpl-birthday-celebration .tpl-age-pill {
+  display: inline-block;
+  background: #ffe3ea;
+  color: #d63031;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.25rem 0.8rem;
+  border-radius: 20px;
+  margin-bottom: 0.5rem;
+}
+
+.tpl-birthday-celebration .tpl-date {
+  color: #ff5e7e;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.tpl-birthday-celebration .tpl-photo-hero-wrapper {
+  margin: 1.5rem auto;
+  position: relative;
+  display: inline-block;
+}
+
+.tpl-birthday-celebration .tpl-featured-photo-frame {
+  position: relative;
+  border-radius: 20px;
+  padding: 8px;
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(255, 94, 126, 0.2);
+}
+
+.tpl-birthday-celebration .tpl-featured-photo {
+  width: 100%;
+  max-width: 480px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+
+.tpl-birthday-celebration .tpl-photo-sparkle {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  font-size: 1.8rem;
+}
