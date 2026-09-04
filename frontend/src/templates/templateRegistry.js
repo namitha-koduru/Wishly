@@ -455,18 +455,26 @@ export const TEMPLATES = [
   {
     id: 'love-letter-val',
     occasion: 'valentines',
-    name: 'Love Letter',
-    description: 'Passionate digital love letter sealed with hearts and sweet devotion.',
-    badge: 'Sweet',
-    previewColor: '#EB5757',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'date'],
+    name: 'Interactive Love Story',
+    description: 'Playful 5-chapter interactive love story with polaroid memories, mischievous YES/NO question, and romantic proposal.',
+    badge: 'Interactive ❤️',
+    previewColor: '#E05368',
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'date', 'timeline'],
     defaultData: {
-      recipientName: 'My Valentine',
-      senderName: 'Yours Always',
+      recipientName: 'Aria',
+      senderName: 'With all my heart, Daniel',
       message: 'You make every normal moment feel magical. You have my whole heart today, tomorrow, and for all the days to come.',
-      date: "Valentine's Day",
+      date: "Valentine's Day 2026",
+      proposalHeadline: 'Will you be my Valentine? ❤️',
+      proposalSubtext: 'Today, tomorrow, and all the little moments in between.',
       photos: [
-        'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&auto=format&fit=crop&q=80'
+        'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&auto=format&fit=crop&q=80'
+      ],
+      timeline: [
+        { date: 'Chapter 01', title: 'The Spark', description: 'When you smiled, and everything changed forever.' },
+        { date: 'Chapter 02', title: 'The Laughter', description: 'From silly late night chats to cozy coffee mornings.' },
+        { date: 'Today & Beyond', title: 'Every Heartbeat', description: 'Falling for you a little more with every passing day.' }
       ]
     },
     component: LoveLetterValTemplate

@@ -1,76 +1,1548 @@
-/* Valentine's Template 1 - Love Letter Styles */
-.tpl-val-love-letter {
-  background: #fff5f5;
-  border: 1px solid #fed7d7;
-  padding: 3rem 1.8rem;
+/* ==========================================================================
+   Valentine's Day Template 1 — Interactive Love Story Design System
+   Modern, playful, charming, romantic, and beautifully polished.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --val-font-display: 'Playfair Display', Georgia, serif;
+  --val-font-script: 'Caveat', cursive, sans-serif;
+  --val-font-editorial: 'Cormorant Garamond', Georgia, serif;
+  --val-font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  --val-color-bg: #FAF7F2;
+  --val-color-bg-card: #FFFFFF;
+  --val-color-cream: #FFFDF9;
+  --val-color-wine: #8B1E3F;
+  --val-color-wine-dark: #63102A;
+  --val-color-rose: #E05368;
+  --val-color-rose-soft: #F98294;
+  --val-color-blush: #FCECEF;
+  --val-color-blush-light: #FFF5F7;
+  --val-color-gold: #C99355;
+  --val-color-text-main: #2D2424;
+  --val-color-text-muted: #6B5B5B;
+  --val-color-border: #F0DADE;
+
+  --val-shadow-soft: 0 10px 30px -5px rgba(139, 30, 63, 0.08);
+  --val-shadow-card: 0 20px 45px -10px rgba(139, 30, 63, 0.12);
+  --val-shadow-glow: 0 0 35px rgba(224, 83, 104, 0.35);
+  --val-radius-lg: 24px;
+  --val-radius-md: 16px;
+  --val-radius-sm: 10px;
 }
 
-.val-wax-seal {
-  width: 54px;
-  height: 54px;
-  background: #e53e3e;
-  color: #fff;
+/* Base Template Root */
+.val-template-root {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--val-color-bg);
+  color: var(--val-color-text-main);
+  font-family: var(--val-font-body);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  padding: 1.5rem 1rem 3rem;
+  user-select: none;
+}
+
+/* Ambient Canvas Background with organic glows */
+.val-bg-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.val-glow-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.55;
+  animation: valFloatGlow 18s ease-in-out infinite alternate;
+}
+
+.val-glow-blob.blob-1 {
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, #FCD5DC 0%, rgba(252, 213, 220, 0) 70%);
+  top: -100px;
+  left: -80px;
+}
+
+.val-glow-blob.blob-2 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, #FFE7D6 0%, rgba(255, 231, 214, 0) 70%);
+  bottom: -120px;
+  right: -100px;
+  animation-delay: -9s;
+}
+
+.val-glow-blob.blob-3 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, #FEE4E8 0%, rgba(254, 228, 232, 0) 70%);
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.val-paper-texture-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.025;
+  background-image: radial-gradient(#8B1E3F 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@keyframes valFloatGlow {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.08); }
+  100% { transform: translate(-20px, 25px) scale(0.95); }
+}
+
+/* Ambient Floating Small Particles */
+.val-ambient-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.val-particle {
+  position: absolute;
+  color: var(--val-color-rose);
+  opacity: 0.25;
+  font-size: 1.1rem;
+  animation: valParticleFloat 12s ease-in-out infinite;
+}
+
+.val-particle.p1 { top: 18%; left: 8%; animation-delay: 0s; font-size: 1.4rem; }
+.val-particle.p2 { top: 32%; right: 10%; animation-delay: 2.5s; font-size: 0.9rem; }
+.val-particle.p3 { bottom: 25%; left: 12%; animation-delay: 5s; font-size: 1.2rem; }
+.val-particle.p4 { top: 75%; right: 14%; animation-delay: 7s; font-size: 1.1rem; }
+.val-particle.p5 { top: 8%; right: 28%; animation-delay: 4s; font-size: 1.3rem; }
+
+@keyframes valParticleFloat {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.15; }
+  50% { transform: translateY(-25px) rotate(15deg); opacity: 0.4; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 0.15; }
+}
+
+/* ==========================================================================
+   Top Header Bar & Story Chapters Navigation
+   ========================================================================== */
+
+.val-top-bar {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 780px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(240, 218, 222, 0.8);
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 20px rgba(139, 30, 63, 0.05);
+}
+
+.val-chapter-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.val-chapter-nav::-webkit-scrollbar { display: none; }
+
+.val-chapter-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--val-color-text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.val-chapter-pill:hover {
+  color: var(--val-color-wine);
+  background: var(--val-color-blush-light);
+}
+
+.val-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #D4BFC4;
+  transition: all 0.25s ease;
+}
+
+.val-chapter-pill.active {
+  background: #FFFFFF;
+  color: var(--val-color-wine);
+  border-color: var(--val-color-border);
+  box-shadow: 0 2px 8px rgba(139, 30, 63, 0.08);
+}
+
+.val-chapter-pill.active .val-pill-dot {
+  background: var(--val-color-rose);
+  transform: scale(1.4);
+  box-shadow: 0 0 8px rgba(224, 83, 104, 0.6);
+}
+
+.val-chapter-pill.completed .val-pill-dot {
+  background: var(--val-color-wine);
+}
+
+.val-sound-toggle-btn {
+  background: #FFFFFF;
+  border: 1px solid var(--val-color-border);
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
-  margin: 0 auto 1.2rem;
-  box-shadow: 0 6px 18px rgba(229, 62, 62, 0.3);
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
-.val-letter-sheet {
-  background: #fff;
-  border: 1px solid #fee2e2;
-  border-radius: 12px;
-  padding: 2.5rem 2rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
-  text-align: left;
+.val-sound-toggle-btn:hover {
+  transform: scale(1.08);
+  border-color: var(--val-color-rose-soft);
 }
 
-.val-salutation {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
+/* ==========================================================================
+   Main Stage & Page Transitions
+   ========================================================================== */
+
+.val-stage {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 760px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 540px;
+}
+
+.val-page {
+  width: 100%;
+  animation: valPageFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes valPageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Common Doodle Accents */
+.val-doodle-sparkle {
+  color: var(--val-color-gold);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.val-doodle-heart {
+  color: var(--val-color-rose);
+}
+
+.val-doodle-arrow {
+  color: var(--val-color-rose-soft);
+}
+
+.val-washi-tape {
+  height: 18px;
+  width: 75px;
+  border-radius: 2px;
+  opacity: 0.85;
+  transform: rotate(-3deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.val-stamp-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--val-color-blush);
+  border: 1px dashed var(--val-color-rose-soft);
+  color: var(--val-color-wine);
+  font-size: 0.72rem;
   font-weight: 700;
-  color: #991b1b;
-  margin-bottom: 1.2rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
 }
 
-.val-body-text {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  line-height: 1.8;
-  color: #4b5563;
+.val-botanical-flourish {
+  width: 70px;
+  height: 35px;
+  color: #D4BFC4;
+  margin: 1.2rem auto 0;
+  display: block;
+}
+
+/* Common Buttons */
+.val-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #E05368 0%, #8B1E3F 100%);
+  color: #FFFFFF;
+  border: none;
+  font-family: var(--val-font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 0.9rem 2.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(224, 83, 104, 0.35);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-decoration: none;
+}
+
+.val-btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(224, 83, 104, 0.45);
+}
+
+.val-btn-primary:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.val-btn-ghost {
+  background: transparent;
+  border: 1px solid var(--val-color-border);
+  color: var(--val-color-text-muted);
+  font-family: var(--val-font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.75rem 1.6rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.val-btn-ghost:hover {
+  color: var(--val-color-wine);
+  border-color: var(--val-color-wine);
+  background: #FFFFFF;
+}
+
+.val-btn-ghost-sm {
+  background: transparent;
+  border: none;
+  color: var(--val-color-text-muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.val-btn-ghost-sm:hover {
+  color: var(--val-color-wine);
+  background: var(--val-color-blush);
+}
+
+/* ==========================================================================
+   PAGE 1 — THE BEGINNING
+   ========================================================================== */
+
+.val-page-intro {
+  display: flex;
+  justify-content: center;
+}
+
+.val-intro-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid rgba(240, 218, 222, 0.9);
+  border-radius: var(--val-radius-lg);
+  padding: 3rem 2rem 2.5rem;
+  width: 100%;
+  max-width: 540px;
+  text-align: center;
+  box-shadow: var(--val-shadow-card);
+}
+
+.val-intro-header {
+  margin-bottom: 2rem;
+}
+
+.val-whisper-tag {
+  font-family: var(--val-font-script);
+  font-size: 1.5rem;
+  color: var(--val-color-rose);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.val-intro-recipient {
+  font-family: var(--val-font-display);
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: var(--val-color-wine);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.val-dot-pulse {
+  display: inline-block;
+  animation: valDotBlink 1.4s infinite;
+}
+
+@keyframes valDotBlink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+/* Interactive Sealed Love Letter */
+.val-interactive-envelope {
+  position: relative;
+  width: 220px;
+  height: 145px;
+  margin: 0 auto 2.2rem;
+  background: #FFF5F7;
+  border: 2px solid #FCD5DC;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(139, 30, 63, 0.08);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.val-interactive-envelope:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 16px 36px rgba(139, 30, 63, 0.15);
+}
+
+.val-env-flap {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  height: 70px;
+  background: #FFE8EC;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  border-radius: 10px 10px 0 0;
+  transition: transform 0.4s ease;
+  transform-origin: top;
+  z-index: 3;
+}
+
+.val-env-pocket {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.val-letter-peeking {
+  background: #FFFFFF;
+  border: 1px solid #F0DADE;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  transform: translateY(8px);
+  transition: transform 0.4s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  z-index: 1;
+}
+
+.val-peek-text {
+  font-family: var(--val-font-script);
+  font-size: 1.1rem;
+  color: var(--val-color-wine);
+}
+
+.val-peek-heart {
+  width: 14px;
+  height: 14px;
+}
+
+.val-wax-seal-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  background: radial-gradient(circle at 35% 35%, #FF6584, #8B1E3F);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 1.3rem;
+  box-shadow: 0 6px 18px rgba(139, 30, 63, 0.4);
+  z-index: 4;
+  transition: transform 0.25s ease;
+}
+
+.val-wax-seal-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.val-seal-ripple {
+  position: absolute;
+  inset: -6px;
+  border: 2px solid rgba(224, 83, 104, 0.4);
+  border-radius: 50%;
+  animation: valSealPulse 2s infinite;
+}
+
+@keyframes valSealPulse {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+.val-envelope-opening .val-env-flap {
+  transform: rotateX(180deg);
+}
+
+.val-envelope-opening .val-letter-peeking {
+  transform: translateY(-30px);
+}
+
+.val-intro-subtext {
+  font-family: var(--val-font-editorial);
+  font-size: 1.3rem;
+  color: var(--val-color-text-muted);
   font-style: italic;
+  margin: 0 0 1.6rem;
+}
+
+.val-btn-heart {
+  font-size: 1.15rem;
+  animation: valHeartbeat 1.5s infinite;
+}
+
+@keyframes valHeartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.25); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.15); }
+}
+
+/* ==========================================================================
+   PAGE 2 — LITTLE LOVE STORY
+   ========================================================================== */
+
+.val-story-container {
+  background: #FFFFFF;
+  border: 1px solid rgba(240, 218, 222, 0.9);
+  border-radius: var(--val-radius-lg);
+  padding: 2.5rem 2.2rem;
+  box-shadow: var(--val-shadow-card);
+}
+
+.val-story-header {
+  text-align: center;
+  margin-bottom: 2.2rem;
+}
+
+.val-story-heading {
+  font-family: var(--val-font-display);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--val-color-wine);
+  margin: 0 0 0.3rem;
+}
+
+.val-highlight-script {
+  font-family: var(--val-font-script);
+  font-size: 2.6rem;
+  color: var(--val-color-rose);
+  font-weight: 700;
+  display: inline-block;
+  transform: rotate(-2deg);
+}
+
+.val-story-sub {
+  font-family: var(--val-font-editorial);
+  font-size: 1.18rem;
+  color: var(--val-color-text-muted);
+  font-style: italic;
+  margin: 0;
+}
+
+.val-story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+/* Polaroid Showcase */
+.val-polaroid-showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.val-polaroid-frame-wrapper {
+  position: relative;
+}
+
+.val-tape-top-left {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  z-index: 3;
+}
+
+.val-polaroid-card {
+  position: relative;
+  background: #FFFFFF;
+  padding: 12px 12px 18px 12px;
+  border-radius: 4px;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
+  transform: rotate(-2.5deg);
+  transition: transform 0.3s ease;
+  width: 250px;
+}
+
+.val-polaroid-card:hover {
+  transform: rotate(0deg) scale(1.03);
+}
+
+.val-polaroid-img-box {
+  position: relative;
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: #F4ECEE;
+}
+
+.val-polaroid-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.val-polaroid-card:hover .val-polaroid-img {
+  transform: scale(1.05);
+}
+
+.val-polaroid-caption {
+  font-family: var(--val-font-script);
+  font-size: 1.25rem;
+  color: var(--val-color-wine-dark);
+  text-align: center;
+  margin: 12px 0 0;
+  line-height: 1.2;
+}
+
+.val-polaroid-pin {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  z-index: 2;
+}
+
+.val-pin-heart {
+  width: 16px;
+  height: 16px;
+  color: var(--val-color-rose);
+}
+
+.val-polaroid-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.val-thumb-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.val-thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.val-thumb-btn.active {
+  border-color: var(--val-color-rose);
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(224, 83, 104, 0.3);
+}
+
+/* Narrative Timeline */
+.val-milestone-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
   margin-bottom: 1.5rem;
 }
 
-.val-polaroid-tuck {
-  margin: 1.5rem 0;
+.val-milestone-item {
+  display: flex;
+  gap: 0.9rem;
+}
+
+.val-milestone-bullet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 16px;
+}
+
+.val-bullet-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--val-color-rose);
+  box-shadow: 0 0 6px rgba(224, 83, 104, 0.5);
+  margin-top: 4px;
+}
+
+.val-bullet-line {
+  width: 2px;
+  flex: 1;
+  background: #F3D9DE;
+  margin-top: 4px;
+  min-height: 28px;
+}
+
+.val-milestone-date {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--val-color-rose);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+}
+
+.val-milestone-title {
+  font-family: var(--val-font-display);
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--val-color-wine);
+  margin: 0.1rem 0 0.2rem;
+}
+
+.val-milestone-desc {
+  font-size: 0.88rem;
+  color: var(--val-color-text-muted);
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* Handwritten Thought Box */
+.val-handwritten-note {
+  position: relative;
+  background: #FFF9FA;
+  border: 1px dashed #FCD5DC;
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+}
+
+.val-note-tape {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 45px;
+  height: 12px;
+  background: #FCE7EA;
+  border-radius: 2px;
+}
+
+.val-note-text {
+  font-family: var(--val-font-script);
+  font-size: 1.25rem;
+  color: var(--val-color-wine);
+  margin: 0;
+  line-height: 1.35;
   text-align: center;
 }
 
-.val-polaroid-tuck img {
-  width: 220px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 6px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  margin: 1rem 0;
+.val-note-arrow {
+  position: absolute;
+  bottom: -15px;
+  right: -5px;
+  width: 32px;
+  height: 16px;
 }
 
-.val-polaroid-note {
-  display: block;
-  font-size: 0.8rem;
-  color: #9ca3af;
+.val-story-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--val-color-blush);
+  padding-top: 1.5rem;
+}
+
+.val-btn-tease {
+  font-size: 1rem;
+  padding: 0.85rem 1.8rem;
+}
+
+/* ==========================================================================
+   PAGE 3 — THE PLAYFUL QUESTION (YES / NO ESCAPE)
+   ========================================================================== */
+
+.val-page-question {
+  display: flex;
+  justify-content: center;
+}
+
+.val-question-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid rgba(240, 218, 222, 0.9);
+  border-radius: var(--val-radius-lg);
+  padding: 3rem 2rem 2.5rem;
+  width: 100%;
+  max-width: 580px;
+  text-align: center;
+  box-shadow: var(--val-shadow-card);
+  overflow: hidden;
+}
+
+.val-question-header {
+  margin-bottom: 1.5rem;
+}
+
+.val-question-title {
+  font-family: var(--val-font-display);
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--val-color-wine);
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.val-question-emojis {
+  display: inline-block;
+  margin-left: 0.3rem;
+  animation: valTeaseWiggle 2s infinite ease-in-out;
+}
+
+@keyframes valTeaseWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+.val-question-sub {
+  font-family: var(--val-font-editorial);
+  font-size: 1.25rem;
+  color: var(--val-color-text-muted);
   font-style: italic;
+  margin: 0;
 }
 
-.val-signoff {
-  margin-top: 2rem;
-  text-align: right;
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: #e53e3e;
+/* Tease Banner */
+.val-tease-banner {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.8rem;
+}
+
+.val-tease-text {
+  display: inline-block;
+  background: #FFF0F3;
+  color: var(--val-color-rose);
+  font-family: var(--val-font-script);
+  font-size: 1.35rem;
   font-weight: 700;
+  padding: 0.3rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid #FCD5DC;
+  animation: valPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes valPopIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Interactive Buttons Arena */
+.val-buttons-arena {
+  position: relative;
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
+/* YES BUTTON */
+.val-btn-yes {
+  position: relative;
+  background: linear-gradient(135deg, #FF4B72 0%, #D81E5B 100%);
+  color: #FFFFFF;
+  border: none;
+  font-family: var(--val-font-body);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 1.1rem 2.8rem;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(216, 30, 91, 0.4);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.val-btn-yes:hover {
+  box-shadow: 0 14px 38px rgba(216, 30, 91, 0.55), 0 0 25px rgba(255, 75, 114, 0.6);
+}
+
+.val-btn-yes-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.val-btn-heart-pulse {
+  display: inline-block;
+  animation: valHeartbeat 1.2s infinite;
+}
+
+.val-btn-sparkle-halo {
+  position: absolute;
+  inset: -8px;
+  pointer-events: none;
+}
+
+.halo-sp1 {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 14px;
+  height: 14px;
+  animation: valSparkleRotate 2s infinite linear;
+}
+
+.halo-sp2 {
+  position: absolute;
+  bottom: -4px;
+  left: -4px;
+  width: 12px;
+  height: 12px;
+  animation: valSparkleRotate 2s infinite linear reverse;
+}
+
+@keyframes valSparkleRotate {
+  from { transform: rotate(0deg) scale(0.8); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  to { transform: rotate(360deg) scale(0.8); }
+}
+
+/* NO BUTTON (Dodging) */
+.val-btn-no {
+  background: #F4ECEE;
+  color: var(--val-color-text-muted);
+  border: 1px solid #E5D5D8;
+  font-family: var(--val-font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 0.85rem 1.8rem;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+  z-index: 4;
+}
+
+.val-btn-no:hover {
+  background: #EEDEE2;
+}
+
+.val-btn-no-emoji {
+  font-size: 1.1rem;
+}
+
+/* Question Celebration Overlay */
+.val-question-celebration-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  animation: valPageFadeIn 0.35s ease forwards;
+  padding: 2rem;
+}
+
+.val-celebration-box {
+  position: relative;
+  text-align: center;
+}
+
+.val-celebration-heart-icon {
+  font-size: 3.5rem;
+  animation: valCelebrationPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin-bottom: 0.6rem;
+}
+
+.val-celebration-title {
+  font-family: var(--val-font-display);
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--val-color-wine);
+  margin: 0 0 0.5rem;
+}
+
+.val-celebration-desc {
+  font-family: var(--val-font-editorial);
+  font-size: 1.3rem;
+  color: var(--val-color-text-muted);
+  font-style: italic;
+  margin: 0;
+}
+
+@keyframes valCelebrationPop {
+  0% { transform: scale(0.2) rotate(-20deg); opacity: 0; }
+  60% { transform: scale(1.25) rotate(10deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* ==========================================================================
+   PAGE 4 — THE PROPOSAL
+   ========================================================================== */
+
+.val-page-proposal {
+  display: flex;
+  justify-content: center;
+}
+
+.val-proposal-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+}
+
+.val-proposal-glow-orb {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(255, 107, 139, 0.25) 0%, rgba(255, 107, 139, 0) 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.val-proposal-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid rgba(240, 218, 222, 0.9);
+  border-radius: var(--val-radius-lg);
+  padding: 3.2rem 2.2rem 2.8rem;
+  text-align: center;
+  box-shadow: var(--val-shadow-card);
+}
+
+.val-proposal-heart-beacon {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.val-heart-svg-beacon {
+  width: 44px;
+  height: 44px;
+  color: var(--val-color-rose);
+  animation: valHeartbeat 1.6s infinite ease-in-out;
+}
+
+.val-beacon-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(224, 83, 104, 0.15);
+  animation: valPulseBeacon 2s infinite;
+}
+
+@keyframes valPulseBeacon {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.val-whisper-lead {
+  font-family: var(--val-font-script);
+  font-size: 1.45rem;
+  color: var(--val-color-rose);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.val-whisper-heading {
+  font-family: var(--val-font-display);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--val-color-wine);
+  margin: 0 0 1.2rem;
+}
+
+.val-proposal-step-2 {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.val-proposal-step-2.visible-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.val-proposal-main-title {
+  font-family: var(--val-font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--val-color-wine);
+  margin: 0 0 0.8rem;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.val-proposal-poetic-sub {
+  font-family: var(--val-font-editorial);
+  font-size: 1.35rem;
+  color: var(--val-color-text-muted);
+  font-style: italic;
+  margin: 0 0 2.2rem;
+  line-height: 1.4;
+}
+
+.val-btn-proposal-accept {
+  position: relative;
+  background: linear-gradient(135deg, #FF3366 0%, #8B1E3F 100%);
+  color: #FFFFFF;
+  border: none;
+  font-family: var(--val-font-body);
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 1.2rem 3.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 12px 35px rgba(224, 83, 104, 0.45);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.val-btn-proposal-accept:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 16px 45px rgba(224, 83, 104, 0.6);
+}
+
+.val-proposal-btn-sparkle {
+  width: 18px;
+  height: 18px;
+  color: var(--val-color-gold);
+}
+
+.val-proposal-confirmed-banner {
+  margin-top: 1.8rem;
+  animation: valPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.val-confirmed-badge {
+  background: #FFF0F3;
+  border: 1px solid #FCD5DC;
+  border-radius: var(--val-radius-md);
+  padding: 1.2rem;
+  display: inline-block;
+}
+
+.val-confirmed-badge h4 {
+  font-family: var(--val-font-display);
+  font-size: 1.5rem;
+  color: var(--val-color-wine);
+  margin: 0.3rem 0;
+}
+
+.val-confirmed-badge p {
+  font-family: var(--val-font-editorial);
+  font-style: italic;
+  color: var(--val-color-text-muted);
+  margin: 0;
+}
+
+.val-proposal-nav {
+  margin-top: 1.2rem;
+  text-align: center;
+}
+
+/* ==========================================================================
+   PAGE 5 — FINAL MEMORY / LOVE LETTER
+   ========================================================================== */
+
+.val-letter-container {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.val-letter-header-meta {
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.val-parchment-sheet {
+  position: relative;
+  background: #FFFDF9;
+  border: 1px solid #F0E2DE;
+  border-radius: var(--val-radius-lg);
+  padding: 3.5rem 3rem 3rem;
+  box-shadow: 0 20px 45px rgba(139, 30, 63, 0.09);
+}
+
+.val-parchment-tape {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%) rotate(1.5deg);
+  width: 85px;
+}
+
+.val-parchment-top {
+  margin-bottom: 2rem;
+}
+
+.val-letter-kicker {
+  font-family: var(--val-font-script);
+  font-size: 1.5rem;
+  color: var(--val-color-rose);
+  display: block;
+}
+
+.val-letter-salutation {
+  font-family: var(--val-font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--val-color-wine);
+  margin: 0.2rem 0 0;
+}
+
+.val-parchment-body {
+  display: flex;
+  gap: 2.2rem;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+}
+
+.val-letter-text-content {
+  flex: 1;
+}
+
+.val-letter-paragraph {
+  font-family: var(--val-font-editorial);
+  font-size: 1.35rem;
+  line-height: 1.75;
+  color: #3F3333;
+  margin-bottom: 1.2rem;
+  font-style: normal;
+}
+
+.val-letter-keepsake-polaroid {
+  flex-shrink: 0;
+}
+
+.val-letter-polaroid-frame {
+  background: #FFFFFF;
+  padding: 8px 8px 14px 8px;
+  border-radius: 3px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  transform: rotate(3deg);
+  width: 170px;
+  text-align: center;
+}
+
+.val-letter-polaroid-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.val-letter-polaroid-note {
+  font-family: var(--val-font-script);
+  font-size: 1.15rem;
+  color: var(--val-color-wine);
+  margin-top: 6px;
+  display: block;
+}
+
+.val-parchment-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-top: 1px solid #F4E7E5;
+  padding-top: 1.6rem;
+  margin-top: 2rem;
+}
+
+.val-letter-date-stamp {
+  font-size: 0.85rem;
+  color: var(--val-color-text-muted);
+}
+
+.val-date-label {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  margin-right: 0.4rem;
+  color: var(--val-color-rose-soft);
+}
+
+.val-date-value {
+  font-family: var(--val-font-body);
+  font-weight: 600;
+}
+
+.val-letter-signature-block {
+  text-align: right;
+}
+
+.val-sig-lead {
+  font-family: var(--val-font-script);
+  font-size: 1.35rem;
+  color: var(--val-color-rose);
+  display: block;
+}
+
+.val-signature-text {
+  font-family: var(--val-font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--val-color-wine);
+  margin: 0;
+}
+
+.val-letter-wax-seal {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 42px;
+  height: 42px;
+  background: radial-gradient(circle at 35% 35%, #FF6584, #8B1E3F);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(139, 30, 63, 0.25);
+  opacity: 0.9;
+}
+
+.val-wax-emblem {
+  font-size: 1.1rem;
+}
+
+.val-letter-actions {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.val-btn-replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #FFFFFF;
+  border: 1px solid var(--val-color-border);
+  color: var(--val-color-wine);
+  font-family: var(--val-font-body);
+  font-size: 0.98rem;
+  font-weight: 700;
+  padding: 0.8rem 1.8rem;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(139, 30, 63, 0.06);
+  transition: all 0.2s ease;
+}
+
+.val-btn-replay:hover {
+  transform: translateY(-2px);
+  border-color: var(--val-color-rose);
+  box-shadow: 0 6px 18px rgba(139, 30, 63, 0.12);
+}
+
+.val-replay-icon {
+  font-size: 1.2rem;
+  transition: transform 0.4s ease;
+}
+
+.val-btn-replay:hover .val-replay-icon {
+  transform: rotate(-180deg);
+}
+
+/* ==========================================================================
+   Responsive Adaptations & Reduced Motion
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .val-template-root {
+    padding: 1rem 0.75rem 2.5rem;
+  }
+
+  .val-top-bar {
+    border-radius: 16px;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .val-chapter-pill .val-pill-title {
+    display: none;
+  }
+
+  .val-chapter-pill {
+    padding: 0.4rem 0.6rem;
+  }
+
+  .val-intro-card,
+  .val-story-container,
+  .val-question-card,
+  .val-proposal-card,
+  .val-parchment-sheet {
+    padding: 2rem 1.2rem 1.8rem;
+    border-radius: 20px;
+  }
+
+  .val-intro-recipient,
+  .val-story-heading,
+  .val-question-title,
+  .val-proposal-main-title,
+  .val-letter-salutation {
+    font-size: 1.85rem;
+  }
+
+  .val-story-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .val-polaroid-card {
+    width: 220px;
+  }
+
+  .val-polaroid-img-box {
+    height: 190px;
+  }
+
+  .val-buttons-arena {
+    min-height: 140px;
+    gap: 1rem;
+  }
+
+  .val-btn-yes {
+    padding: 0.95rem 2rem;
+    font-size: 1.1rem;
+  }
+
+  .val-btn-no {
+    padding: 0.75rem 1.4rem;
+    font-size: 0.95rem;
+  }
+
+  .val-parchment-body {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .val-letter-keepsake-polaroid {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .val-letter-polaroid-frame {
+    transform: rotate(0deg);
+  }
+
+  .val-story-footer {
+    flex-direction: column-reverse;
+  }
+
+  .val-story-footer button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
