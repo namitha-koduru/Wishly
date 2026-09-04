@@ -1,45 +1,431 @@
-/* Anniversary Template 1 - Our Story Styles */
-.tpl-anniversary-our-story {
-  background: linear-gradient(135deg, #fff9fb 0%, #f7f1f8 100%);
-  border: 1px solid #ebd4eb;
-}
+/* ============================================================
+   WISHLY — ANNIVERSARY TEMPLATE 1 ("Our Story")
+   Multi-Page Indian Aesthetic Keepsake with Lakki Reddy Font
+   Scoped styles isolated under .wishly-anniversary-template-1
+   ============================================================ */
 
-.tpl-anniversary-tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  color: #9b51e0;
-  font-weight: 800;
-  margin-bottom: 0.8rem;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Kalam:wght@400;700&family=Lakki+Reddy&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap');
 
-.tpl-years-badge {
-  display: inline-block;
-  background: #9b51e0;
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 700;
-  padding: 0.35rem 1rem;
-  border-radius: 20px;
-  margin-bottom: 1.5rem;
-}
-
-.our-story-hero-frame {
-  margin: 1.5rem auto;
-  border-radius: 20px;
-  overflow: hidden;
-  max-width: 480px;
-  box-shadow: 0 12px 30px rgba(155, 81, 224, 0.2);
-}
-
-.our-story-hero-frame img {
+.wishly-anniversary-template-1 {
+  position: relative;
   width: 100%;
-  height: 280px;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: #f3ead8;
+  color: #3a2a1d;
+  font-family: 'Lora', Georgia, serif;
+  box-sizing: border-box;
+  overflow: hidden;
+  user-select: none;
+}
+
+.wishly-anniversary-template-1 *,
+.wishly-anniversary-template-1 *::before,
+.wishly-anniversary-template-1 *::after {
+  box-sizing: border-box;
+}
+
+/* Paper Background Texture */
+.wishly-anniversary-template-1 .tpl-paper-texture {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+  background-image: radial-gradient(circle at 20% 15%, #b9622f 0%, transparent 55%),
+                    radial-gradient(circle at 85% 80%, #6d1f28 0%, transparent 55%);
+}
+
+/* Typography Classes */
+.wishly-anniversary-template-1 .anniv-font-cormorant {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.wishly-anniversary-template-1 .anniv-font-lora {
+  font-family: 'Lora', Georgia, serif;
+}
+
+.wishly-anniversary-template-1 .anniv-font-kalam {
+  font-family: 'Kalam', cursive, sans-serif;
+}
+
+.wishly-anniversary-template-1 .anniv-font-cinzel {
+  font-family: 'Cinzel', Georgia, serif;
+}
+
+.wishly-anniversary-template-1 .anniv-font-lakki {
+  font-family: 'Lakki Reddy', cursive, serif;
+}
+
+/* Telugu Lakki Reddy Font Mode */
+.wishly-anniversary-template-1.font-telugu-lakki,
+.wishly-anniversary-template-1.font-telugu-lakki .anniv-font-cormorant,
+.wishly-anniversary-template-1.font-telugu-lakki .anniv-font-lora,
+.wishly-anniversary-template-1.font-telugu-lakki .anniv-font-kalam,
+.wishly-anniversary-template-1.font-telugu-lakki .anniv-font-cinzel,
+.wishly-anniversary-template-1.font-telugu-lakki h1,
+.wishly-anniversary-template-1.font-telugu-lakki h2,
+.wishly-anniversary-template-1.font-telugu-lakki h3,
+.wishly-anniversary-template-1.font-telugu-lakki p,
+.wishly-anniversary-template-1.font-telugu-lakki span,
+.wishly-anniversary-template-1.font-telugu-lakki button {
+  font-family: 'Lakki Reddy', cursive, serif !important;
+  letter-spacing: 0.5px;
+}
+
+/* Top Font / Language Toggle Bar */
+.wishly-anniversary-template-1 .anniv-font-toggle-bar {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  background: rgba(250, 244, 230, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(179, 135, 47, 0.35);
+  border-radius: 9999px;
+  padding: 0.2rem;
+  gap: 0.25rem;
+  box-shadow: 0 4px 12px rgba(58, 42, 29, 0.1);
+}
+
+.wishly-anniversary-template-1 .font-toggle-btn {
+  background: transparent;
+  border: none;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #5c4a38;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wishly-anniversary-template-1 .font-toggle-btn.active {
+  background: #9b4a22;
+  color: #faf4e6;
+  box-shadow: 0 2px 6px rgba(155, 74, 34, 0.3);
+}
+
+/* Temple Sticker Stamp Badge */
+.wishly-anniversary-template-1 .anniv-temple-sticker:hover {
+  transform: scale(1.06) rotate(0deg) !important;
+  box-shadow: 0 10px 22px rgba(58, 42, 29, 0.28) !important;
+}
+
+/* Garland Sway Animation */
+.wishly-anniversary-template-1 .wishly-garland-sway {
+  animation: wishlyGarlandSway 6s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+@keyframes wishlyGarlandSway {
+  0%, 100% { transform: rotate(-1.4deg); }
+  50%      { transform: rotate(1.4deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wishly-anniversary-template-1 .wishly-garland-sway {
+    animation: none !important;
+  }
+}
+
+/* Page Transition Wrapper */
+.wishly-anniversary-template-1 .page-transition-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  overflow-y: auto;
+}
+
+.wishly-anniversary-template-1 .page-transition-wrap.page-active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.wishly-anniversary-template-1 .page-transition-wrap.page-inactive {
+  opacity: 0;
+  transform: translateX(12px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wishly-anniversary-template-1 .page-transition-wrap {
+    transition: none !important;
+  }
+}
+
+/* Story Action Navigation Buttons */
+.wishly-anniversary-template-1 .story-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.12rem;
+  padding: 0.75rem 1.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  outline: none;
+}
+
+.wishly-anniversary-template-1 .btn-primary-nav {
+  color: #faf4e6;
+  background: linear-gradient(180deg, #b9622f 0%, #9b4a22 100%);
+  border: 1px solid rgba(179, 135, 47, 0.5);
+  box-shadow: 0 6px 18px rgba(74, 21, 28, 0.25);
+}
+
+.wishly-anniversary-template-1 .btn-primary-nav:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(74, 21, 28, 0.35);
+  background: linear-gradient(180deg, #c76f3b 0%, #a85429 100%);
+}
+
+.wishly-anniversary-template-1 .btn-secondary-nav {
+  color: #5c4a38;
+  background: #faf4e6;
+  border: 1px solid rgba(179, 135, 47, 0.35);
+  box-shadow: 0 4px 10px rgba(58, 42, 29, 0.1);
+}
+
+.wishly-anniversary-template-1 .btn-secondary-nav:hover {
+  background: #f3ead8;
+  color: #4a151c;
+  transform: translateY(-2px);
+}
+
+/* Progress Thread Navigation */
+.wishly-anniversary-template-1 .progress-thread {
+  position: fixed;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  gap: 0.45rem;
+  padding: 0.4rem 0.75rem;
+  background: rgba(243, 234, 216, 0.92);
+  backdrop-filter: blur(8px);
+  border-radius: 9999px;
+  border: 1px solid rgba(179, 135, 47, 0.3);
+  box-shadow: 0 4px 14px rgba(58, 42, 29, 0.15);
+}
+
+.wishly-anniversary-template-1 .progress-dot {
+  height: 6px;
+  border-radius: 9999px;
+  transition: all 0.35s ease;
+  background-color: rgba(155, 74, 34, 0.25);
+  width: 6px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.wishly-anniversary-template-1 .progress-dot.active {
+  width: 1.6rem;
+  background-color: #9b4a22;
+}
+
+/* 3D Envelope Hover Effect */
+.wishly-anniversary-template-1 .anniv-env-stage:hover {
+  transform: translateY(-3px);
+}
+
+/* Unfolded Love Letter Sheet (Pristine, Glitch-Free) */
+.wishly-anniversary-template-1 .anniv-unfolded-letter-sheet {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  background-color: #faf4e6;
+  box-shadow: 0 20px 50px rgba(58, 42, 29, 0.22);
+  border: 1px solid rgba(179, 135, 47, 0.35);
+  padding: 2.75rem 2.25rem;
+  border-radius: 6px;
+  text-align: left;
+  animation: wishlyLetterReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes wishlyLetterReveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  .wishly-anniversary-template-1 .anniv-unfolded-letter-sheet {
+    padding: 2rem 1.25rem;
+  }
+}
+
+.wishly-anniversary-template-1 .anniv-letter-inner-border {
+  pointer-events: none;
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(179, 135, 47, 0.25);
+  border-radius: 4px;
+}
+
+.wishly-anniversary-template-1 .anniv-letter-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  position: relative;
+  z-index: 2;
+}
+
+.wishly-anniversary-template-1 .anniv-letter-stamp {
+  font-family: 'Kalam', cursive, sans-serif;
+  color: #9b4a22;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.wishly-anniversary-template-1 .anniv-letter-salutation {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  color: #4a151c;
+  margin-bottom: 1.15rem;
+  position: relative;
+  z-index: 2;
+  line-height: 1.2;
+}
+
+.wishly-anniversary-template-1 .anniv-letter-body-text {
+  position: relative;
+  z-index: 2;
+}
+
+.wishly-anniversary-template-1 .anniv-letter-paragraph {
+  font-family: 'Lora', Georgia, serif;
+  color: #3a2a1d;
+  line-height: 1.95;
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+  white-space: pre-line;
+}
+
+.wishly-anniversary-template-1 .anniv-letter-blessing {
+  font-family: 'Lora', Georgia, serif;
+  font-style: italic;
+  color: #9b4a22;
+  font-size: 1.08rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.7;
+}
+
+.wishly-anniversary-template-1 .anniv-letter-signature-block {
+  position: relative;
+  z-index: 2;
+  margin-top: 1.5rem;
+  border-top: 1px solid rgba(179, 135, 47, 0.2);
+  padding-top: 0.85rem;
+}
+
+.wishly-anniversary-template-1 .anniv-sig-lead {
+  display: block;
+  font-family: 'Lora', Georgia, serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #5c4a38;
+}
+
+.wishly-anniversary-template-1 .anniv-sig-name {
+  display: block;
+  font-family: 'Kalam', cursive, sans-serif;
+  font-size: 1.3rem;
+  color: #4a151c;
+  margin-top: 0.2rem;
+}
+
+/* Scrapbook Polaroid Grid */
+.wishly-anniversary-template-1 .scrapbook-polaroid-btn {
+  background-color: #faf4e6;
+  padding: 0.45rem 0.45rem 2rem 0.45rem;
+  position: relative;
+  text-align: left;
+  box-shadow: 0 10px 22px rgba(58, 42, 29, 0.18);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  border: 1px solid rgba(179, 135, 47, 0.25);
+  cursor: pointer;
+  border-radius: 2px;
+  outline: none;
+}
+
+.wishly-anniversary-template-1 .scrapbook-polaroid-btn:hover,
+.wishly-anniversary-template-1 .scrapbook-polaroid-btn:focus-visible {
+  transform: translateY(-5px) rotate(0deg) !important;
+  box-shadow: 0 16px 32px rgba(58, 42, 29, 0.28);
+  z-index: 2;
+}
+
+.wishly-anniversary-template-1 .scrapbook-img-frame {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: #e6d3ac;
+}
+
+.wishly-anniversary-template-1 .scrapbook-img-frame img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.anniversary-timeline-section {
-  margin-top: 2rem;
-  text-align: left;
+.wishly-anniversary-template-1 .scrapbook-caption-text {
+  position: absolute;
+  bottom: 0.4rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Kalam', cursive, sans-serif;
+  color: #5c4a38;
+  font-size: 0.88rem;
+  padding: 0 0.5rem;
+}
+
+/* Lightbox Dialog */
+.wishly-anniversary-template-1 .tpl-lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: rgba(42, 29, 31, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: wishlyFadeIn 0.3s ease;
+}
+
+.wishly-anniversary-template-1 .tpl-lightbox-card {
+  background-color: #faf4e6;
+  padding: 1rem 1rem 1.75rem 1rem;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: 0 30px 65px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  border: 1px solid rgba(179, 135, 47, 0.4);
 }

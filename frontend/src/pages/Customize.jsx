@@ -355,10 +355,38 @@ export function Customize() {
           });
         }, 600);
       } catch (err) {
-        console.error('Wish generation error:', err);
-        setIsGenerating(false);
-        setGenerationStep(0);
-        alert('Could not generate wish. Please check your connection and try again.');
+        console.warn('Backend API offline, using local fallback:', err.message);
+        // Offline preview fallback to allow full creator testing
+        const fallbackProjectId = `offline_${Date.now()}`;
+        const fallbackPayload = {
+          projectId: fallbackProjectId,
+          occasion: template.occasion,
+          templateId: template.id,
+          recipientName: formData.recipientName.trim(),
+          senderName: formData.senderName.trim() || 'Someone who cares',
+          message: formData.message.trim(),
+          photos: (formData.photos || []).map((p) => (typeof p === 'string' ? p : p.url)),
+          customData: {
+            years: formData.years,
+            date: formData.date
+          }
+        };
+
+        try {
+          localStorage.setItem(`wishly_project_${fallbackProjectId}`, JSON.stringify(fallbackPayload));
+        } catch (e) {}
+
+        setGenerationStep(4);
+        setTimeout(() => {
+          setIsGenerating(false);
+          setGenerationStep(0);
+          const projectUrl = `${window.location.origin}/w/${fallbackProjectId}`;
+          setShareModal({
+            projectId: fallbackProjectId,
+            shareUrl: projectUrl,
+            recipientName: formData.recipientName
+          });
+        }, 600);
       }
     }, 600);
   };

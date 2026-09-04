@@ -153,17 +153,20 @@ export const TEMPLATES = [
     id: 'our-story',
     occasion: 'anniversary',
     name: 'Our Story',
-    description: 'Romantic storybook tribute celebrating years together and milestone timeline.',
-    badge: 'Romantic',
-    previewColor: '#9B51E0',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'years', 'timeline'],
+    description: 'A multi-screen Indian aesthetic journey with traditional Bapu art, sacred garlands, and envelope keepsakes.',
+    badge: 'Featured',
+    previewColor: '#9b4a22',
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'years'],
     defaultData: {
-      recipientName: 'Sophia & David',
-      senderName: 'With Love Always',
-      message: 'From our very first conversation to all the adventures we have shared, every single second with you is a blessing.',
-      years: '5 Beautiful Years',
+      recipientName: 'Ravi & Sindhu',
+      senderName: 'With all our love, The Family',
+      message: "Some journeys are measured in years. Some are measured in memories.\n\nYours is beautifully measured in both.\n\nThrough ordinary days, celebrations, laughter, little moments and everything in between, you have created something truly special.\n\nHere's to the memories you've made, the love you've shared, and all the beautiful moments still waiting ahead.",
+      years: '25',
       photos: [
-        'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&auto=format&fit=crop&q=80'
+        'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&auto=format&fit=crop&q=80'
       ]
     },
     component: OurStoryTemplate

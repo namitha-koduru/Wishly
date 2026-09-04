@@ -41,6 +41,7 @@ export function GeneratedWish() {
       if (localSaved) {
         const parsed = JSON.parse(localSaved);
         setWish(parsed);
+        setErrorType(null);
         setLoading(false);
         updateDocumentTitle(parsed);
         return;

@@ -2,10 +2,16 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getOccasionById, OCCASIONS } from '../data/occasions.js';
 import TemplateGallery from '../components/TemplateGallery.jsx';
+import AnniversaryPage from './AnniversaryPage.jsx';
 
 export function OccasionTemplates() {
   const { occasion: occasionId } = useParams();
   const occasion = getOccasionById(occasionId);
+
+  // Dedicated bespoke luxury experience for Anniversary
+  if (occasionId === 'anniversary') {
+    return <AnniversaryPage />;
+  }
 
   return (
     <div className="occasion-templates-page">
