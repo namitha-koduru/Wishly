@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getTemplateById } from '../templates/templateRegistry.js';
 import { getOccasionById } from '../data/occasions.js';
+import TemplateNotFound from '../components/TemplateNotFound.jsx';
 
 export function TemplatePreview() {
   const { templateId } = useParams();
@@ -11,11 +12,11 @@ export function TemplatePreview() {
 
   if (!template) {
     return (
-      <div className="container text-center py-5">
-        <h2>Template Not Found</h2>
-        <p>The template you are trying to preview does not exist.</p>
-        <Link to="/templates" className="btn btn-primary mt-3">Browse Templates</Link>
-      </div>
+      <TemplateNotFound
+        title="We couldn't find this template to preview."
+        description={`The template "${templateId || 'unknown'}" does not exist or may have been updated.`}
+        suggestedAction={{ to: "/templates", label: "Explore All 35 Templates ✨" }}
+      />
     );
   }
 

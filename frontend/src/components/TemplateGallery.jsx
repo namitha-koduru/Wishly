@@ -74,20 +74,39 @@ export function TemplateGallery({ initialOccasion = 'all' }) {
           ))}
         </div>
       ) : (
-        <div className="empty-gallery">
-          <p className="empty-icon">🔍</p>
-          <h3 className="empty-title">No matching designs found</h3>
-          <p className="empty-desc">Try resetting your search query or selecting a different occasion tab.</p>
-          <button
-            type="button"
-            className="btn btn-secondary btn-sm"
-            onClick={() => {
-              setSelectedOccasion('all');
-              setSearchQuery('');
-            }}
-          >
-            Reset Filters
-          </button>
+        <div className="empty-gallery not-found-card text-center">
+          <div className="not-found-image-wrap template-not-found-wrap">
+            <div className="not-found-glow-halo"></div>
+            <img
+              src="/template-not-found.png"
+              alt="Template Not Found"
+              className="not-found-illustration template-not-found-illustration"
+            />
+            <span className="not-found-float-sparkle sparkle-1">💌</span>
+            <span className="not-found-float-sparkle sparkle-2">✈️</span>
+          </div>
+
+          <span className="not-found-tag">NO TEMPLATES FOUND</span>
+          <h3 className="not-found-title" style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>
+            {searchQuery ? `No templates matching "${searchQuery}"` : 'No templates in this category'}
+          </h3>
+          <p className="not-found-desc" style={{ marginBottom: '1.5rem' }}>
+            {searchQuery
+              ? "We couldn't find any designs matching your search term. Try another keyword or browse all 35 designs."
+              : 'Try selecting a different occasion tab to explore our curated designs.'}
+          </p>
+          <div className="not-found-actions">
+            <button
+              type="button"
+              className="btn btn-primary btn-lg"
+              onClick={() => {
+                setSelectedOccasion('all');
+                setSearchQuery('');
+              }}
+            >
+              Clear Search & Show All ✨
+            </button>
+          </div>
         </div>
       )}
 

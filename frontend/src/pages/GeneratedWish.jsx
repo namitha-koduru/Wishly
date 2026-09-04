@@ -156,14 +156,23 @@ export function GeneratedWish() {
     if (errorType === 'network') {
       return (
         <div className="generated-wish-error-screen">
-          <div className="error-card text-center">
-            <div className="error-emoji">📡</div>
+          <div className="error-card not-found-card text-center">
+            <div className="not-found-image-wrap connection-error-wrap" style={{ margin: '0 auto 1.2rem' }}>
+              <div className="not-found-glow-halo"></div>
+              <img src="/connection-error.png" alt="Connection Lost" className="not-found-illustration connection-error-illustration" />
+              <span className="not-found-float-sparkle sparkle-1">📡</span>
+              <span className="not-found-float-sparkle sparkle-2">💔</span>
+            </div>
+            <span className="not-found-tag">CONNECTION ISSUE</span>
             <h2>Couldn't load this Wishly.</h2>
             <p>Please check your connection and try again.</p>
-            <div className="error-actions">
+            <div className="error-actions not-found-actions">
               <button type="button" className="btn btn-primary btn-lg pulse-glow" onClick={loadWishData}>
                 Try Again ↻
               </button>
+              <Link to="/" className="btn btn-secondary btn-lg">
+                ← Return Home
+              </Link>
             </div>
           </div>
         </div>
@@ -172,16 +181,22 @@ export function GeneratedWish() {
 
     return (
       <div className="generated-wish-error-screen">
-        <div className="error-card text-center">
+        <div className="error-card not-found-card text-center">
           <div className="not-found-image-wrap" style={{ margin: '0 auto 1.2rem' }}>
             <div className="not-found-glow-halo"></div>
             <img src="/404.png" alt="Wishly Not Found" className="not-found-illustration" />
+            <span className="not-found-float-sparkle sparkle-1">✨</span>
+            <span className="not-found-float-sparkle sparkle-2">💭</span>
           </div>
+          <span className="not-found-tag">404 • NOT FOUND</span>
           <h2>Oops — this Wishly seems to have wandered off.</h2>
           <p>The link might be incorrect or the keepsake has expired.</p>
-          <div className="error-actions">
+          <div className="error-actions not-found-actions">
             <Link to="/" className="btn btn-primary btn-lg pulse-glow">
               ← Return to Wishly
+            </Link>
+            <Link to="/templates" className="btn btn-secondary btn-lg">
+              Explore Templates ✨
             </Link>
           </div>
         </div>
@@ -195,11 +210,24 @@ export function GeneratedWish() {
   if (!template) {
     return (
       <div className="generated-wish-error-screen">
-        <div className="error-card text-center">
-          <div className="error-emoji">⚠️</div>
+        <div className="error-card not-found-card text-center">
+          <div className="not-found-image-wrap template-not-found-wrap" style={{ margin: '0 auto 1.2rem' }}>
+            <div className="not-found-glow-halo"></div>
+            <img src="/template-not-found.png" alt="Template Not Found" className="not-found-illustration template-not-found-illustration" />
+            <span className="not-found-float-sparkle sparkle-1">💌</span>
+            <span className="not-found-float-sparkle sparkle-2">✈️</span>
+          </div>
+          <span className="not-found-tag">TEMPLATE UNAVAILABLE</span>
           <h2>Template Not Available</h2>
-          <p>The design for this Wishly could not be loaded.</p>
-          <Link to="/" className="btn btn-primary mt-3">Go to Home</Link>
+          <p>The design for this Wishly could not be loaded or has been retired.</p>
+          <div className="error-actions not-found-actions">
+            <Link to="/templates" className="btn btn-primary btn-lg">
+              Browse 35 Designs ✨
+            </Link>
+            <Link to="/" className="btn btn-secondary btn-lg">
+              ← Return Home
+            </Link>
+          </div>
         </div>
       </div>
     );

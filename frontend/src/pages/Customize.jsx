@@ -7,6 +7,7 @@ import PhotoUploader from '../components/PhotoUploader.jsx';
 import TimelineEditor from '../components/TimelineEditor.jsx';
 import ReasonsEditor from '../components/ReasonsEditor.jsx';
 import CharacterCounter from '../components/CharacterCounter.jsx';
+import TemplateNotFound from '../components/TemplateNotFound.jsx';
 
 export function Customize() {
   const { templateId } = useParams();
@@ -136,11 +137,11 @@ export function Customize() {
 
   if (!template) {
     return (
-      <div className="container text-center py-5">
-        <h2>Template Not Found</h2>
-        <p>The selected template could not be loaded.</p>
-        <Link to="/templates" className="btn btn-primary mt-3">Browse Templates</Link>
-      </div>
+      <TemplateNotFound
+        title="We couldn't load this template to customize."
+        description={`The template "${templateId || 'unknown'}" does not exist. Choose another wonderful design from our collection.`}
+        suggestedAction={{ to: "/templates", label: "Browse 35 Curated Designs ✨" }}
+      />
     );
   }
 

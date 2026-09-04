@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getOccasionById, OCCASIONS } from '../data/occasions.js';
 import TemplateGallery from '../components/TemplateGallery.jsx';
 import AnniversaryPage from './AnniversaryPage.jsx';
+import TemplateNotFound from '../components/TemplateNotFound.jsx';
 
 export function OccasionTemplates() {
   const { occasion: occasionId } = useParams();
@@ -11,6 +12,16 @@ export function OccasionTemplates() {
   // Dedicated bespoke luxury experience for Anniversary
   if (occasionId === 'anniversary') {
     return <AnniversaryPage />;
+  }
+
+  if (occasionId && !occasion) {
+    return (
+      <TemplateNotFound
+        title="We couldn't find this occasion category."
+        description={`The occasion "${occasionId}" is not part of our collection. Browse all 35 designs across birthdays, love, celebrations, and more.`}
+        suggestedAction={{ to: "/templates", label: "View All Occasions ✨" }}
+      />
+    );
   }
 
   return (

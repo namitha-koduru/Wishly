@@ -2802,6 +2802,28 @@
   filter: drop-shadow(0 10px 20px rgba(184, 50, 69, 0.12));
 }
 
+.template-not-found-wrap {
+  width: 190px;
+  height: 160px;
+}
+
+.template-not-found-illustration {
+  width: 180px;
+  height: 150px;
+  filter: drop-shadow(0 12px 24px rgba(220, 100, 120, 0.15));
+}
+
+.connection-error-wrap {
+  width: 180px;
+  height: 160px;
+}
+
+.connection-error-illustration {
+  width: 170px;
+  height: 150px;
+  filter: drop-shadow(0 12px 24px rgba(200, 100, 100, 0.15));
+}
+
 .not-found-glow-halo {
   position: absolute;
   inset: -15px;
@@ -2881,6 +2903,26 @@
   .not-found-illustration {
     width: 115px;
     height: 115px;
+  }
+
+  .template-not-found-wrap {
+    width: 155px;
+    height: 130px;
+  }
+
+  .template-not-found-illustration {
+    width: 145px;
+    height: 120px;
+  }
+
+  .connection-error-wrap {
+    width: 155px;
+    height: 130px;
+  }
+
+  .connection-error-illustration {
+    width: 145px;
+    height: 120px;
   }
 
   .not-found-actions {
