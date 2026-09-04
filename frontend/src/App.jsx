@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
+import LoadingScreen from './components/LoadingScreen.jsx';
 import Home from './pages/Home.jsx';
 import Templates from './pages/Templates.jsx';
 import OccasionTemplates from './pages/OccasionTemplates.jsx';
@@ -31,20 +32,22 @@ function AppLayout() {
       {!isRecipientPage && !isStudioOrPreview && <Navbar />}
 
       <main className="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/occasions" element={<Templates />} />
-          <Route path="/templates" element={<Templates />} />
-          <Route path="/templates/:occasion" element={<OccasionTemplates />} />
-          <Route path="/templates/:templateId/preview" element={<TemplatePreview />} />
-          <Route path="/customize/:templateId" element={<Customize />} />
-          <Route path="/customize/:occasion/:templateId" element={<Customize />} />
-          <Route path="/w/:projectId" element={<GeneratedWish />} />
-          <Route path="/preview/:projectId" element={<GeneratedWish />} />
-          <Route path="/wish/:projectId" element={<GeneratedWish />} />
-          <Route path="/birthday/:projectId" element={<GeneratedWish />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<LoadingScreen title="Loading Wishly..." subtitle="Preparing your experience ✨" />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/occasions" element={<Templates />} />
+            <Route path="/templates" element={<Templates />} />
+            <Route path="/templates/:occasion" element={<OccasionTemplates />} />
+            <Route path="/templates/:templateId/preview" element={<TemplatePreview />} />
+            <Route path="/customize/:templateId" element={<Customize />} />
+            <Route path="/customize/:occasion/:templateId" element={<Customize />} />
+            <Route path="/w/:projectId" element={<GeneratedWish />} />
+            <Route path="/preview/:projectId" element={<GeneratedWish />} />
+            <Route path="/wish/:projectId" element={<GeneratedWish />} />
+            <Route path="/birthday/:projectId" element={<GeneratedWish />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </main>
 
       {!isRecipientPage && !isStudioOrPreview && <Footer />}

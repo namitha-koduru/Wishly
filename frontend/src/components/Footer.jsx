@@ -7,10 +7,10 @@ export function Footer() {
       <div className="container footer-container">
         <div className="footer-brand">
           <div className="footer-logo">
-            <span className="brand-sparkle">✦</span>
+            <img src="/logo.png" alt="Wishly" className="footer-logo-img" />
             <span className="brand-text">Wishly</span>
           </div>
-          <p className="footer-tagline">Wishes, made personal.</p>
+          <p className="footer-tagline">Make moments special.</p>
           <p className="footer-desc">
             The internet's little way of saying I care. Create beautiful, shareable keepsake websites for every milestone, celebration, and heartfelt human moment.
           </p>

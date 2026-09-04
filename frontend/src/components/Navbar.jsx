@@ -54,6 +54,7 @@ export function Navbar() {
       <div className="header-container">
         {/* Brand Wordmark */}
         <Link to="/" className="brand-wordmark" onClick={closeMenu} aria-label="Wishly Home">
+          <img src="/logo.png" alt="Wishly logo" className="brand-logo-img" />
           <span className="brand-name">Wishly</span>
           <span className="brand-dot"></span>
         </Link>
@@ -130,6 +131,7 @@ export function Navbar() {
           >
             <div className="mobile-drawer-header">
               <Link to="/" className="brand-wordmark" onClick={closeMenu}>
+                <img src="/logo.png" alt="Wishly logo" className="brand-logo-img" />
                 <span className="brand-name">Wishly</span>
                 <span className="brand-dot"></span>
               </Link>

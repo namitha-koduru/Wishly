@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getTemplateById } from '../templates/templateRegistry.js';
 import { getWish, APP_BASE_URL } from '../services/api.js';
 import PhotoLightbox from '../components/PhotoLightbox.jsx';
+import LoadingScreen from '../components/LoadingScreen.jsx';
 
 export function GeneratedWish() {
   const { projectId } = useParams();
@@ -142,14 +143,11 @@ export function GeneratedWish() {
   // 1. Loading State
   if (loading) {
     return (
-      <div className="generated-wish-loading-screen">
-        <div className="loading-card text-center">
-          <div className="loading-sparkle-icon">✦</div>
-          <span className="loading-brand-sub">WISHLY</span>
-          <h2>Preparing something special...</h2>
-          <p>Unwrapping your personalized keepsake</p>
-        </div>
-      </div>
+      <LoadingScreen
+        title="Preparing something special..."
+        subtitle="Unwrapping your personalized keepsake ✨"
+        fullScreen={true}
+      />
     );
   }
 
