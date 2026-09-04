@@ -1,72 +1,1603 @@
-/* Farewell Template 1 - Memory Wall Styles */
-.tpl-farewell-memory-wall {
-  background: #fdfbf7;
-  border: 1px solid #eadecb;
-}
+/* ============================================================
+   WISHLY — FAREWELL TEMPLATE 1 ("Before We Go")
+   A premium, emotional, modern editorial farewell chronicle.
+   Scoped under .wishly-farewell-template-1
+   ============================================================ */
 
-.farewell-tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  color: #d97706;
-  font-weight: 800;
-  margin-bottom: 0.8rem;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
-.team-badge {
-  display: inline-block;
-  background: #fef3c7;
-  color: #b45309;
-  font-size: 0.85rem;
-  font-weight: 700;
-  padding: 0.35rem 1rem;
-  border-radius: 20px;
-  margin-bottom: 1.5rem;
-}
+/* --- Root Scoped Variables & Container --- */
+.wishly-farewell-template-1 {
+  --fw-bg: #FAF7F2;
+  --fw-bg-alt: #F3ECE2;
+  --fw-card-bg: #FFFFFF;
+  --fw-text-main: #1C1D1F;
+  --fw-text-muted: #64676C;
+  --fw-text-subtle: #8E9196;
+  --fw-accent: #9E583F;
+  --fw-accent-light: #F7EBE7;
+  --fw-accent-border: #E8CFCA;
+  --fw-border: rgba(28, 29, 31, 0.08);
+  --fw-border-strong: rgba(28, 29, 31, 0.16);
+  --fw-font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --fw-font-display: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --fw-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --fw-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --fw-shadow-md: 0 10px 30px rgba(0, 0, 0, 0.06);
+  --fw-shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.08);
 
-.farewell-polaroid-wall {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  margin: 2rem 0;
-}
-
-.polaroid-wall-item {
   position: relative;
-  background: #fff;
-  padding: 12px 12px 28px 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  border-radius: 4px;
-  max-width: 220px;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--fw-bg);
+  color: var(--fw-text-main);
+  font-family: var(--fw-font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
-.wall-tilt-1 { transform: rotate(-3deg); }
-.wall-tilt-2 { transform: rotate(2deg); }
-.wall-tilt-3 { transform: rotate(-1deg); }
+.wishly-farewell-template-1 *,
+.wishly-farewell-template-1 *::before,
+.wishly-farewell-template-1 *::after {
+  box-sizing: border-box;
+}
 
-.washi-tape {
-  position: absolute;
-  top: -10px;
+/* Subtle Paper Grain Overlay */
+.wishly-farewell-template-1 .fw-paper-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+  background-image: radial-gradient(circle at 10% 20%, #1c1d1f 0%, transparent 60%),
+                    radial-gradient(circle at 90% 80%, #9e583f 0%, transparent 60%);
+  mix-blend-mode: multiply;
+}
+
+/* ============================================================
+   TOP EXPERIENCE BAR (Chapter Status & Mode Toggle)
+   ============================================================ */
+.wishly-farewell-template-1 .fw-top-experience-bar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 150;
+  background: rgba(250, 247, 242, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--fw-border);
+  padding: 0.65rem 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.wishly-farewell-template-1 .fw-top-bar-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.wishly-farewell-template-1 .fw-top-chapter-status {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.wishly-farewell-template-1 .fw-top-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--fw-accent);
+  background-color: var(--fw-accent-light);
+  border: 1px solid var(--fw-accent-border);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+.wishly-farewell-template-1 .fw-top-chapter-title {
+  font-family: var(--fw-font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--fw-text-main);
+}
+
+.wishly-farewell-template-1 .fw-mode-toggle-wrap {
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 3px;
+  border-radius: 999px;
+  border: 1px solid var(--fw-border);
+}
+
+.wishly-farewell-template-1 .fw-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-family: var(--fw-font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--fw-text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wishly-farewell-template-1 .fw-mode-btn:hover {
+  color: var(--fw-text-main);
+}
+
+.wishly-farewell-template-1 .fw-mode-btn.active {
+  background-color: #FFFFFF;
+  color: var(--fw-text-main);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 540px) {
+  .wishly-farewell-template-1 .fw-mode-btn span {
+    display: none;
+  }
+  .wishly-farewell-template-1 .fw-mode-btn {
+    padding: 0.35rem 0.5rem;
+  }
+}
+
+/* ============================================================
+   PAGE MODE NARRATIVE STAGE (Story Cards & Transitions)
+   ============================================================ */
+.wishly-farewell-template-1 .fw-paged-narrative-stage {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  min-height: calc(100vh - 120px);
+  padding: 2rem 1.25rem 7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .wishly-farewell-template-1 .fw-paged-narrative-stage {
+    padding: 3.5rem 2rem 8rem;
+  }
+}
+
+.wishly-farewell-template-1 .fw-page-stage {
+  width: 100%;
+}
+
+.wishly-farewell-template-1 .fw-page-content-wrapper {
+  width: 100%;
+  animation: fwFadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fwFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Page Navigation Controls on Each Page */
+.wishly-farewell-template-1 .fw-page-nav-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--fw-border);
+}
+
+.wishly-farewell-template-1 .fw-page-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--fw-card-bg);
+  border: 1px solid var(--fw-border-strong);
+  color: var(--fw-text-main);
+  font-family: var(--fw-font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.75rem 1.35rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: var(--fw-shadow-sm);
+}
+
+.wishly-farewell-template-1 .fw-page-btn:hover {
+  background-color: var(--fw-text-main);
+  color: #FFFFFF;
+  border-color: var(--fw-text-main);
+  transform: translateY(-2px);
+  box-shadow: var(--fw-shadow-md);
+}
+
+.wishly-farewell-template-1 .fw-page-btn-next {
+  background-color: var(--fw-text-main);
+  color: #FFFFFF;
+  border-color: var(--fw-text-main);
+}
+
+.wishly-farewell-template-1 .fw-page-btn-next:hover {
+  background-color: var(--fw-accent);
+  border-color: var(--fw-accent);
+}
+
+.wishly-farewell-template-1 .fw-page-counter-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--fw-text-subtle);
+}
+
+.wishly-farewell-template-1 .fw-page-btn-spacer {
+  width: 90px;
+}
+
+@media (max-width: 480px) {
+  .wishly-farewell-template-1 .fw-page-nav-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .wishly-farewell-template-1 .fw-page-btn-spacer {
+    display: none;
+  }
+}
+
+/* Floating Bottom Story Pills */
+.wishly-farewell-template-1 .fw-floating-page-bar {
+  position: fixed;
+  bottom: 1.25rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 70px;
-  height: 20px;
-  background: rgba(251, 191, 36, 0.7);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--fw-border-strong);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  padding: 0.35rem 0.5rem;
+  max-width: 92vw;
+  overflow: hidden;
 }
 
-.polaroid-wall-item img {
-  width: 190px;
-  height: 190px;
+.wishly-farewell-template-1 .fw-page-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.wishly-farewell-template-1 .fw-page-pills-row::-webkit-scrollbar {
+  display: none;
+}
+
+.wishly-farewell-template-1 .fw-page-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  color: var(--fw-text-subtle);
+  font-family: var(--fw-font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.wishly-farewell-template-1 .fw-page-pill-btn .fw-pill-num {
+  font-size: 0.65rem;
+  color: var(--fw-accent);
+  font-weight: 700;
+}
+
+.wishly-farewell-template-1 .fw-page-pill-btn:hover {
+  color: var(--fw-text-main);
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.wishly-farewell-template-1 .fw-page-pill-btn.active {
+  background-color: var(--fw-text-main);
+  color: #FFFFFF;
+}
+
+.wishly-farewell-template-1 .fw-page-pill-btn.active .fw-pill-num {
+  color: var(--fw-accent-light);
+}
+
+@media (max-width: 640px) {
+  .wishly-farewell-template-1 .fw-page-pill-btn .fw-pill-label {
+    display: none;
+  }
+  .wishly-farewell-template-1 .fw-page-pill-btn {
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+/* ============================================================
+   CONTINUOUS SCROLL MODE
+   ============================================================ */
+.wishly-farewell-template-1 .fw-editorial-body {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+}
+
+@media (min-width: 768px) {
+  .wishly-farewell-template-1 .fw-editorial-body {
+    padding: 5rem 2.5rem 8rem;
+  }
+}
+
+/* Global Section Utilities */
+.wishly-farewell-template-1 .fw-section {
+  padding: 3rem 0;
+  scroll-margin-top: 4rem;
+}
+
+@media (min-width: 768px) {
+  .wishly-farewell-template-1 .fw-section {
+    padding: 5rem 0;
+  }
+}
+
+.wishly-farewell-template-1 .fw-section-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 3rem;
+}
+
+.wishly-farewell-template-1 .fw-section-tag {
+  display: inline-block;
+  font-family: var(--fw-font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fw-accent);
+  margin-bottom: 0.75rem;
+}
+
+.wishly-farewell-template-1 .fw-tag-centered {
+  display: block;
+  text-align: center;
+}
+
+.wishly-farewell-template-1 .fw-section-title {
+  font-family: var(--fw-font-display);
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 500;
+  color: var(--fw-text-main);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 1rem;
+}
+
+.wishly-farewell-template-1 .fw-section-subtitle {
+  font-size: 1.05rem;
+  color: var(--fw-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.wishly-farewell-template-1 .fw-section-quote {
+  font-family: var(--fw-font-serif);
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--fw-text-muted);
+  line-height: 1.5;
+  margin: 0.5rem 0 0;
+}
+
+/* Subtle Editorial Divider */
+.wishly-farewell-template-1 .fw-section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem auto;
+  max-width: 320px;
+  opacity: 0.6;
+}
+
+.wishly-farewell-template-1 .fw-divider-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--fw-border-strong);
+}
+
+.wishly-farewell-template-1 .fw-divider-glyph {
+  font-size: 0.75rem;
+  color: var(--fw-accent);
+}
+
+/* ============================================================
+   1. SECTION: OPENING — BEFORE WE GO
+   ============================================================ */
+.wishly-farewell-template-1 .fw-section-opening {
+  text-align: center;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wishly-farewell-template-1 .fw-opening-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.wishly-farewell-template-1 .fw-meta-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fw-accent);
+  background-color: var(--fw-accent-light);
+  border: 1px solid var(--fw-accent-border);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+}
+
+.wishly-farewell-template-1 .fw-meta-date {
+  font-size: 0.85rem;
+  color: var(--fw-text-subtle);
+  font-weight: 500;
+}
+
+.wishly-farewell-template-1 .fw-opening-text-wrap {
+  max-width: 720px;
+  margin-bottom: 2rem;
+}
+
+.wishly-farewell-template-1 .fw-opening-pretitle {
+  font-family: var(--fw-font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--fw-text-subtle);
+  margin-bottom: 0.75rem;
+}
+
+.wishly-farewell-template-1 .fw-opening-title {
+  font-family: var(--fw-font-display);
+  font-size: clamp(2.5rem, 6.5vw, 4.5rem);
+  font-weight: 400;
+  color: var(--fw-text-main);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+}
+
+.wishly-farewell-template-1 .fw-opening-role {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--fw-accent);
+  margin: 0 0 0.25rem;
+}
+
+.wishly-farewell-template-1 .fw-opening-team {
+  font-size: 0.95rem;
+  color: var(--fw-text-muted);
+  margin: 0 0 1.25rem;
+}
+
+.wishly-farewell-template-1 .fw-opening-subtitle {
+  font-family: var(--fw-font-serif);
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+  font-style: italic;
+  color: var(--fw-text-muted);
+  line-height: 1.5;
+  margin: 0 auto;
+  max-width: 580px;
+}
+
+/* Hero Framed Photo */
+.wishly-farewell-template-1 .fw-hero-photo-container {
+  width: 100%;
+  max-width: 740px;
+  margin: 0 auto 2.5rem;
+}
+
+.wishly-farewell-template-1 .fw-hero-frame {
+  position: relative;
+  background-color: var(--fw-card-bg);
+  padding: 12px 12px 16px;
+  border-radius: 4px;
+  border: 1px solid var(--fw-border);
+  box-shadow: var(--fw-shadow-lg);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.wishly-farewell-template-1 .fw-hero-frame:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+}
+
+.wishly-farewell-template-1 .fw-hero-img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
+  display: block;
   border-radius: 2px;
 }
 
-.wall-caption {
-  display: block;
-  font-size: 0.8rem;
-  color: #78716c;
-  font-style: italic;
+.wishly-farewell-template-1 .fw-hero-caption-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 4px 2px;
+  border-top: 1px solid var(--fw-border);
   margin-top: 10px;
+  font-size: 0.75rem;
+  color: var(--fw-text-subtle);
+  letter-spacing: 0.05em;
+}
+
+.wishly-farewell-template-1 .fw-caption-index {
+  font-weight: 700;
+  color: var(--fw-accent);
+}
+
+/* Begin CTA Button */
+.wishly-farewell-template-1 .fw-opening-cta-wrap {
+  margin-top: 1rem;
+}
+
+.wishly-farewell-template-1 .fw-btn-begin {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: var(--fw-text-main);
+  color: #FFFFFF;
+  font-family: var(--fw-font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.85rem 1.75rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(28, 29, 31, 0.15);
+}
+
+.wishly-farewell-template-1 .fw-btn-begin:hover {
+  background-color: var(--fw-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(158, 88, 63, 0.25);
+}
+
+.wishly-farewell-template-1 .fw-arrow-down {
+  animation: fwBounce 2s infinite ease-in-out;
+}
+
+@keyframes fwBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* ============================================================
+   2. SECTION: THE BEGINNING (Timeline Layout)
+   ============================================================ */
+.wishly-farewell-template-1 .fw-timeline-container {
+  position: relative;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.wishly-farewell-template-1 .fw-timeline-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 20px;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--fw-border-strong) 15%,
+    var(--fw-border-strong) 85%,
+    transparent 100%
+  );
+}
+
+@media (min-width: 768px) {
+  .wishly-farewell-template-1 .fw-timeline-line {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.wishly-farewell-template-1 .fw-timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+  padding-left: 50px;
+}
+
+@media (min-width: 768px) {
+  .wishly-farewell-template-1 .fw-timeline-item {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0;
+    margin-bottom: 4.5rem;
+  }
+
+  .wishly-farewell-template-1 .fw-timeline-reverse {
+    flex-direction: row-reverse;
+  }
+}
+
+.wishly-farewell-template-1 .fw-timeline-marker {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  z-index: 3;
+}
+
+@media (min-width: 768px) {
+  .wishly-farewell-template-1 .fw-timeline-marker {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50%;
+    margin-top: -8px;
+  }
+}
+
+.wishly-farewell-template-1 .fw-marker-dot {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--fw-bg);
+  border: 3px solid var(--fw-accent);
+  box-shadow: 0 0 0 4px rgba(158, 88, 63, 0.15);
+}
+
+.wishly-farewell-template-1 .fw-timeline-card {
+  background-color: var(--fw-card-bg);
+  border: 1px solid var(--fw-border);
+  border-radius: 6px;
+  padding: 1.75rem;
+  box-shadow: var(--fw-shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .wishly-farewell-template-1 .fw-timeline-card {
+    width: 44%;
+  }
+}
+
+.wishly-farewell-template-1 .fw-timeline-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--fw-shadow-md);
+}
+
+.wishly-farewell-template-1 .fw-milestone-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.wishly-farewell-template-1 .fw-milestone-index {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--fw-accent);
+}
+
+.wishly-farewell-template-1 .fw-milestone-date {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--fw-text-subtle);
+}
+
+.wishly-farewell-template-1 .fw-milestone-title {
+  font-family: var(--fw-font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--fw-text-main);
+  line-height: 1.3;
+  margin: 0 0 0.75rem;
+}
+
+.wishly-farewell-template-1 .fw-milestone-desc {
+  font-size: 0.95rem;
+  color: var(--fw-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.wishly-farewell-template-1 .fw-timeline-photo-wrap {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .wishly-farewell-template-1 .fw-timeline-photo-wrap {
+    width: 44%;
+  }
+}
+
+.wishly-farewell-template-1 .fw-photo-frame {
+  background-color: var(--fw-card-bg);
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--fw-border);
+  box-shadow: var(--fw-shadow-sm);
+}
+
+.wishly-farewell-template-1 .fw-timeline-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+}
+
+.wishly-farewell-template-1 .fw-photo-caption {
+  display: block;
+  font-family: var(--fw-font-serif);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--fw-text-subtle);
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* ============================================================
+   3. SECTION: THE CHAOS & UNPLANNED (Asymmetric Candid Grid)
+   ============================================================ */
+.wishly-farewell-template-1 .fw-chaos-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .wishly-farewell-template-1 .fw-chaos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+.wishly-farewell-template-1 .fw-chaos-card {
+  position: relative;
+  background-color: var(--fw-card-bg);
+  border: 1px solid var(--fw-border);
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: var(--fw-shadow-sm);
+  cursor: pointer;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transform: rotate(var(--card-rotation, 0deg));
+}
+
+.wishly-farewell-template-1 .fw-chaos-card:hover,
+.wishly-farewell-template-1 .fw-chaos-card-active {
+  transform: rotate(0deg) translateY(-6px) scale(1.02);
+  box-shadow: var(--fw-shadow-lg);
+  border-color: var(--fw-accent-border);
+  z-index: 10;
+}
+
+.wishly-farewell-template-1 .fw-chaos-media-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.wishly-farewell-template-1 .fw-chaos-tag-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background-color: rgba(28, 29, 31, 0.85);
+  color: #FFFFFF;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+.wishly-farewell-template-1 .fw-chaos-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.wishly-farewell-template-1 .fw-chaos-card:hover .fw-chaos-img {
+  transform: scale(1.04);
+}
+
+.wishly-farewell-template-1 .fw-chaos-info {
+  padding: 1rem 0.25rem 0.25rem;
+}
+
+.wishly-farewell-template-1 .fw-chaos-info-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.wishly-farewell-template-1 .fw-chaos-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--fw-accent);
+}
+
+.wishly-farewell-template-1 .fw-chaos-title {
+  font-family: var(--fw-font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--fw-text-main);
+  margin: 0;
+}
+
+.wishly-farewell-template-1 .fw-chaos-note {
+  font-size: 0.9rem;
+  color: var(--fw-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ============================================================
+   4. SECTION: THE PEOPLE (Editorial Photo Grid & Notes)
+   ============================================================ */
+.wishly-farewell-template-1 .fw-people-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .wishly-farewell-template-1 .fw-people-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.wishly-farewell-template-1 .fw-person-card {
+  background-color: var(--fw-card-bg);
+  border: 1px solid var(--fw-border);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--fw-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.wishly-farewell-template-1 .fw-person-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--fw-shadow-md);
+  border-color: var(--fw-accent-border);
+}
+
+.wishly-farewell-template-1 .fw-person-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  background-color: var(--fw-bg-alt);
+}
+
+.wishly-farewell-template-1 .fw-person-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.wishly-farewell-template-1 .fw-person-card:hover .fw-person-img {
+  transform: scale(1.03);
+}
+
+.wishly-farewell-template-1 .fw-person-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 29, 31, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.wishly-farewell-template-1 .fw-person-card:hover .fw-person-overlay {
+  opacity: 1;
+}
+
+.wishly-farewell-template-1 .fw-read-note-pill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  background-color: #FFFFFF;
+  color: var(--fw-text-main);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.wishly-farewell-template-1 .fw-person-details {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.wishly-farewell-template-1 .fw-person-header {
+  margin-bottom: 0.75rem;
+}
+
+.wishly-farewell-template-1 .fw-person-name {
+  font-family: var(--fw-font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--fw-text-main);
+  margin: 0 0 0.2rem;
+}
+
+.wishly-farewell-template-1 .fw-person-role {
+  font-size: 0.8rem;
+  color: var(--fw-accent);
+  font-weight: 500;
+}
+
+.wishly-farewell-template-1 .fw-person-quote {
+  font-family: var(--fw-font-serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--fw-text-muted);
+  line-height: 1.5;
+  margin: 0 0 1.25rem;
+  flex: 1;
+}
+
+.wishly-farewell-template-1 .fw-person-open-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--fw-font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--fw-accent);
+  cursor: pointer;
+  text-align: left;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s ease;
+}
+
+.wishly-farewell-template-1 .fw-person-open-link:hover {
+  color: var(--fw-text-main);
+  text-decoration: underline;
+}
+
+/* Modal Dialog for Personal Tribute */
+.wishly-farewell-template-1 .fw-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(28, 29, 31, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fwFadeIn 0.25s ease-out;
+}
+
+@keyframes fwFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.wishly-farewell-template-1 .fw-modal-dialog {
+  position: relative;
+  background-color: var(--fw-card-bg);
+  border-radius: 8px;
+  max-width: 680px;
+  width: 100%;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  border: 1px solid var(--fw-border);
+  animation: fwModalSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fwModalSlide {
+  from { transform: translateY(20px) scale(0.97); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.wishly-farewell-template-1 .fw-modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--fw-bg-alt);
+  border: 1px solid var(--fw-border);
+  color: var(--fw-text-main);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wishly-farewell-template-1 .fw-modal-close-btn:hover {
+  background-color: var(--fw-text-main);
+  color: #FFFFFF;
+}
+
+.wishly-farewell-template-1 .fw-modal-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .wishly-farewell-template-1 .fw-modal-layout {
+    flex-direction: row;
+  }
+}
+
+.wishly-farewell-template-1 .fw-modal-media {
+  position: relative;
+  background-color: var(--fw-bg-alt);
+}
+
+@media (min-width: 640px) {
+  .wishly-farewell-template-1 .fw-modal-media {
+    width: 240px;
+    flex-shrink: 0;
+  }
+}
+
+.wishly-farewell-template-1 .fw-modal-photo {
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.wishly-farewell-template-1 .fw-modal-role-pill {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background-color: rgba(28, 29, 31, 0.85);
+  color: #FFFFFF;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+.wishly-farewell-template-1 .fw-modal-content {
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.wishly-farewell-template-1 .fw-modal-meta {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--fw-accent);
+  margin-bottom: 0.5rem;
+}
+
+.wishly-farewell-template-1 .fw-modal-name {
+  font-family: var(--fw-font-display);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--fw-text-main);
+  margin: 0 0 1rem;
+}
+
+.wishly-farewell-template-1 .fw-modal-quote {
+  font-family: var(--fw-font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--fw-accent);
+  border-left: 2px solid var(--fw-accent);
+  padding-left: 1rem;
+  margin: 0 0 1.25rem;
+  line-height: 1.4;
+}
+
+.wishly-farewell-template-1 .fw-modal-full-note {
+  font-size: 0.95rem;
+  color: var(--fw-text-muted);
+  line-height: 1.7;
+  margin: 0 0 1.5rem;
+}
+
+.wishly-farewell-template-1 .fw-modal-stamp {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fw-text-subtle);
+  border-top: 1px solid var(--fw-border);
+  padding-top: 1rem;
+  display: block;
+}
+
+/* ============================================================
+   5. SECTION: THE LITTLE THINGS (Archived Vignettes)
+   ============================================================ */
+.wishly-farewell-template-1 .fw-little-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .wishly-farewell-template-1 .fw-little-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 860px) {
+  .wishly-farewell-template-1 .fw-little-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.wishly-farewell-template-1 .fw-little-card {
+  background-color: var(--fw-card-bg);
+  border: 1px solid var(--fw-border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  box-shadow: var(--fw-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wishly-farewell-template-1 .fw-little-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--fw-accent-border);
+  box-shadow: var(--fw-shadow-md);
+}
+
+.wishly-farewell-template-1 .fw-little-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.wishly-farewell-template-1 .fw-little-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--fw-accent);
+}
+
+.wishly-farewell-template-1 .fw-little-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fw-text-subtle);
+}
+
+.wishly-farewell-template-1 .fw-little-value {
+  font-family: var(--fw-font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--fw-text-main);
+  line-height: 1.4;
+  margin: 0 0 1rem;
+  flex: 1;
+}
+
+.wishly-farewell-template-1 .fw-little-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--fw-text-subtle);
+  border-top: 1px dashed var(--fw-border);
+  padding-top: 0.75rem;
+}
+
+.wishly-farewell-template-1 .fw-little-meta-bullet {
+  color: var(--fw-accent);
+}
+
+/* ============================================================
+   6. SECTION: ONE LAST PAGE (Quiet, Minimalist Full Bleed)
+   ============================================================ */
+.wishly-farewell-template-1 .fw-section-one-last-page {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .wishly-farewell-template-1 .fw-section-one-last-page {
+    padding: 6rem 0;
+  }
+}
+
+.wishly-farewell-template-1 .fw-lastpage-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.wishly-farewell-template-1 .fw-lastpage-photo-wrap {
+  margin: 2rem auto 2.5rem;
+  max-width: 680px;
+}
+
+.wishly-farewell-template-1 .fw-lastpage-frame {
+  background-color: var(--fw-card-bg);
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid var(--fw-border);
+  box-shadow: var(--fw-shadow-lg);
+}
+
+.wishly-farewell-template-1 .fw-lastpage-img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+  filter: grayscale(15%);
+  transition: filter 0.5s ease;
+}
+
+.wishly-farewell-template-1 .fw-lastpage-frame:hover .fw-lastpage-img {
+  filter: grayscale(0%);
+}
+
+.wishly-farewell-template-1 .fw-lastpage-text {
+  margin: 2rem 0 0;
+}
+
+.wishly-farewell-template-1 .fw-lastpage-line1 {
+  font-family: var(--fw-font-display);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 400;
+  color: var(--fw-text-main);
+  line-height: 1.2;
+  margin: 0 0 0.25rem;
+}
+
+.wishly-farewell-template-1 .fw-lastpage-line2 {
+  font-family: var(--fw-font-serif);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--fw-accent);
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* ============================================================
+   7. SECTION: FAREWELL (Personal Letter & Signature)
+   ============================================================ */
+.wishly-farewell-template-1 .fw-section-farewell {
+  padding-bottom: 2rem;
+}
+
+.wishly-farewell-template-1 .fw-farewell-card {
+  background-color: var(--fw-card-bg);
+  border: 1px solid var(--fw-border);
+  border-radius: 8px;
+  padding: 2.25rem 1.5rem;
+  max-width: 760px;
+  margin: 0 auto;
+  box-shadow: var(--fw-shadow-lg);
+}
+
+@media (min-width: 768px) {
+  .wishly-farewell-template-1 .fw-farewell-card {
+    padding: 3.5rem 3rem;
+  }
+}
+
+.wishly-farewell-template-1 .fw-farewell-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.wishly-farewell-template-1 .fw-farewell-title {
+  font-family: var(--fw-font-display);
+  font-size: 2.25rem;
+  font-weight: 500;
+  color: var(--fw-text-main);
+  margin: 0 0 1rem;
+}
+
+.wishly-farewell-template-1 .fw-farewell-rule {
+  width: 48px;
+  height: 2px;
+  background-color: var(--fw-accent);
+  margin: 0 auto;
+}
+
+.wishly-farewell-template-1 .fw-farewell-body {
+  margin-bottom: 2.5rem;
+}
+
+.wishly-farewell-template-1 .fw-farewell-salutation {
+  font-family: var(--fw-font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--fw-text-main);
+  margin-bottom: 1.25rem;
+}
+
+.wishly-farewell-template-1 .fw-farewell-para {
+  font-size: 1.05rem;
+  color: var(--fw-text-muted);
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+}
+
+.wishly-farewell-template-1 .fw-farewell-signoff-wrap {
+  border-top: 1px solid var(--fw-border);
+  padding-top: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.wishly-farewell-template-1 .fw-farewell-signoff-prompt {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--fw-text-subtle);
+  margin-bottom: 0.5rem;
+}
+
+.wishly-farewell-template-1 .fw-farewell-sender {
+  font-family: var(--fw-font-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--fw-text-main);
+  margin: 0 0 0.25rem;
+}
+
+.wishly-farewell-template-1 .fw-farewell-team-meta {
+  font-size: 0.9rem;
+  color: var(--fw-accent);
+  font-weight: 500;
+  margin: 0 0 1rem;
+}
+
+.wishly-farewell-template-1 .fw-farewell-stamp-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.wishly-farewell-template-1 .fw-farewell-stamp-item {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fw-text-subtle);
+  background-color: var(--fw-bg-alt);
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+}
+
+.wishly-farewell-template-1 .fw-farewell-final-closing {
+  text-align: center;
+  padding: 1.5rem 0;
+  border-top: 1px dashed var(--fw-border);
+}
+
+.wishly-farewell-template-1 .fw-farewell-closing-phrase {
+  font-family: var(--fw-font-serif);
+  font-size: 1.75rem;
+  font-style: italic;
+  color: var(--fw-accent);
+  margin: 0;
+}
+
+.wishly-farewell-template-1 .fw-farewell-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.wishly-farewell-template-1 .fw-btn-replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: 1px solid var(--fw-border-strong);
+  color: var(--fw-text-muted);
+  font-family: var(--fw-font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.wishly-farewell-template-1 .fw-btn-replay:hover {
+  background-color: var(--fw-text-main);
+  color: #FFFFFF;
+  border-color: var(--fw-text-main);
+}
+
+/* ============================================================
+   FLOATING SCROLL NAV
+   ============================================================ */
+.wishly-farewell-template-1 .fw-floating-nav {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--fw-border-strong);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  padding: 0.35rem 0.5rem;
+  max-width: 92vw;
+  overflow: hidden;
+}
+
+.wishly-farewell-template-1 .fw-nav-progress-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: transparent;
+}
+
+.wishly-farewell-template-1 .fw-nav-progress-fill {
+  height: 100%;
+  background-color: var(--fw-accent);
+  transition: width 0.15s ease-out;
+}
+
+.wishly-farewell-template-1 .fw-nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.wishly-farewell-template-1 .fw-nav-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.wishly-farewell-template-1 .fw-nav-dot-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  color: var(--fw-text-subtle);
+  font-family: var(--fw-font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.wishly-farewell-template-1 .fw-nav-num {
+  font-size: 0.65rem;
+  color: var(--fw-accent);
+  font-weight: 700;
+}
+
+.wishly-farewell-template-1 .fw-nav-dot {
+  display: none;
+}
+
+.wishly-farewell-template-1 .fw-nav-dot-btn:hover {
+  color: var(--fw-text-main);
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.wishly-farewell-template-1 .fw-nav-dot-btn.active {
+  background-color: var(--fw-text-main);
+  color: #FFFFFF;
+}
+
+.wishly-farewell-template-1 .fw-nav-dot-btn.active .fw-nav-num {
+  color: var(--fw-accent-light);
+}
+
+@media (max-width: 640px) {
+  .wishly-farewell-template-1 .fw-nav-title {
+    display: none;
+  }
+  .wishly-farewell-template-1 .fw-nav-dot-btn {
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+/* ============================================================
+   FOOTER CREDIT
+   ============================================================ */
+.wishly-farewell-template-1 .fw-editorial-footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  border-top: 1px solid var(--fw-border);
+  position: relative;
+  z-index: 2;
+}
+
+.wishly-farewell-template-1 .fw-footer-credit {
+  font-size: 0.75rem;
+  color: var(--fw-text-subtle);
+  letter-spacing: 0.05em;
+  margin: 0;
 }

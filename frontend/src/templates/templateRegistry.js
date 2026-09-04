@@ -369,18 +369,22 @@ export const TEMPLATES = [
   {
     id: 'memory-wall',
     occasion: 'farewell',
-    name: 'Memory Wall',
-    description: 'Polaroid wall filled with individual messages and washi tape from teammates.',
-    badge: 'Interactive',
-    previewColor: '#FF9F43',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'teamName'],
+    name: 'Before We Go',
+    description: 'An emotional editorial chronicle of shared memories, candid moments, and heartfelt farewells.',
+    badge: 'Editorial',
+    previewColor: '#9E583F',
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'teamName', 'date', 'classYear', 'timeline', 'milestones'],
     defaultData: {
-      recipientName: 'David',
-      senderName: 'The Whole Office',
-      teamName: 'Design & Product Crew',
-      message: 'You left footprints of kindness everywhere. Keep in touch!',
+      recipientName: 'David Kim',
+      senderName: 'The Whole Product & Design Team',
+      teamName: 'Design & Engineering Studio',
+      message: 'Your creativity, relentless dedication, and morning coffee banter made every single workday brighter. The culture and warmth you fostered will remain long after this chapter closes. We will miss you dearly!',
+      date: 'March 2026',
+      classYear: '2021 – 2026',
       photos: [
-        'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&auto=format&fit=crop&q=80',
         'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&auto=format&fit=crop&q=80'
       ]
     },
