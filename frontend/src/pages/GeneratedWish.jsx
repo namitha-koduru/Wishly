@@ -173,12 +173,15 @@ export function GeneratedWish() {
     return (
       <div className="generated-wish-error-screen">
         <div className="error-card text-center">
-          <div className="error-emoji">🔍</div>
+          <div className="not-found-image-wrap" style={{ margin: '0 auto 1.2rem' }}>
+            <div className="not-found-glow-halo"></div>
+            <img src="/404.png" alt="Wishly Not Found" className="not-found-illustration" />
+          </div>
           <h2>Oops — this Wishly seems to have wandered off.</h2>
-          <p>Ask the person who sent it to check the link.</p>
+          <p>The link might be incorrect or the keepsake has expired.</p>
           <div className="error-actions">
             <Link to="/" className="btn btn-primary btn-lg pulse-glow">
-              ← Back to Wishly
+              ← Return to Wishly
             </Link>
           </div>
         </div>
