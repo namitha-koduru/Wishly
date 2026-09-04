@@ -17,24 +17,24 @@
   --font-accent: 'Cinzel', serif;
 
   /* Master Palette: Warm Editorial Neutral Foundation with Parisian Accents */
-  --wishly-canvas: #F9F7F4;
+  --wishly-canvas: #FAFAF8;
   --wishly-surface: #FFFFFF;
-  --wishly-surface-warm: #F3EFE8;
-  --wishly-surface-subtle: #EAE4D8;
+  --wishly-surface-warm: #F5F3EF;
+  --wishly-surface-subtle: #EDEBE5;
   
-  --wishly-ink: #141210;
-  --wishly-ink-secondary: #56514A;
-  --wishly-ink-muted: #8A847B;
+  --wishly-ink: #1A1816;
+  --wishly-ink-secondary: #5A554E;
+  --wishly-ink-muted: #908A82;
 
   /* Restrained Accents */
-  --wishly-accent: #C23B4E;
-  --wishly-accent-hover: #A62D3E;
-  --wishly-accent-soft: rgba(194, 59, 78, 0.07);
-  --wishly-accent-subtle: rgba(194, 59, 78, 0.14);
+  --wishly-accent: #B83245;
+  --wishly-accent-hover: #9E2838;
+  --wishly-accent-soft: rgba(184, 50, 69, 0.06);
+  --wishly-accent-subtle: rgba(184, 50, 69, 0.12);
   
-  --wishly-gold: #B8860B;
-  --wishly-gold-soft: rgba(184, 134, 11, 0.09);
-  --wishly-gold-light: #F0D078;
+  --wishly-gold: #A67B0A;
+  --wishly-gold-soft: rgba(166, 123, 10, 0.08);
+  --wishly-gold-light: #E8C55A;
 
   /* Functional Status */
   --wishly-success: #276738;
@@ -42,30 +42,30 @@
   --wishly-danger: #C02626;
 
   /* Architectural Hairline Borders */
-  --wishly-border: #E6E0D5;
-  --wishly-border-light: #F0ECE3;
-  --wishly-border-dark: #CBC3B5;
-  --wishly-border-focus: rgba(194, 59, 78, 0.4);
+  --wishly-border: #E8E4DD;
+  --wishly-border-light: #F0ECE5;
+  --wishly-border-dark: #D1CABF;
+  --wishly-border-focus: rgba(184, 50, 69, 0.35);
 
-  /* Diffused Ambient Shadows (Non-muddy) */
-  --wishly-shadow-xs: 0 1px 3px rgba(20, 18, 16, 0.03);
-  --wishly-shadow-sm: 0 2px 8px rgba(20, 18, 16, 0.04);
-  --wishly-shadow-md: 0 8px 24px rgba(20, 18, 16, 0.06), 0 2px 6px rgba(20, 18, 16, 0.02);
-  --wishly-shadow-lg: 0 16px 42px rgba(20, 18, 16, 0.08), 0 4px 12px rgba(20, 18, 16, 0.03);
-  --wishly-shadow-xl: 0 28px 65px rgba(20, 18, 16, 0.11);
+  /* Shadows — refined, less muddy, more architectural */
+  --wishly-shadow-xs: 0 1px 2px rgba(26, 24, 22, 0.04);
+  --wishly-shadow-sm: 0 1px 3px rgba(26, 24, 22, 0.04), 0 1px 2px rgba(26, 24, 22, 0.02);
+  --wishly-shadow-md: 0 4px 16px rgba(26, 24, 22, 0.06), 0 1px 4px rgba(26, 24, 22, 0.03);
+  --wishly-shadow-lg: 0 12px 32px rgba(26, 24, 22, 0.07), 0 2px 8px rgba(26, 24, 22, 0.03);
+  --wishly-shadow-xl: 0 20px 48px rgba(26, 24, 22, 0.09), 0 4px 12px rgba(26, 24, 22, 0.03);
 
-  /* Precise Structural Radii */
-  --wishly-radius-xs: 4px;
-  --wishly-radius-sm: 8px;
-  --wishly-radius-md: 12px;
-  --wishly-radius-lg: 18px;
-  --wishly-radius-xl: 24px;
+  /* Precise Structural Radii — tightened for cleaner look */
+  --wishly-radius-xs: 3px;
+  --wishly-radius-sm: 6px;
+  --wishly-radius-md: 10px;
+  --wishly-radius-lg: 14px;
+  --wishly-radius-xl: 20px;
   --wishly-radius-full: 9999px;
 
-  /* Transitions */
-  --wishly-transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  --wishly-transition: 250ms cubic-bezier(0.16, 1, 0.3, 1);
-  --wishly-transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  /* Transitions — snappier and more intentional */
+  --wishly-transition-fast: 140ms cubic-bezier(0.22, 1, 0.36, 1);
+  --wishly-transition: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  --wishly-transition-slow: 360ms cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Backwards Compatibility Token Aliases */
   --bg-cream: var(--wishly-canvas);
@@ -101,6 +101,7 @@
 html {
   scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
+  font-size: 16px;
 }
 
 body {
@@ -108,10 +109,11 @@ body {
   background-color: var(--wishly-canvas);
   color: var(--wishly-ink);
   min-height: 100vh;
-  line-height: 1.62;
+  line-height: 1.65;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 a {
@@ -119,9 +121,14 @@ a {
   text-decoration: none;
 }
 
+img {
+  display: block;
+  max-width: 100%;
+}
+
 /* Container Structure */
 .container {
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
 }
@@ -145,31 +152,32 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
+  gap: 0.5rem;
   font-family: var(--font-body);
   font-weight: 600;
   border-radius: var(--wishly-radius-sm);
   text-decoration: none;
   cursor: pointer;
-  transition: var(--wishly-transition);
+  transition: all var(--wishly-transition);
   border: 1px solid transparent;
   white-space: nowrap;
   outline: none;
   user-select: none;
   line-height: 1;
+  letter-spacing: 0.01em;
 }
 
 .btn:focus-visible {
-  box-shadow: 0 0 0 3px var(--wishly-border-focus);
+  box-shadow: 0 0 0 2px var(--wishly-canvas), 0 0 0 4px var(--wishly-border-focus);
 }
 
 .btn:active {
-  transform: scale(0.985);
+  transform: scale(0.98);
 }
 
 .btn:disabled,
 .btn[aria-disabled="true"] {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
   transform: none !important;
   box-shadow: none !important;
@@ -177,19 +185,19 @@ a {
 
 /* Sizes */
 .btn-sm {
-  padding: 0.55rem 1.15rem;
-  font-size: 0.84rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.82rem;
   border-radius: var(--wishly-radius-xs);
 }
 
 .btn-md {
-  padding: 0.8rem 1.75rem;
-  font-size: 0.94rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 0.9rem;
 }
 
 .btn-lg {
-  padding: 0.95rem 2.25rem;
-  font-size: 1.02rem;
+  padding: 0.85rem 2rem;
+  font-size: 0.95rem;
   border-radius: var(--wishly-radius-sm);
 }
 
@@ -202,41 +210,38 @@ a {
   background-color: var(--wishly-ink);
   color: #ffffff;
   border-color: var(--wishly-ink);
-  box-shadow: 0 3px 12px rgba(20, 18, 16, 0.18);
 }
 
 .btn-primary:hover {
-  background-color: var(--wishly-accent);
-  border-color: var(--wishly-accent);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(194, 59, 78, 0.3);
+  background-color: #2C2926;
+  border-color: #2C2926;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 24, 22, 0.2);
 }
 
 .btn-accent {
   background-color: var(--wishly-accent);
   color: #ffffff;
   border-color: var(--wishly-accent);
-  box-shadow: 0 3px 12px rgba(194, 59, 78, 0.25);
 }
 
 .btn-accent:hover {
   background-color: var(--wishly-accent-hover);
   border-color: var(--wishly-accent-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(194, 59, 78, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(184, 50, 69, 0.28);
 }
 
 .btn-secondary {
   background-color: var(--wishly-surface);
   color: var(--wishly-ink);
   border-color: var(--wishly-border);
-  box-shadow: var(--wishly-shadow-xs);
 }
 
 .btn-secondary:hover {
   border-color: var(--wishly-border-dark);
   background-color: var(--wishly-surface-warm);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   box-shadow: var(--wishly-shadow-sm);
 }
 
@@ -247,8 +252,8 @@ a {
 }
 
 .btn-outline:hover {
-  background-color: var(--wishly-surface);
-  border-color: var(--wishly-ink);
+  background-color: var(--wishly-surface-warm);
+  border-color: var(--wishly-border-dark);
 }
 
 .btn-ghost {
@@ -267,7 +272,7 @@ a {
    ========================================================= */
 
 .section-heading {
-  margin-bottom: 3.5rem;
+  margin-bottom: 3rem;
 }
 
 .text-center {
@@ -279,24 +284,24 @@ a {
   align-items: center;
   gap: 0.4rem;
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   color: var(--wishly-accent);
   text-transform: uppercase;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.9rem;
   background: var(--wishly-accent-soft);
-  padding: 0.3rem 0.85rem;
-  border-radius: var(--wishly-radius-full);
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--wishly-radius-xs);
 }
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-size: clamp(2rem, 4.5vw, 3rem);
   font-weight: 600;
   color: var(--wishly-ink);
   letter-spacing: -0.5px;
-  line-height: 1.16;
+  line-height: 1.18;
 }
 
 .section-title em {
@@ -306,11 +311,11 @@ a {
 }
 
 .section-subtitle {
-  font-size: clamp(0.98rem, 2.2vw, 1.12rem);
+  font-size: clamp(0.95rem, 2vw, 1.08rem);
   color: var(--wishly-ink-secondary);
-  max-width: 600px;
-  margin: 0.9rem auto 0;
-  line-height: 1.65;
+  max-width: 560px;
+  margin: 0.8rem auto 0;
+  line-height: 1.7;
 }
 
 /* =========================================================
@@ -318,13 +323,13 @@ a {
    ========================================================= */
 
 .animate-fade-in {
-  animation: wishlyFadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: wishlyFadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes wishlyFadeInUp {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
