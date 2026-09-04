@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just because. — Wishly</title>
+<meta name="description" content="No occasion. No reason. I just wanted to make you smile.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,440;0,9..144,560;1,9..144,440&family=Inter:wght@400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- decorative grain overlay, purely visual, sits above everything at low opacity -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ SIDE / BOTTOM NAVIGATION ============ -->
+<nav class="scene-nav" aria-label="Page sections">
+  <button class="scene-nav__dot is-active" data-target="scene-01" aria-label="Go to: hello">01</button>
+  <button class="scene-nav__dot" data-target="scene-03" aria-label="Go to: maybe">02</button>
+  <button class="scene-nav__dot" data-target="scene-04" aria-label="Go to: remember">03</button>
+  <button class="scene-nav__dot" data-target="scene-05" aria-label="Go to: one more thing">04</button>
+  <button class="scene-nav__dot" data-target="scene-06" aria-label="Go to: just you">05</button>
+</nav>
+
+<main>
+
+  <!-- ============================================================
+       SCENE 01 + 02 — HERO ("Just because.") that yields to
+       a hand-placed note as the user scrolls.
+       Implemented as one tall wrapper with a sticky viewport,
+       driven by a single scroll-progress CSS variable.
+  ============================================================ -->
+  <section class="story" id="scene-01" style="--story-height: 240vh;">
+    <div class="story__stage">
+
+      <!-- HERO LAYER -->
+      <div class="hero" data-layer="hero">
+        <p class="hero__eyebrow reveal reveal--1">no occasion</p>
+        <h1 class="hero__title" aria-label="Just because.">
+          <span class="hero__title-line hero__title-line--just reveal reveal--2">Just</span>
+          <span class="hero__title-line hero__title-line--because reveal reveal--3">because.</span>
+        </h1>
+        <p class="hero__sub reveal reveal--4">No occasion. No reason.<br>I just wanted to make you smile.</p>
+        <p class="hero__signature reveal reveal--5">— from someone who thought of you today</p>
+        <div class="hero__scroll-cue reveal reveal--6" aria-hidden="true">
+          <span class="hero__scroll-line"></span>
+          <span class="hero__scroll-word">scroll</span>
+        </div>
+      </div>
+
+      <!-- NOTE LAYER -->
+      <div class="note" data-layer="note">
+        <div class="note__card">
+          <span class="note__pin" aria-hidden="true"></span>
+          <p class="note__line" data-note-line="1">No birthday.</p>
+          <p class="note__line" data-note-line="2">No anniversary.</p>
+          <p class="note__line" data-note-line="3">No big reason.</p>
+          <p class="note__line note__line--signature" data-note-line="4">I just thought of you.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCENE 03 — "Maybe I did have a reason." Scattered notes.
+  ============================================================ -->
+  <section class="scene scene--reasons" id="scene-03">
+    <div class="scene__inner">
+      <h2 class="scene__heading reveal-up">Maybe I did have a reason.</h2>
+
+      <div class="scraps" id="scraps">
+        <button class="scrap scrap--1" data-thought="I've missed talking to you lately, more than I usually say.">thinking of you</button>
+        <button class="scrap scrap--2" data-thought="It's been a while, and honestly, I miss you.">miss you</button>
+        <button class="scrap scrap--3" data-thought="Watching you figure things out lately has made me quietly proud.">I'm proud of you</button>
+        <button class="scrap scrap--4" data-thought="For being exactly who you are, even on the ordinary days.">thank you</button>
+        <button class="scrap scrap--5" data-thought="I hope something small went right for you today.">you made today better</button>
+        <button class="scrap scrap--6" data-thought="No big update, no news. Just wanted to say hi.">just wanted to say hi</button>
+      </div>
+
+      <div class="scraps__selected" id="scrapsSelected" aria-live="polite">
+        <p class="scraps__selected-quote" id="scrapsSelectedQuote"></p>
+        <p class="scraps__selected-follow">So I made you this little corner of the internet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCENE 04 — the photograph + the secret letter
+  ============================================================ -->
+  <section class="scene scene--memory" id="scene-04">
+    <div class="scene__inner scene__inner--memory">
+
+      <div class="photo reveal-up">
+        <div class="photo__frame">
+          <div class="photo__image" data-placeholder-photo>
+            <!-- Replace this element's background-image (or swap this div for an <img>)
+                 with the real photo. Keeping it as a soft placeholder for now. -->
+          </div>
+        </div>
+        <span class="photo__tape" aria-hidden="true"></span>
+        <p class="photo__annotation">one of my favourites</p>
+      </div>
+
+      <div class="letter">
+        <p class="letter__lead reveal-up">There's one more thing.</p>
+        <button class="letter__open" id="envelopeButton" aria-expanded="false">
+          <span class="envelope" id="envelope">
+            <span class="envelope__flap" aria-hidden="true"></span>
+            <span class="envelope__body" aria-hidden="true"></span>
+            <span class="envelope__letter" aria-hidden="true"></span>
+          </span>
+          <span class="letter__open-label">open it</span>
+        </button>
+
+        <div class="letter__message" id="letterMessage">
+          <p data-editable-message>You make ordinary days feel a little less ordinary.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCENE 05 — the small surprise ("You're loved.")
+  ============================================================ -->
+  <section class="scene scene--surprise" id="scene-05">
+    <div class="scene__inner scene__inner--center">
+      <p class="surprise__psst reveal-up" id="psst">psst&hellip;</p>
+
+      <div class="surprise__drift" id="drift" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <h2 class="surprise__title reveal-up">
+        You&rsquo;re loved.<br>
+        <span class="surprise__title-sub">Just in case you forgot.</span>
+      </h2>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCENE 06 — final, quiet close
+  ============================================================ -->
+  <section class="scene scene--final" id="scene-06">
+    <div class="scene__inner scene__inner--center">
+      <h2 class="final__title reveal-up">No occasion.<br>Just you.</h2>
+      <p class="final__sub reveal-up">Some things are worth doing simply because you can.</p>
+      <a href="#" class="final__cta reveal-up">make another little something →</a>
+      <p class="final__footer">made with Wishly &hearts;</p>
+    </div>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
