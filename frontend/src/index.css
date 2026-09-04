@@ -92,7 +92,9 @@
    BASE RESET & TYPOGRAPHY FOUNDATIONS
    ========================================================= */
 
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -102,6 +104,9 @@ html {
   scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
   font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -111,37 +116,47 @@ body {
   min-height: 100vh;
   line-height: 1.65;
   overflow-x: hidden;
+  width: 100%;
+  position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
   font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-img {
+img, svg, video, canvas, audio, iframe, embed, object {
   display: block;
   max-width: 100%;
 }
 
-/* Container Structure */
+/* Container Structure with Fluid Padding */
 .container {
+  width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1rem, 4vw, 2rem);
+  padding-right: clamp(1rem, 4vw, 2rem);
 }
 
 .app-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
   background-color: var(--wishly-canvas);
 }
 
 .main-content {
   flex: 1;
+  width: 100%;
 }
 
 /* =========================================================

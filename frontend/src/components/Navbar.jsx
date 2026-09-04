@@ -14,6 +14,33 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile drawer on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [mobileMenuOpen]);
+
+  // Close drawer on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
+
   const isActive = (path) => {
     if (path === '/' && location.pathname === '/') return true;
     if (path !== '/' && location.pathname.startsWith(path)) return true;
@@ -23,7 +50,7 @@ export function Navbar() {
   const closeMenu = () => setMobileMenuOpen(false);
 
   return (
-    <header className={`site-header ${isScrolled ? 'header-scrolled' : ''}`}>
+    <header className={`site-header ${isScrolled ? 'header-scrolled' : ''} ${mobileMenuOpen ? 'menu-open' : ''}`}>
       <div className="header-container">
         {/* Brand Wordmark */}
         <Link to="/" className="brand-wordmark" onClick={closeMenu} aria-label="Wishly Home">
@@ -65,53 +92,79 @@ export function Navbar() {
             Create a Wish
           </Link>
 
-          {/* Mobile hamburger toggle */}
+          {/* Mobile hamburger toggle with 3-bar animated lines */}
           <button
-            className="mobile-menu-btn"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle Navigation Menu"
+            type="button"
+            className={`mobile-menu-btn ${mobileMenuOpen ? 'is-active' : ''}`}
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
             aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation-menu"
           >
-            {mobileMenuOpen ? '✕' : '☰'}
+            <span className="hamburger-box">
+              <span className="hamburger-bar top"></span>
+              <span className="hamburger-bar middle"></span>
+              <span className="hamburger-bar bottom"></span>
+            </span>
           </button>
         </div>
       </div>
 
-      {/* Fullscreen Editorial Mobile Drawer */}
+      {/* Layered Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="mobile-drawer" onClick={closeMenu}>
-          <div className="mobile-drawer-content" onClick={(e) => e.stopPropagation()}>
+        <>
+          {/* Layer 1: Backdrop Overlay covering the page */}
+          <div
+            className="mobile-menu-backdrop"
+            onClick={closeMenu}
+            aria-hidden="true"
+          />
+
+          {/* Layer 2: Mobile Navigation Drawer Menu */}
+          <nav
+            id="mobile-navigation-menu"
+            className="mobile-menu-drawer"
+            aria-label="Mobile Menu Navigation"
+            role="dialog"
+            aria-modal="true"
+          >
             <div className="mobile-drawer-header">
               <Link to="/" className="brand-wordmark" onClick={closeMenu}>
                 <span className="brand-name">Wishly</span>
                 <span className="brand-dot"></span>
               </Link>
               <button
+                type="button"
                 className="mobile-drawer-close"
                 onClick={closeMenu}
                 aria-label="Close Navigation"
               >
-                ✕
+                <span className="drawer-close-icon">✕</span>
               </button>
             </div>
 
-            <nav className="mobile-drawer-nav">
+            <div className="mobile-drawer-nav">
               <Link to="/" className={`mobile-nav-link ${isActive('/') ? 'active' : ''}`} onClick={closeMenu}>
-                01. Home
+                <span className="mobile-nav-num">01</span>
+                <span className="mobile-nav-text">Home</span>
               </Link>
               <a href="/#occasions" className="mobile-nav-link" onClick={closeMenu}>
-                02. Occasions
+                <span className="mobile-nav-num">02</span>
+                <span className="mobile-nav-text">Occasions</span>
               </a>
               <Link to="/templates" className={`mobile-nav-link ${isActive('/templates') ? 'active' : ''}`} onClick={closeMenu}>
-                03. Templates (35)
+                <span className="mobile-nav-num">03</span>
+                <span className="mobile-nav-text">Templates (35)</span>
               </Link>
               <a href="/#how-it-works" className="mobile-nav-link" onClick={closeMenu}>
-                04. How It Works
+                <span className="mobile-nav-num">04</span>
+                <span className="mobile-nav-text">How It Works</span>
               </a>
               <a href="/#philosophy" className="mobile-nav-link" onClick={closeMenu}>
-                05. Philosophy
+                <span className="mobile-nav-num">05</span>
+                <span className="mobile-nav-text">Philosophy</span>
               </a>
-            </nav>
+            </div>
 
             <div className="mobile-drawer-footer">
               <a
@@ -123,12 +176,12 @@ export function Navbar() {
               >
                 ⭐ Star Wishly on GitHub
               </a>
-              <Link to="/templates" className="btn btn-primary btn-block" onClick={closeMenu}>
+              <Link to="/templates" className="btn btn-primary btn-block mobile-create-btn" onClick={closeMenu}>
                 Create a Wish ✨
               </Link>
             </div>
-          </div>
-        </div>
+          </nav>
+        </>
       )}
     </header>
   );

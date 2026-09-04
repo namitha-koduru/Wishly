@@ -1362,24 +1362,38 @@
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .tpl-root {
-    padding: 1.8rem 1.2rem;
+    padding: 1.5rem 1rem;
+    border-radius: 16px;
   }
   .tpl-title, .minimal-name, .forever-title, .grad-bold-title, .congrat-bold-title, .special-big-text {
-    font-size: clamp(1.5rem, 6vw, 2rem);
+    font-size: clamp(1.4rem, 6vw, 1.85rem);
     line-height: 1.25;
   }
   .yearbook-grid, .team-photos-grid, .story-photos-grid, .heart-scrapbook-grid, .thinking-polaroids-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
   .letter-paper-sheet, .val-letter-sheet, .note-card-paper {
-    padding: 2rem 1.4rem;
+    padding: 1.75rem 1.15rem;
   }
   .tpl-featured-photo, .minimal-portrait-wrap img, .forever-portrait-frame img {
-    height: 200px;
+    height: 190px;
   }
   .tpl-message-text, .minimal-text, .forever-text, .cinematic-text, .special-quote-text {
-    font-size: 1.02rem;
+    font-size: 0.98rem;
     line-height: 1.6;
+  }
+  .letter-polaroid-tuck img, .val-polaroid-tuck img, .note-photo-tuck img {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+  }
+}
+
+@media (max-width: 380px) {
+  .tpl-root {
+    padding: 1.25rem 0.75rem;
+    border-radius: 12px;
   }
 }
 
