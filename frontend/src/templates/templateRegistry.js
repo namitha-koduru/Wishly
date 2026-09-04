@@ -656,11 +656,19 @@ export const TEMPLATES = [
     description: 'Warm sunshine digital hug brightening someone special’s regular day.',
     badge: 'Warm Hug',
     previewColor: '#E056FD',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'reasons'],
     defaultData: {
       recipientName: 'Avery',
       senderName: 'Morgan',
-      message: 'No special occasion needed — just wanted to remind you that you are deeply appreciated and loved today!',
+      message: 'You make ordinary days feel a little less ordinary.',
+      reasons: [
+        { label: 'thinking of you', thought: "I've missed talking to you lately, more than I usually say." },
+        { label: 'miss you', thought: "It's been a while, and honestly, I miss you." },
+        { label: "I'm proud of you", thought: "Watching you figure things out lately has made me quietly proud." },
+        { label: 'thank you', thought: "For being exactly who you are, even on the ordinary days." },
+        { label: 'you made today better', thought: "I hope something small went right for you today." },
+        { label: 'just wanted to say hi', thought: "No big update, no news. Just wanted to say hi." }
+      ],
       photos: [
         'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80'
       ]

@@ -436,6 +436,7 @@ export function Customize() {
     senderName: formData.senderName || template.defaultData?.senderName || 'From Someone Who Cares',
     message: formData.message || template.defaultData?.message || 'Wishing you all the joy, love, and wonder in the world!',
     photos: (formData.photos || []).map((p) => (typeof p === 'string' ? p : p.url)),
+    reasons: formData.reasons || template.defaultData?.reasons || [],
     date: formData.date,
     age: formData.age,
     years: formData.years,

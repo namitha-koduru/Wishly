@@ -258,14 +258,21 @@ export function BirthdayTemplate1({ data = {} }) {
   const handleOpenEnv = () => {
     if (envOpen) return;
     setEnvOpen(true);
+    setCakeHint('✦ Scroll down to read your letter ✦');
+    // Ensure continue button appears after letter is revealed
+    setTimeout(() => {
+      setShowContinueBtn(true);
+    }, 1100);
   };
 
-  // Envelope Scroll Listener for background blending
+  // Envelope Scroll Listener for background blending to pink
   const handleEnvScroll = (e) => {
     const sc = e.currentTarget;
+    if (!sc) return;
     const maxScroll = Math.max(sc.scrollHeight - sc.clientHeight, 1);
     const ratio = Math.min(Math.max(sc.scrollTop / maxScroll, 0), 1);
 
+    // Smooth gradient: black rgb(10,5,2) -> vibrant rose pink rgb(244,143,177)
     const r = Math.round(10 + 234 * ratio);
     const g = Math.round(5 + 138 * ratio);
     const b = Math.round(2 + 175 * ratio);
@@ -275,10 +282,8 @@ export function BirthdayTemplate1({ data = {} }) {
     const paperB = Math.round(248 - 78 * ratio);
     setLetterBgColor(`rgb(255, ${paperG}, ${paperB})`);
 
-    if (ratio > 0.8 && envOpen) {
+    if (ratio > 0.25 || envOpen) {
       setShowContinueBtn(true);
-    } else if (ratio < 0.6) {
-      setShowContinueBtn(false);
     }
   };
 
@@ -396,7 +401,12 @@ export function BirthdayTemplate1({ data = {} }) {
         </div>
 
         {/* ══════════ PAGE 3 — ENVELOPE ══════════ */}
-        <div className={getPageClass('page-envelope')} id="page-envelope" style={{ background: envBgColor }}>
+        <div
+          className={getPageClass('page-envelope')}
+          id="page-envelope"
+          style={{ background: envBgColor }}
+          onScroll={handleEnvScroll}
+        >
           <div className="env-scene" ref={envSceneRef} onScroll={handleEnvScroll}>
             <p className="env-hint">
               {envOpen ? '✦ Scroll down to read your letter ✦' : '✦ Tap the envelope to open ✦'}
@@ -423,9 +433,12 @@ export function BirthdayTemplate1({ data = {} }) {
 
             <button
               className={`continue-btn ${showContinueBtn ? 'show' : ''}`}
-              onClick={() => navigateTo('page-tree')}
+              onClick={() => {
+                launchPoppers();
+                navigateTo('page-tree');
+              }}
             >
-              ✦ Continue ✦
+              ✦ Continue to Finale ✨ ✦
             </button>
           </div>
         </div>

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import './JustBecauseTemplate1.css';
 
-const DEFAULT_SCRAPS = [
+const DEFAULT_THOUGHTS = [
   {
     id: 1,
     label: 'thinking of you',
@@ -41,54 +41,102 @@ const DEFAULT_SCRAPS = [
 ];
 
 export function JustBecauseTemplate1({ data = {} }) {
-  const normalizedData = data.config || data.customData || data;
+  const incoming = data || {};
+  const nested = incoming.config || incoming.customData || {};
 
-  const {
-    recipientName = 'Avery',
-    senderName = 'Morgan',
-    message = 'You make ordinary days feel a little less ordinary.',
-    photos = ['https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80'],
-    reasons = null
-  } = normalizedData;
-
-  const photoUrls = (Array.isArray(photos) ? photos : [])
+  const recipientName = incoming.recipientName || nested.recipientName || 'Avery';
+  const senderName = incoming.senderName || nested.senderName || 'Morgan';
+  const message = incoming.message || nested.message || 'You make ordinary days feel a little less ordinary.';
+  
+  const rawPhotos = incoming.photos || nested.photos || [];
+  const photoUrls = (Array.isArray(rawPhotos) ? rawPhotos : [])
     .map((p) => (typeof p === 'object' && p ? p.url : p))
     .filter(Boolean);
 
   const heroPhoto = photoUrls[0] || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80';
 
-  // State
+  const rawReasons = incoming.reasons || nested.reasons;
+
+  // Build customized scraps list with both Name (label) and Description (thought)
+  const scrapsList = useMemo(() => {
+    if (Array.isArray(rawReasons) && rawReasons.length > 0) {
+      return rawReasons.map((reason, idx) => {
+        if (typeof reason === 'string') {
+          const defaultLabels = [
+            'thinking of you',
+            'miss you',
+            "I'm proud of you",
+            'thank you',
+            'you made today better',
+            'just wanted to say hi'
+          ];
+          return {
+            id: idx + 1,
+            label: defaultLabels[idx % defaultLabels.length] || `thought #${idx + 1}`,
+            thought: reason,
+            className: `scrap--${(idx % 6) + 1}`
+          };
+        }
+        return {
+          id: idx + 1,
+          label: reason.label || reason.title || `thought #${idx + 1}`,
+          thought: reason.thought || reason.description || reason.desc || reason.text || '',
+          className: `scrap--${(idx % 6) + 1}`
+        };
+      });
+    }
+    return DEFAULT_THOUGHTS;
+  }, [rawReasons]);
+
+  // State: Start with NO thought selected initially
   const [activeDot, setActiveDot] = useState('scene-01');
   const [selectedScrapIndex, setSelectedScrapIndex] = useState(null);
   const [isEnvelopeOpen, setIsEnvelopeOpen] = useState(false);
   const [isDriftActive, setIsDriftActive] = useState(false);
   const [scrapsInView, setScrapsInView] = useState(false);
-  const [visibleNoteLines, setVisibleNoteLines] = useState([false, false, false, false]);
 
   // Refs
   const containerRef = useRef(null);
-  const storyRef = useRef(null);
-  const heroRef = useRef(null);
-  const noteRef = useRef(null);
   const psstRef = useRef(null);
   const scrapsRef = useRef(null);
-
-  // Scraps items
-  const scrapsList = Array.isArray(reasons) && reasons.length >= 3
-    ? reasons.slice(0, 6).map((reason, idx) => ({
-        id: idx + 1,
-        label: typeof reason === 'object' ? reason.title || reason.label || `reason ${idx + 1}` : `thought ${idx + 1}`,
-        thought: typeof reason === 'object' ? reason.description || reason.desc || reason.text || reason.thought : reason,
-        className: `scrap--${(idx % 6) + 1}`
-      }))
-    : DEFAULT_SCRAPS;
 
   // Reduced motion preference
   const isReducedMotion = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // 1. Generic reveal-up on scroll
+  // Helper to find scroll parent
+  const getScrollParent = (node) => {
+    if (!node) return window;
+    let current = node.parentElement;
+    while (current && current !== document.body && current !== document.documentElement) {
+      const style = window.getComputedStyle(current);
+      if (style.overflowY === 'auto' || style.overflowY === 'scroll') {
+        return current;
+      }
+      current = current.parentElement;
+    }
+    return window;
+  };
+
+  // 1. Deselect thoughts when tapping anywhere outside the scraps container
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (scrapsRef.current && !scrapsRef.current.contains(e.target)) {
+        setSelectedScrapIndex(null);
+      }
+    };
+
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
+
+  // 2. Generic reveal-up on scroll
   useEffect(() => {
     if (!containerRef.current) return;
+
+    const scrollParent = getScrollParent(containerRef.current);
+    const observerRoot = scrollParent === window ? null : scrollParent;
 
     const revealTargets = containerRef.current.querySelectorAll('.reveal-up');
     if (!revealTargets.length) return;
@@ -102,7 +150,7 @@ export function JustBecauseTemplate1({ data = {} }) {
           }
         });
       },
-      { threshold: 0.15, rootMargin: '0px 0px -5% 0px' }
+      { root: observerRoot, threshold: 0.1, rootMargin: '0px 0px -5% 0px' }
     );
 
     revealTargets.forEach((el) => revealObserver.observe(el));
@@ -112,9 +160,12 @@ export function JustBecauseTemplate1({ data = {} }) {
     };
   }, []);
 
-  // 2. Navigation Active Dot Observer
+  // 3. Navigation Active Dot Observer
   useEffect(() => {
     if (!containerRef.current) return;
+
+    const scrollParent = getScrollParent(containerRef.current);
+    const observerRoot = scrollParent === window ? null : scrollParent;
 
     const sectionIds = ['scene-01', 'scene-03', 'scene-04', 'scene-05', 'scene-06'];
     const sections = sectionIds
@@ -131,7 +182,7 @@ export function JustBecauseTemplate1({ data = {} }) {
           }
         });
       },
-      { threshold: 0.4 }
+      { root: observerRoot, threshold: 0.3 }
     );
 
     sections.forEach((sec) => navObserver.observe(sec));
@@ -141,77 +192,12 @@ export function JustBecauseTemplate1({ data = {} }) {
     };
   }, []);
 
-  // 3. Story Scroll (Hero -> Note sticky transition)
-  useEffect(() => {
-    if (isReducedMotion) {
-      setVisibleNoteLines([true, true, true, true]);
-      return;
-    }
-
-    const clamp01 = (n) => Math.min(1, Math.max(0, n));
-
-    const updateStory = () => {
-      const story = storyRef.current;
-      const hero = heroRef.current;
-      const note = noteRef.current;
-
-      if (!story) return;
-
-      const rect = story.getBoundingClientRect();
-      const scrollable = rect.height - window.innerHeight;
-      const progress = scrollable > 0 ? clamp01(-rect.top / scrollable) : 0;
-
-      // Hero recedes
-      const heroY = progress * -32;
-      const heroOpacity = clamp01(1 - progress * 1.5);
-      const heroBlur = progress * 5;
-
-      if (hero) {
-        hero.style.transform = `translateY(${heroY}vh)`;
-        hero.style.opacity = heroOpacity;
-        hero.style.filter = heroBlur > 0.15 ? `blur(${heroBlur}px)` : 'none';
-      }
-
-      // Note arrives
-      const noteRaw = clamp01((progress - 0.28) / 0.55);
-      const noteY = (1 - noteRaw) * 42;
-      const noteOpacity = clamp01(noteRaw * 1.6);
-      const noteRot = -1.4 + noteRaw * 1.4;
-
-      if (note) {
-        note.style.transform = `translateY(${noteY}vh) rotate(${noteRot}deg)`;
-        note.style.opacity = noteOpacity;
-      }
-
-      // Progressive line reveal
-      const thresholds = [0.42, 0.56, 0.7, 0.86];
-      setVisibleNoteLines(thresholds.map((t) => progress > t));
-    };
-
-    let ticking = false;
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateStory();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    updateStory();
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, [isReducedMotion]);
-
   // 4. Scraps entrance observer
   useEffect(() => {
-    if (!scrapsRef.current) return;
+    if (!scrapsRef.current || !containerRef.current) return;
+
+    const scrollParent = getScrollParent(containerRef.current);
+    const observerRoot = scrollParent === window ? null : scrollParent;
 
     const scrapObserver = new IntersectionObserver(
       (entries) => {
@@ -222,7 +208,7 @@ export function JustBecauseTemplate1({ data = {} }) {
           }
         });
       },
-      { threshold: 0.2 }
+      { root: observerRoot, threshold: 0.15 }
     );
 
     scrapObserver.observe(scrapsRef.current);
@@ -232,7 +218,10 @@ export function JustBecauseTemplate1({ data = {} }) {
 
   // 5. Small surprise drift observer
   useEffect(() => {
-    if (isReducedMotion || !psstRef.current) return;
+    if (isReducedMotion || !psstRef.current || !containerRef.current) return;
+
+    const scrollParent = getScrollParent(containerRef.current);
+    const observerRoot = scrollParent === window ? null : scrollParent;
 
     const driftObserver = new IntersectionObserver(
       (entries) => {
@@ -243,7 +232,7 @@ export function JustBecauseTemplate1({ data = {} }) {
           }
         });
       },
-      { threshold: 0.5 }
+      { root: observerRoot, threshold: 0.4 }
     );
 
     driftObserver.observe(psstRef.current);
@@ -261,6 +250,25 @@ export function JustBecauseTemplate1({ data = {} }) {
         block: 'start'
       });
     }
+  };
+
+  // Replay Page from the Beginning
+  const handleReplay = () => {
+    if (!containerRef.current) return;
+    const scrollParent = getScrollParent(containerRef.current);
+    if (scrollParent === window) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      scrollParent.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setActiveDot('scene-01');
+    setSelectedScrapIndex(null);
+  };
+
+  // Scrap click handler allowing selecting any thought or toggling selection
+  const handleScrapClick = (e, index) => {
+    e.stopPropagation();
+    setSelectedScrapIndex((prev) => (prev === index ? null : index));
   };
 
   return (
@@ -314,13 +322,12 @@ export function JustBecauseTemplate1({ data = {} }) {
 
       <main>
         {/* ============================================================
-             SCENE 01 + 02 — HERO ("Just because.") that yields to
-             a hand-placed note as the user scrolls.
+             SCENE 01 — HERO + NOTE CARD (Clean vertical flow below signature)
         ============================================================ */}
-        <section className="story" id="scene-01" ref={storyRef} style={{ '--story-height': '240vh' }}>
-          <div className="story__stage">
+        <section className="story" id="scene-01">
+          <div className="story__container">
             {/* HERO LAYER */}
-            <div className="hero" ref={heroRef} data-layer="hero">
+            <div className="hero">
               <p className="hero__eyebrow reveal reveal--1">no occasion</p>
               <h1 className="hero__title" aria-label="Just because.">
                 <span className="hero__title-line hero__title-line--just reveal reveal--2">Just</span>
@@ -333,32 +340,30 @@ export function JustBecauseTemplate1({ data = {} }) {
               <p className="hero__signature reveal reveal--5">
                 — {senderName ? senderName : 'from someone who thought of you today'}
               </p>
-              <div className="hero__scroll-cue reveal reveal--6" aria-hidden="true">
-                <span className="hero__scroll-line" />
-                <span className="hero__scroll-word">scroll</span>
-              </div>
             </div>
 
-            {/* NOTE LAYER */}
-            <div className="note" ref={noteRef} data-layer="note">
+            {/* NOTE CARD — Sits cleanly below the signature in the empty space */}
+            <div className="note-card-section reveal reveal--6">
               <div className="note__card">
                 <span className="note__pin" aria-hidden="true" />
-                <p className={`note__line ${visibleNoteLines[0] ? 'is-visible' : ''}`} data-note-line="1">
+                <p className="note__line" data-note-line="1">
                   No birthday.
                 </p>
-                <p className={`note__line ${visibleNoteLines[1] ? 'is-visible' : ''}`} data-note-line="2">
+                <p className="note__line" data-note-line="2">
                   No anniversary.
                 </p>
-                <p className={`note__line ${visibleNoteLines[2] ? 'is-visible' : ''}`} data-note-line="3">
+                <p className="note__line" data-note-line="3">
                   No big reason.
                 </p>
-                <p
-                  className={`note__line note__line--signature ${visibleNoteLines[3] ? 'is-visible' : ''}`}
-                  data-note-line="4"
-                >
+                <p className="note__line note__line--signature" data-note-line="4">
                   {recipientName ? `For ${recipientName}, I just thought of you.` : 'I just thought of you.'}
                 </p>
               </div>
+            </div>
+
+            <div className="hero__scroll-cue reveal reveal--6" aria-hidden="true">
+              <span className="hero__scroll-line" />
+              <span className="hero__scroll-word">scroll</span>
             </div>
           </div>
         </section>
@@ -381,7 +386,8 @@ export function JustBecauseTemplate1({ data = {} }) {
                   type="button"
                   className={`scrap ${scrap.className} ${selectedScrapIndex === index ? 'is-selected' : ''}`}
                   data-thought={scrap.thought}
-                  onClick={() => setSelectedScrapIndex(index)}
+                  onClick={(e) => handleScrapClick(e, index)}
+                  aria-pressed={selectedScrapIndex === index}
                 >
                   {scrap.label}
                 </button>
@@ -493,7 +499,7 @@ export function JustBecauseTemplate1({ data = {} }) {
         </section>
 
         {/* ============================================================
-             SCENE 06 — final, quiet close
+             SCENE 06 — final, quiet close with replay action
         ============================================================ */}
         <section className="scene scene--final" id="scene-06">
           <div className="scene__inner scene__inner--center">
@@ -502,9 +508,14 @@ export function JustBecauseTemplate1({ data = {} }) {
               Just {recipientName ? recipientName : 'you'}.
             </h2>
             <p className="final__sub reveal-up">Some things are worth doing simply because you can.</p>
-            <a href="/templates" className="final__cta reveal-up">
-              make another little something →
-            </a>
+            <button
+              type="button"
+              className="final__cta final__replay-btn reveal-up"
+              onClick={handleReplay}
+              title="Replay from the beginning"
+            >
+              Just because......... ↺
+            </button>
             <p className="final__footer">made with Wishly &hearts;</p>
           </div>
         </section>

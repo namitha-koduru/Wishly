@@ -213,33 +213,37 @@
 .wishly-just-because-template-1 .scene-nav__dot.is-active::before,
 .just-because-template .scene-nav__dot.is-active::before { opacity: 0.6; }
 
-/* ---------- SCENE 01+02 — HERO + NOTE (SCROLL-DRIVEN) ---------- */
+/* ---------- SCENE 01 — HERO + NOTE (Clean Natural Flow) ---------- */
 .wishly-just-because-template-1 .story,
 .just-because-template .story {
   position: relative;
-  height: var(--story-height, 240vh);
-}
-
-.wishly-just-because-template-1 .story__stage,
-.just-because-template .story__stage {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  padding: clamp(70px, 10vh, 120px) 24px clamp(60px, 8vh, 100px);
   background: radial-gradient(120% 90% at 50% 18%, var(--ivory-deep), var(--ivory) 65%);
-}
-
-.wishly-just-because-template-1 .hero,
-.just-because-template .hero {
-  position: absolute;
-  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.wishly-just-because-template-1 .story__container,
+.just-because-template .story__container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  padding: 0 24px;
-  will-change: transform, opacity, filter;
+}
+
+.wishly-just-because-template-1 .hero,
+.just-because-template .hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
 }
 
 .wishly-just-because-template-1 .hero__eyebrow,
@@ -283,75 +287,54 @@
 
 .wishly-just-because-template-1 .hero__sub,
 .just-because-template .hero__sub {
-  margin-top: 34px;
+  margin-top: 30px;
   font-size: clamp(16px, 1.8vw, 19px);
   color: var(--charcoal-soft);
   font-weight: 400;
-  max-width: 30ch;
+  max-width: 32ch;
+  line-height: 1.55;
 }
 
 .wishly-just-because-template-1 .hero__signature,
 .just-because-template .hero__signature {
-  margin-top: 22px;
+  margin-top: 20px;
   font-family: var(--font-hand);
-  font-size: 21px;
+  font-size: 22px;
   color: var(--charcoal-faint);
 }
 
-.wishly-just-because-template-1 .hero__scroll-cue,
-.just-because-template .hero__scroll-cue {
-  position: absolute;
-  bottom: 44px;
+/* NOTE CARD — Sits cleanly below the signature */
+.wishly-just-because-template-1 .note-card-section,
+.just-because-template .note-card-section {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.wishly-just-because-template-1 .hero__scroll-line,
-.just-because-template .hero__scroll-line {
-  width: 1px;
-  height: 34px;
-  background: linear-gradient(var(--charcoal-faint), transparent);
-  animation: jbScrollPulse 2.4s ease-in-out infinite;
-}
-
-.wishly-just-because-template-1 .hero__scroll-word,
-.just-because-template .hero__scroll-word {
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: lowercase;
-  color: var(--charcoal-faint);
-}
-
-@keyframes jbScrollPulse {
-  0%, 100% { transform: scaleY(1); opacity: .7; }
-  50% { transform: scaleY(0.55); opacity: .3; }
-}
-
-/* NOTE LAYER */
-.wishly-just-because-template-1 .note,
-.just-because-template .note {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 0 24px;
-  will-change: transform, opacity;
+  margin-top: 48px;
+  margin-bottom: 50px;
 }
 
 .wishly-just-because-template-1 .note__card,
 .just-because-template .note__card {
   position: relative;
-  width: min(480px, 88vw);
+  width: min(480px, 90vw);
   background: var(--paper);
-  padding: 52px 46px 44px;
+  padding: 46px 40px 40px;
   border-radius: 3px;
   box-shadow:
     0 1px 0 rgba(255,255,255,0.6) inset,
     0 30px 60px -20px rgba(var(--shadow-color), 0.35),
     0 6px 16px -8px rgba(var(--shadow-color), 0.25);
+  transform: rotate(-0.6deg);
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+
+.wishly-just-because-template-1 .note__card:hover,
+.just-because-template .note__card:hover {
+  transform: rotate(0deg) translateY(-3px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 36px 70px -20px rgba(var(--shadow-color), 0.4),
+    0 8px 20px -8px rgba(var(--shadow-color), 0.28);
 }
 
 .wishly-just-because-template-1 .note__card::before,
@@ -383,23 +366,46 @@
   font-family: var(--font-display);
   font-size: clamp(20px, 2.6vw, 26px);
   color: var(--charcoal);
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity .7s var(--ease-soft), transform .7s var(--ease-soft);
-  margin-bottom: 6px;
-}
-
-.wishly-just-because-template-1 .note__line.is-visible,
-.just-because-template .note__line.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  margin-bottom: 8px;
+  line-height: 1.4;
 }
 
 .wishly-just-because-template-1 .note__line--signature,
 .just-because-template .note__line--signature {
-  margin-top: 16px;
+  margin-top: 18px;
   font-style: italic;
   color: var(--rose-deep);
+}
+
+.wishly-just-because-template-1 .hero__scroll-cue,
+.just-because-template .hero__scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.wishly-just-because-template-1 .hero__scroll-line,
+.just-because-template .hero__scroll-line {
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(var(--charcoal-faint), transparent);
+  animation: jbScrollPulse 2.4s ease-in-out infinite;
+}
+
+.wishly-just-because-template-1 .hero__scroll-word,
+.just-because-template .hero__scroll-word {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  color: var(--charcoal-faint);
+}
+
+@keyframes jbScrollPulse {
+  0%, 100% { transform: scaleY(1); opacity: .7; }
+  50% { transform: scaleY(0.55); opacity: .3; }
 }
 
 /* ---------- SCENE 03 — REASONS / SCRAPS ---------- */
@@ -498,21 +504,29 @@
 /* SELECTION STATE */
 .wishly-just-because-template-1 .scraps.has-selection .scrap,
 .just-because-template .scraps.has-selection .scrap {
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .wishly-just-because-template-1 .scraps.has-selection .scrap:not(.is-selected),
 .just-because-template .scraps.has-selection .scrap:not(.is-selected) {
-  opacity: 0.18;
-  transform: translateY(0) scale(0.92) rotate(0deg);
-  filter: blur(1px);
+  opacity: 0.5;
+  transform: translateY(0) scale(0.96) rotate(0deg);
+  filter: none;
+  cursor: pointer;
+}
+
+.wishly-just-because-template-1 .scraps.has-selection .scrap:not(.is-selected):hover,
+.just-because-template .scraps.has-selection .scrap:not(.is-selected):hover {
+  opacity: 0.9;
+  transform: translateY(-3px) scale(1.0);
+  box-shadow: 0 14px 24px -12px rgba(var(--shadow-color), 0.25);
 }
 
 .wishly-just-because-template-1 .scraps.has-selection .scrap.is-selected,
 .just-because-template .scraps.has-selection .scrap.is-selected {
   background: var(--blush);
   color: var(--rose-deep);
-  transform: translateY(-6px) scale(1.06) rotate(0deg);
+  transform: translateY(-6px) scale(1.05) rotate(0deg);
   box-shadow: 0 20px 34px -16px rgba(var(--shadow-color), 0.34);
   pointer-events: auto;
   cursor: pointer;
@@ -867,15 +881,20 @@
 
 .wishly-just-because-template-1 .final__cta,
 .just-because-template .final__cta {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   margin-top: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(19px, 2.2vw, 23px);
+  font-size: clamp(20px, 2.4vw, 26px);
   color: var(--rose-deep);
-  border-bottom: 1px solid var(--gold-line);
-  padding-bottom: 4px;
-  transition: opacity 1s var(--ease-soft), transform 1s var(--ease-soft), border-color .3s ease;
+  border-bottom: 1px dashed var(--gold-line);
+  padding-bottom: 6px;
+  transition: opacity 1s var(--ease-soft), transform 1s var(--ease-soft), border-color .3s ease, color .3s ease;
   transition-delay: .24s;
   opacity: 0;
   transform: translateY(28px);
@@ -889,7 +908,10 @@
 
 .wishly-just-because-template-1 .final__cta:hover,
 .just-because-template .final__cta:hover {
+  border-bottom-style: solid;
   border-color: var(--rose-deep);
+  color: var(--rose-deep);
+  transform: translateY(-2px);
 }
 
 .wishly-just-because-template-1 .final__footer,
