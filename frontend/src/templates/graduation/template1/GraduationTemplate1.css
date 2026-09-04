@@ -1,74 +1,1634 @@
-/* Graduation Template 1 - Class Of 2026 Styles */
-.tpl-grad-achievement {
-  background: linear-gradient(135deg, #f0f7ff 0%, #e0efff 100%);
-  border: 1px solid #b3d7ff;
+/* ============================================================
+   WISHLY — GRADUATION TEMPLATE 1 ("You Did It")
+   Editorial Commencement & Celebration Chronicle.
+   Scoped under .wishly-graduation-template-1
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+/* --- Root Scoped Variables & Container --- */
+.wishly-graduation-template-1 {
+  --grad-bg: #FAF8F3;
+  --grad-bg-alt: #F3ECE0;
+  --grad-card-bg: #FFFFFF;
+  --grad-text-main: #0B132B;
+  --grad-text-secondary: #1C2541;
+  --grad-text-muted: #566176;
+  --grad-text-subtle: #8490A5;
+  --grad-gold: #C5A059;
+  --grad-gold-light: #FAF4E8;
+  --grad-gold-border: #E5D3AF;
+  --grad-gold-dark: #8F6E30;
+  --grad-navy-accent: #1C2541;
+  --grad-border: rgba(11, 19, 43, 0.08);
+  --grad-border-strong: rgba(11, 19, 43, 0.16);
+  --grad-font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --grad-font-display: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --grad-font-title: 'Cinzel', 'Playfair Display', Georgia, serif;
+  --grad-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --grad-shadow-sm: 0 2px 10px rgba(11, 19, 43, 0.04);
+  --grad-shadow-md: 0 12px 32px rgba(11, 19, 43, 0.06);
+  --grad-shadow-lg: 0 24px 56px rgba(11, 19, 43, 0.09);
+
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--grad-bg);
+  color: var(--grad-text-main);
+  font-family: var(--grad-font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
-.grad-badge {
-  display: inline-block;
-  background: #2f80ed;
-  color: #fff;
+.wishly-graduation-template-1 *,
+.wishly-graduation-template-1 *::before,
+.wishly-graduation-template-1 *::after {
+  box-sizing: border-box;
+}
+
+/* Paper Grain Texture */
+.wishly-graduation-template-1 .grad-paper-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+  background-image: radial-gradient(circle at 15% 15%, #0b132b 0%, transparent 60%),
+                    radial-gradient(circle at 85% 85%, #c5a059 0%, transparent 60%);
+  mix-blend-mode: multiply;
+}
+
+/* ============================================================
+   TOP EXPERIENCE BAR (Chapter Status & Mode Toggle)
+   ============================================================ */
+.wishly-graduation-template-1 .grad-top-experience-bar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 150;
+  background: rgba(250, 248, 243, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--grad-border);
+  padding: 0.65rem 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.wishly-graduation-template-1 .grad-top-bar-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.wishly-graduation-template-1 .grad-top-chapter-status {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.wishly-graduation-template-1 .grad-top-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--grad-gold-dark);
+  background-color: var(--grad-gold-light);
+  border: 1px solid var(--grad-gold-border);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+.wishly-graduation-template-1 .grad-top-chapter-title {
+  font-family: var(--grad-font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--grad-text-main);
+}
+
+.wishly-graduation-template-1 .grad-mode-toggle-wrap {
+  display: flex;
+  align-items: center;
+  background-color: rgba(11, 19, 43, 0.04);
+  padding: 3px;
+  border-radius: 999px;
+  border: 1px solid var(--grad-border);
+}
+
+.wishly-graduation-template-1 .grad-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-family: var(--grad-font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--grad-text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wishly-graduation-template-1 .grad-mode-btn:hover {
+  color: var(--grad-text-main);
+}
+
+.wishly-graduation-template-1 .grad-mode-btn.active {
+  background-color: #FFFFFF;
+  color: var(--grad-text-main);
+  box-shadow: 0 2px 6px rgba(11, 19, 43, 0.08);
+}
+
+@media (max-width: 540px) {
+  .wishly-graduation-template-1 .grad-mode-btn span {
+    display: none;
+  }
+  .wishly-graduation-template-1 .grad-mode-btn {
+    padding: 0.35rem 0.5rem;
+  }
+}
+
+/* ============================================================
+   PAGE MODE NARRATIVE STAGE (Story Cards & Transitions)
+   ============================================================ */
+.wishly-graduation-template-1 .grad-paged-narrative-stage {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  min-height: calc(100vh - 120px);
+  padding: 2rem 1.25rem 7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .wishly-graduation-template-1 .grad-paged-narrative-stage {
+    padding: 3.5rem 2rem 8rem;
+  }
+}
+
+.wishly-graduation-template-1 .grad-page-stage {
+  width: 100%;
+}
+
+.wishly-graduation-template-1 .grad-page-content-wrapper {
+  width: 100%;
+  animation: gradFadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes gradFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Page Navigation Controls on Each Page */
+.wishly-graduation-template-1 .grad-page-nav-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--grad-border);
+}
+
+.wishly-graduation-template-1 .grad-page-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--grad-card-bg);
+  border: 1px solid var(--grad-border-strong);
+  color: var(--grad-text-main);
+  font-family: var(--grad-font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.75rem 1.35rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: var(--grad-shadow-sm);
+}
+
+.wishly-graduation-template-1 .grad-page-btn:hover {
+  background-color: var(--grad-text-main);
+  color: #FFFFFF;
+  border-color: var(--grad-text-main);
+  transform: translateY(-2px);
+  box-shadow: var(--grad-shadow-md);
+}
+
+.wishly-graduation-template-1 .grad-page-btn-next {
+  background-color: var(--grad-text-main);
+  color: #FFFFFF;
+  border-color: var(--grad-text-main);
+}
+
+.wishly-graduation-template-1 .grad-page-btn-next:hover {
+  background-color: var(--grad-gold-dark);
+  border-color: var(--grad-gold-dark);
+}
+
+.wishly-graduation-template-1 .grad-page-counter-badge {
   font-size: 0.8rem;
   font-weight: 700;
-  padding: 0.35rem 1rem;
-  border-radius: 50px;
-  letter-spacing: 1px;
-  margin-bottom: 1rem;
+  letter-spacing: 0.1em;
+  color: var(--grad-text-subtle);
 }
 
-.grad-bold-title {
-  font-size: clamp(2rem, 7vw, 3rem);
-  font-weight: 900;
-  color: #1a365d;
-  letter-spacing: 1px;
-  margin-bottom: 0.4rem;
+.wishly-graduation-template-1 .grad-page-btn-spacer {
+  width: 90px;
 }
 
-.grad-name {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 5vw, 2rem);
-  color: #2b6cb0;
-  margin-bottom: 0.5rem;
+@media (max-width: 480px) {
+  .wishly-graduation-template-1 .grad-page-nav-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .wishly-graduation-template-1 .grad-page-btn-spacer {
+    display: none;
+  }
 }
 
-.grad-degree {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #4a5568;
-  margin-bottom: 0.8rem;
-}
-
-.grad-year-pill {
-  display: inline-block;
-  background: #ebf8ff;
-  border: 1px solid #bee3f8;
-  color: #2b6cb0;
-  font-weight: 700;
-  font-size: 0.85rem;
-  padding: 0.25rem 0.8rem;
-  border-radius: 20px;
-  margin-bottom: 1.5rem;
-}
-
-.grad-photo-laurel-wrap {
-  position: relative;
-  margin: 1.5rem auto;
-  max-width: 440px;
-  border-radius: 16px;
+/* Floating Bottom Story Pills */
+.wishly-graduation-template-1 .grad-floating-page-bar {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--grad-border-strong);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(11, 19, 43, 0.12);
+  padding: 0.35rem 0.5rem;
+  max-width: 92vw;
   overflow: hidden;
-  box-shadow: 0 12px 30px rgba(47, 128, 237, 0.25);
 }
 
-.grad-photo-laurel-wrap img {
+.wishly-graduation-template-1 .grad-page-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.wishly-graduation-template-1 .grad-page-pills-row::-webkit-scrollbar {
+  display: none;
+}
+
+.wishly-graduation-template-1 .grad-page-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  color: var(--grad-text-subtle);
+  font-family: var(--grad-font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.wishly-graduation-template-1 .grad-page-pill-btn .grad-pill-num {
+  font-size: 0.65rem;
+  color: var(--grad-gold-dark);
+  font-weight: 700;
+}
+
+.wishly-graduation-template-1 .grad-page-pill-btn:hover {
+  color: var(--grad-text-main);
+  background-color: rgba(11, 19, 43, 0.04);
+}
+
+.wishly-graduation-template-1 .grad-page-pill-btn.active {
+  background-color: var(--grad-text-main);
+  color: #FFFFFF;
+}
+
+.wishly-graduation-template-1 .grad-page-pill-btn.active .grad-pill-num {
+  color: var(--grad-gold-light);
+}
+
+@media (max-width: 640px) {
+  .wishly-graduation-template-1 .grad-page-pill-btn .grad-pill-label {
+    display: none;
+  }
+  .wishly-graduation-template-1 .grad-page-pill-btn {
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+/* ============================================================
+   CONTINUOUS SCROLL MODE
+   ============================================================ */
+.wishly-graduation-template-1 .grad-editorial-body {
+  position: relative;
+  z-index: 2;
   width: 100%;
-  height: 280px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+}
+
+@media (min-width: 768px) {
+  .wishly-graduation-template-1 .grad-editorial-body {
+    padding: 5rem 2.5rem 8rem;
+  }
+}
+
+/* Global Section Utilities */
+.wishly-graduation-template-1 .grad-section {
+  padding: 3.5rem 0;
+  scroll-margin-top: 4rem;
+}
+
+@media (min-width: 768px) {
+  .wishly-graduation-template-1 .grad-section {
+    padding: 5.5rem 0;
+  }
+}
+
+.wishly-graduation-template-1 .grad-section-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 3rem;
+}
+
+.wishly-graduation-template-1 .grad-section-tag {
+  display: inline-block;
+  font-family: var(--grad-font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grad-gold-dark);
+  margin-bottom: 0.75rem;
+}
+
+.wishly-graduation-template-1 .grad-tag-centered {
+  display: block;
+  text-align: center;
+}
+
+.wishly-graduation-template-1 .grad-section-title {
+  font-family: var(--grad-font-display);
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 500;
+  color: var(--grad-text-main);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 1rem;
+}
+
+.wishly-graduation-template-1 .grad-section-subtitle {
+  font-size: 1.05rem;
+  color: var(--grad-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.wishly-graduation-template-1 .grad-section-quote {
+  font-family: var(--grad-font-serif);
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--grad-text-muted);
+  line-height: 1.5;
+  margin: 0.5rem 0 0;
+}
+
+/* Section Divider */
+.wishly-graduation-template-1 .grad-section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem auto;
+  max-width: 320px;
+  opacity: 0.6;
+}
+
+.wishly-graduation-template-1 .grad-divider-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--grad-border-strong);
+}
+
+.wishly-graduation-template-1 .grad-divider-glyph {
+  font-size: 0.85rem;
+  color: var(--grad-gold);
+}
+
+/* ============================================================
+   1. SECTION: HERO / OPENING
+   ============================================================ */
+.wishly-graduation-template-1 .grad-section-hero {
+  text-align: center;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wishly-graduation-template-1 .grad-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.wishly-graduation-template-1 .grad-meta-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grad-gold-dark);
+  background-color: var(--grad-gold-light);
+  border: 1px solid var(--grad-gold-border);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+}
+
+.wishly-graduation-template-1 .grad-meta-year {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--grad-text-secondary);
+}
+
+.wishly-graduation-template-1 .grad-meta-date {
+  font-size: 0.85rem;
+  color: var(--grad-text-subtle);
+  font-weight: 500;
+}
+
+.wishly-graduation-template-1 .grad-hero-text-wrap {
+  max-width: 740px;
+  margin-bottom: 2rem;
+}
+
+.wishly-graduation-template-1 .grad-hero-pretitle {
+  font-family: var(--grad-font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--grad-gold-dark);
+  margin-bottom: 0.75rem;
+}
+
+.wishly-graduation-template-1 .grad-hero-headline {
+  font-family: var(--grad-font-display);
+  font-size: clamp(3rem, 8vw, 5.25rem);
+  font-weight: 400;
+  color: var(--grad-text-main);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem;
+}
+
+.wishly-graduation-template-1 .grad-hero-name {
+  font-family: var(--grad-font-title);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 600;
+  color: var(--grad-text-secondary);
+  margin: 0 0 0.5rem;
+  letter-spacing: 0.04em;
+}
+
+.wishly-graduation-template-1 .grad-hero-degree {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--grad-text-muted);
+  margin: 0 0 0.25rem;
+}
+
+.wishly-graduation-template-1 .grad-hero-institution {
+  font-size: 0.95rem;
+  color: var(--grad-text-subtle);
+  margin: 0 0 1rem;
+}
+
+.wishly-graduation-template-1 .grad-honors-pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #C5A059 0%, #9E7934 100%);
+  padding: 0.35rem 1rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(197, 160, 89, 0.25);
+  margin-bottom: 1.25rem;
+}
+
+.wishly-graduation-template-1 .grad-hero-subtitle {
+  font-family: var(--grad-font-serif);
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+  font-style: italic;
+  color: var(--grad-text-muted);
+  line-height: 1.5;
+  margin: 0 auto;
+  max-width: 580px;
+}
+
+/* Hero Framed Photo */
+.wishly-graduation-template-1 .grad-hero-photo-container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+}
+
+.wishly-graduation-template-1 .grad-hero-frame {
+  position: relative;
+  background-color: var(--grad-card-bg);
+  padding: 12px 12px 16px;
+  border-radius: 4px;
+  border: 1px solid var(--grad-border);
+  box-shadow: var(--grad-shadow-lg);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.wishly-graduation-template-1 .grad-hero-frame:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 60px rgba(11, 19, 43, 0.14);
+}
+
+.wishly-graduation-template-1 .grad-hero-img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+}
+
+.wishly-graduation-template-1 .grad-hero-caption-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 4px 2px;
+  border-top: 1px solid var(--grad-border);
+  margin-top: 10px;
+  font-size: 0.75rem;
+  color: var(--grad-text-subtle);
+  letter-spacing: 0.05em;
+}
+
+.wishly-graduation-template-1 .grad-caption-index {
+  font-weight: 700;
+  color: var(--grad-gold-dark);
+}
+
+/* Begin Button */
+.wishly-graduation-template-1 .grad-hero-cta-wrap {
+  margin-top: 1rem;
+}
+
+.wishly-graduation-template-1 .grad-btn-begin {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: var(--grad-text-main);
+  color: #FFFFFF;
+  font-family: var(--grad-font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.85rem 1.75rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(11, 19, 43, 0.15);
+}
+
+.wishly-graduation-template-1 .grad-btn-begin:hover {
+  background-color: var(--grad-gold-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(197, 160, 89, 0.3);
+}
+
+.wishly-graduation-template-1 .grad-arrow-down {
+  animation: gradBounce 2s infinite ease-in-out;
+}
+
+@keyframes gradBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* ============================================================
+   2. SECTION: THE JOURNEY (Timeline Layout)
+   ============================================================ */
+.wishly-graduation-template-1 .grad-timeline-container {
+  position: relative;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.wishly-graduation-template-1 .grad-timeline-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 20px;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--grad-border-strong) 15%,
+    var(--grad-border-strong) 85%,
+    transparent 100%
+  );
+}
+
+@media (min-width: 768px) {
+  .wishly-graduation-template-1 .grad-timeline-line {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.wishly-graduation-template-1 .grad-timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+  padding-left: 50px;
+}
+
+@media (min-width: 768px) {
+  .wishly-graduation-template-1 .grad-timeline-item {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0;
+    margin-bottom: 4.5rem;
+  }
+
+  .wishly-graduation-template-1 .grad-timeline-reverse {
+    flex-direction: row-reverse;
+  }
+}
+
+.wishly-graduation-template-1 .grad-timeline-marker {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  z-index: 3;
+}
+
+@media (min-width: 768px) {
+  .wishly-graduation-template-1 .grad-timeline-marker {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50%;
+    margin-top: -8px;
+  }
+}
+
+.wishly-graduation-template-1 .grad-marker-dot {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--grad-bg);
+  border: 3px solid var(--grad-gold);
+  box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.2);
+}
+
+.wishly-graduation-template-1 .grad-timeline-card {
+  background-color: var(--grad-card-bg);
+  border: 1px solid var(--grad-border);
+  border-radius: 6px;
+  padding: 1.75rem;
+  box-shadow: var(--grad-shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .wishly-graduation-template-1 .grad-timeline-card {
+    width: 44%;
+  }
+}
+
+.wishly-graduation-template-1 .grad-timeline-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--grad-shadow-md);
+}
+
+.wishly-graduation-template-1 .grad-milestone-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.wishly-graduation-template-1 .grad-milestone-index {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--grad-gold-dark);
+}
+
+.wishly-graduation-template-1 .grad-milestone-date {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--grad-text-subtle);
+}
+
+.wishly-graduation-template-1 .grad-milestone-title {
+  font-family: var(--grad-font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--grad-text-main);
+  line-height: 1.3;
+  margin: 0 0 0.75rem;
+}
+
+.wishly-graduation-template-1 .grad-milestone-desc {
+  font-size: 0.95rem;
+  color: var(--grad-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.wishly-graduation-template-1 .grad-timeline-photo-wrap {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .wishly-graduation-template-1 .grad-timeline-photo-wrap {
+    width: 44%;
+  }
+}
+
+.wishly-graduation-template-1 .grad-photo-frame {
+  background-color: var(--grad-card-bg);
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--grad-border);
+  box-shadow: var(--grad-shadow-sm);
+}
+
+.wishly-graduation-template-1 .grad-timeline-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+}
+
+.wishly-graduation-template-1 .grad-photo-caption {
+  display: block;
+  font-family: var(--grad-font-serif);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--grad-text-subtle);
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* ============================================================
+   3. SECTION: MEMORIES (Editorial Mosaic)
+   ============================================================ */
+.wishly-graduation-template-1 .grad-memories-mosaic {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .wishly-graduation-template-1 .grad-memories-mosaic {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.wishly-graduation-template-1 .grad-memory-card {
+  background-color: var(--grad-card-bg);
+  border: 1px solid var(--grad-border);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--grad-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.wishly-graduation-template-1 .grad-memory-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--grad-shadow-md);
+  border-color: var(--grad-gold-border);
+}
+
+.wishly-graduation-template-1 .grad-memory-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  background-color: var(--grad-bg-alt);
+}
+
+.wishly-graduation-template-1 .grad-memory-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background-color: rgba(11, 19, 43, 0.85);
+  color: #FFFFFF;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+.wishly-graduation-template-1 .grad-memory-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.wishly-graduation-template-1 .grad-memory-card:hover .grad-memory-img {
+  transform: scale(1.03);
+}
+
+.wishly-graduation-template-1 .grad-memory-caption-wrap {
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.wishly-graduation-template-1 .grad-memory-index {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--grad-gold-dark);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.wishly-graduation-template-1 .grad-memory-title {
+  font-family: var(--grad-font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--grad-text-main);
+  margin: 0 0 0.35rem;
+}
+
+.wishly-graduation-template-1 .grad-memory-caption {
+  font-family: var(--grad-font-serif);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--grad-text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ============================================================
+   4. SECTION: THE PEOPLE (Mentors, Friends, Family)
+   ============================================================ */
+.wishly-graduation-template-1 .grad-people-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .wishly-graduation-template-1 .grad-people-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.wishly-graduation-template-1 .grad-person-card {
+  background-color: var(--grad-card-bg);
+  border: 1px solid var(--grad-border);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--grad-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.wishly-graduation-template-1 .grad-person-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--grad-shadow-md);
+  border-color: var(--grad-gold-border);
+}
+
+.wishly-graduation-template-1 .grad-person-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  background-color: var(--grad-bg-alt);
+}
+
+.wishly-graduation-template-1 .grad-person-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.wishly-graduation-template-1 .grad-person-card:hover .grad-person-img {
+  transform: scale(1.03);
+}
+
+.wishly-graduation-template-1 .grad-person-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 19, 43, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.wishly-graduation-template-1 .grad-person-card:hover .grad-person-overlay {
+  opacity: 1;
+}
+
+.wishly-graduation-template-1 .grad-read-note-pill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  background-color: #FFFFFF;
+  color: var(--grad-text-main);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(11, 19, 43, 0.2);
+}
+
+.wishly-graduation-template-1 .grad-person-details {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.wishly-graduation-template-1 .grad-person-header {
+  margin-bottom: 0.75rem;
+}
+
+.wishly-graduation-template-1 .grad-person-name {
+  font-family: var(--grad-font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--grad-text-main);
+  margin: 0 0 0.2rem;
+}
+
+.wishly-graduation-template-1 .grad-person-role {
+  font-size: 0.8rem;
+  color: var(--grad-gold-dark);
+  font-weight: 500;
+}
+
+.wishly-graduation-template-1 .grad-person-quote {
+  font-family: var(--grad-font-serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--grad-text-muted);
+  line-height: 1.5;
+  margin: 0 0 1.25rem;
+  flex: 1;
+}
+
+.wishly-graduation-template-1 .grad-person-open-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--grad-font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--grad-gold-dark);
+  cursor: pointer;
+  text-align: left;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s ease;
+}
+
+.wishly-graduation-template-1 .grad-person-open-link:hover {
+  color: var(--grad-text-main);
+  text-decoration: underline;
+}
+
+/* Modal Dialog for Commencement Tribute */
+.wishly-graduation-template-1 .grad-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(11, 19, 43, 0.7);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: gradFadeIn 0.25s ease-out;
+}
+
+@keyframes gradFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.wishly-graduation-template-1 .grad-modal-dialog {
+  position: relative;
+  background-color: var(--grad-card-bg);
+  border-radius: 8px;
+  max-width: 680px;
+  width: 100%;
+  box-shadow: 0 25px 60px rgba(11, 19, 43, 0.3);
+  overflow: hidden;
+  border: 1px solid var(--grad-border);
+  animation: gradModalSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes gradModalSlide {
+  from { transform: translateY(20px) scale(0.97); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.wishly-graduation-template-1 .grad-modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--grad-bg-alt);
+  border: 1px solid var(--grad-border);
+  color: var(--grad-text-main);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wishly-graduation-template-1 .grad-modal-close-btn:hover {
+  background-color: var(--grad-text-main);
+  color: #FFFFFF;
+}
+
+.wishly-graduation-template-1 .grad-modal-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .wishly-graduation-template-1 .grad-modal-layout {
+    flex-direction: row;
+  }
+}
+
+.wishly-graduation-template-1 .grad-modal-media {
+  position: relative;
+  background-color: var(--grad-bg-alt);
+}
+
+@media (min-width: 640px) {
+  .wishly-graduation-template-1 .grad-modal-media {
+    width: 240px;
+    flex-shrink: 0;
+  }
+}
+
+.wishly-graduation-template-1 .grad-modal-photo {
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
   object-fit: cover;
   display: block;
 }
 
-.grad-cap-sparkle {
+.wishly-graduation-template-1 .grad-modal-role-pill {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 2rem;
+  bottom: 12px;
+  left: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background-color: rgba(11, 19, 43, 0.85);
+  color: #FFFFFF;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+.wishly-graduation-template-1 .grad-modal-content {
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.wishly-graduation-template-1 .grad-modal-meta {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--grad-gold-dark);
+  margin-bottom: 0.5rem;
+}
+
+.wishly-graduation-template-1 .grad-modal-name {
+  font-family: var(--grad-font-display);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--grad-text-main);
+  margin: 0 0 1rem;
+}
+
+.wishly-graduation-template-1 .grad-modal-quote {
+  font-family: var(--grad-font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--grad-gold-dark);
+  border-left: 2px solid var(--grad-gold);
+  padding-left: 1rem;
+  margin: 0 0 1.25rem;
+  line-height: 1.4;
+}
+
+.wishly-graduation-template-1 .grad-modal-full-note {
+  font-size: 0.95rem;
+  color: var(--grad-text-muted);
+  line-height: 1.7;
+  margin: 0 0 1.5rem;
+}
+
+.wishly-graduation-template-1 .grad-modal-stamp {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grad-text-subtle);
+  border-top: 1px solid var(--grad-border);
+  padding-top: 1rem;
+  display: block;
+}
+
+/* ============================================================
+   5. SECTION: GRADUATION LETTER
+   ============================================================ */
+.wishly-graduation-template-1 .grad-letter-card {
+  background-color: var(--grad-card-bg);
+  border: 1px solid var(--grad-border);
+  border-radius: 8px;
+  padding: 2.25rem 1.5rem;
+  max-width: 760px;
+  margin: 0 auto;
+  box-shadow: var(--grad-shadow-lg);
+}
+
+@media (min-width: 768px) {
+  .wishly-graduation-template-1 .grad-letter-card {
+    padding: 3.5rem 3rem;
+  }
+}
+
+.wishly-graduation-template-1 .grad-letter-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.wishly-graduation-template-1 .grad-letter-title {
+  font-family: var(--grad-font-display);
+  font-size: 2.25rem;
+  font-weight: 500;
+  color: var(--grad-text-main);
+  margin: 0 0 1rem;
+}
+
+.wishly-graduation-template-1 .grad-letter-rule {
+  width: 48px;
+  height: 2px;
+  background-color: var(--grad-gold);
+  margin: 0 auto;
+}
+
+.wishly-graduation-template-1 .grad-letter-body {
+  margin-bottom: 2.5rem;
+}
+
+.wishly-graduation-template-1 .grad-letter-salutation {
+  font-family: var(--grad-font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--grad-text-main);
+  margin-bottom: 1.25rem;
+}
+
+.wishly-graduation-template-1 .grad-letter-para {
+  font-size: 1.05rem;
+  color: var(--grad-text-muted);
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+}
+
+.wishly-graduation-template-1 .grad-letter-signoff-wrap {
+  border-top: 1px solid var(--grad-border);
+  padding-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.wishly-graduation-template-1 .grad-letter-signoff-prompt {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--grad-text-subtle);
+  margin-bottom: 0.5rem;
+}
+
+.wishly-graduation-template-1 .grad-letter-sender {
+  font-family: var(--grad-font-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--grad-text-main);
+  margin: 0 0 0.5rem;
+}
+
+.wishly-graduation-template-1 .grad-letter-stamp-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.wishly-graduation-template-1 .grad-letter-stamp {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grad-text-subtle);
+  background-color: var(--grad-bg-alt);
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   6. SECTION: WHAT'S NEXT (Horizon & Whitespace)
+   ============================================================ */
+.wishly-graduation-template-1 .grad-section-whats-next {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .wishly-graduation-template-1 .grad-section-whats-next {
+    padding: 6rem 0;
+  }
+}
+
+.wishly-graduation-template-1 .grad-whatsnext-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.wishly-graduation-template-1 .grad-whatsnext-photo-wrap {
+  margin: 2rem auto 2.5rem;
+  max-width: 680px;
+}
+
+.wishly-graduation-template-1 .grad-whatsnext-frame {
+  background-color: var(--grad-card-bg);
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid var(--grad-border);
+  box-shadow: var(--grad-shadow-lg);
+}
+
+.wishly-graduation-template-1 .grad-whatsnext-img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+}
+
+.wishly-graduation-template-1 .grad-whatsnext-text {
+  margin: 2rem 0 0;
+}
+
+.wishly-graduation-template-1 .grad-whatsnext-line1 {
+  font-family: var(--grad-font-display);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 400;
+  color: var(--grad-text-main);
+  line-height: 1.2;
+  margin: 0 0 0.25rem;
+}
+
+.wishly-graduation-template-1 .grad-whatsnext-line2 {
+  font-family: var(--grad-font-serif);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--grad-gold-dark);
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* ============================================================
+   7. SECTION: FINAL CELEBRATION (Toast & Replay)
+   ============================================================ */
+.wishly-graduation-template-1 .grad-section-celebration {
+  padding-bottom: 2rem;
+}
+
+.wishly-graduation-template-1 .grad-celebration-card {
+  background-color: var(--grad-card-bg);
+  border: 1px solid var(--grad-border);
+  border-radius: 8px;
+  padding: 3rem 1.5rem;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: var(--grad-shadow-lg);
+}
+
+@media (min-width: 768px) {
+  .wishly-graduation-template-1 .grad-celebration-card {
+    padding: 4.5rem 3rem;
+  }
+}
+
+.wishly-graduation-template-1 .grad-celebration-text {
+  margin: 1.5rem 0 2.5rem;
+}
+
+.wishly-graduation-template-1 .grad-celebration-line1 {
+  font-family: var(--grad-font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 500;
+  color: var(--grad-text-main);
+  margin: 0 0 0.5rem;
+}
+
+.wishly-graduation-template-1 .grad-celebration-line2 {
+  font-family: var(--grad-font-serif);
+  font-size: clamp(1.4rem, 3vw, 1.85rem);
+  font-style: italic;
+  color: var(--grad-gold-dark);
+  margin: 0;
+}
+
+/* Toast Button & Shimmer */
+.wishly-graduation-template-1 .grad-toast-box {
+  margin: 2rem 0;
+  position: relative;
+  display: inline-block;
+}
+
+.wishly-graduation-template-1 .grad-btn-toast {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #C5A059 0%, #9E7934 100%);
+  color: #FFFFFF;
+  font-family: var(--grad-font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(197, 160, 89, 0.35);
+}
+
+.wishly-graduation-template-1 .grad-btn-toast:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 28px rgba(197, 160, 89, 0.45);
+}
+
+.wishly-graduation-template-1 .grad-toast-active {
+  animation: gradPulse 0.4s ease;
+}
+
+@keyframes gradPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.wishly-graduation-template-1 .grad-toast-icon {
+  font-size: 1.25rem;
+}
+
+.wishly-graduation-template-1 .grad-golden-shimmer-burst {
+  position: absolute;
+  inset: -20px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wishly-graduation-template-1 .shimmer-dot {
+  position: absolute;
+  color: #FFD700;
+  font-size: 1.2rem;
+  animation: gradShimmerFloat 1s forwards ease-out;
+}
+
+.wishly-graduation-template-1 .shimmer-dot.s1 { top: -10px; left: 20%; animation-delay: 0.05s; }
+.wishly-graduation-template-1 .shimmer-dot.s2 { top: -15px; right: 20%; animation-delay: 0.1s; }
+.wishly-graduation-template-1 .shimmer-dot.s3 { bottom: -10px; left: 30%; animation-delay: 0.15s; }
+.wishly-graduation-template-1 .shimmer-dot.s4 { bottom: -12px; right: 30%; animation-delay: 0.2s; }
+
+@keyframes gradShimmerFloat {
+  0% { opacity: 1; transform: translateY(0) scale(0.5); }
+  100% { opacity: 0; transform: translateY(-30px) scale(1.4); }
+}
+
+.wishly-graduation-template-1 .grad-toast-count {
+  font-size: 0.85rem;
+  color: var(--grad-text-subtle);
+  margin-top: 0.75rem;
+}
+
+.wishly-graduation-template-1 .grad-celebration-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.wishly-graduation-template-1 .grad-btn-replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: 1px solid var(--grad-border-strong);
+  color: var(--grad-text-muted);
+  font-family: var(--grad-font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.wishly-graduation-template-1 .grad-btn-replay:hover {
+  background-color: var(--grad-text-main);
+  color: #FFFFFF;
+  border-color: var(--grad-text-main);
+}
+
+/* ============================================================
+   FLOATING SCROLL NAV
+   ============================================================ */
+.wishly-graduation-template-1 .grad-floating-nav {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--grad-border-strong);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(11, 19, 43, 0.12);
+  padding: 0.35rem 0.5rem;
+  max-width: 92vw;
+  overflow: hidden;
+}
+
+.wishly-graduation-template-1 .grad-nav-progress-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: transparent;
+}
+
+.wishly-graduation-template-1 .grad-nav-progress-fill {
+  height: 100%;
+  background-color: var(--grad-gold);
+  transition: width 0.15s ease-out;
+}
+
+.wishly-graduation-template-1 .grad-nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.wishly-graduation-template-1 .grad-nav-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.wishly-graduation-template-1 .grad-nav-dot-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  color: var(--grad-text-subtle);
+  font-family: var(--grad-font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.wishly-graduation-template-1 .grad-nav-num {
+  font-size: 0.65rem;
+  color: var(--grad-gold-dark);
+  font-weight: 700;
+}
+
+.wishly-graduation-template-1 .grad-nav-dot {
+  display: none;
+}
+
+.wishly-graduation-template-1 .grad-nav-dot-btn:hover {
+  color: var(--grad-text-main);
+  background-color: rgba(11, 19, 43, 0.04);
+}
+
+.wishly-graduation-template-1 .grad-nav-dot-btn.active {
+  background-color: var(--grad-text-main);
+  color: #FFFFFF;
+}
+
+.wishly-graduation-template-1 .grad-nav-dot-btn.active .grad-nav-num {
+  color: var(--grad-gold-light);
+}
+
+@media (max-width: 640px) {
+  .wishly-graduation-template-1 .grad-nav-title {
+    display: none;
+  }
+  .wishly-graduation-template-1 .grad-nav-dot-btn {
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+/* ============================================================
+   FOOTER CREDIT
+   ============================================================ */
+.wishly-graduation-template-1 .grad-editorial-footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  border-top: 1px solid var(--grad-border);
+  position: relative;
+  z-index: 2;
+}
+
+.wishly-graduation-template-1 .grad-footer-credit {
+  font-size: 0.75rem;
+  color: var(--grad-text-subtle);
+  letter-spacing: 0.05em;
+  margin: 0;
 }

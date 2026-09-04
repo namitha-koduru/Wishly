@@ -253,19 +253,23 @@ export const TEMPLATES = [
   {
     id: 'class-of-2026',
     occasion: 'graduation',
-    name: 'Class of 2026',
-    description: 'Honors banner, cap toss spotlight, and degree celebration.',
-    badge: 'Milestone',
-    previewColor: '#2F80ED',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'degree', 'classYear'],
+    name: 'You Did It',
+    description: 'An editorial commencement chronicle celebrating milestones, lifelong mentors, and the next chapter.',
+    badge: 'Editorial',
+    previewColor: '#0B132B',
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'degree', 'institution', 'classYear', 'date', 'latinHonors', 'timeline', 'milestones'],
     defaultData: {
       recipientName: 'Marcus Johnson',
-      senderName: 'Mom & Dad',
-      message: 'You did it! All those late nights, endless study sessions, and sacrifices have paid off. We are beyond proud of you!',
-      degree: 'Bachelor of Science',
+      senderName: 'Mom, Dad & The Family',
+      message: 'All those early mornings, problem sets, and late nights in the library have led to this proud milestone. The world is waiting for your brilliance!',
+      degree: 'Bachelor of Science in Computer Engineering',
       classYear: 'Class of 2026',
+      date: 'May 2026',
       photos: [
-        'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&auto=format&fit=crop&q=80'
+        'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1627556704302-624286467c65?w=800&auto=format&fit=crop&q=80'
       ]
     },
     component: ClassOf2026Template
