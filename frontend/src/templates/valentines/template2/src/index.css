@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Nunito:wght@400;500;600;700;800&display=swap");
 
-:root {
+.val2-app {
   --color-cream: #FAF6F0;
   --color-cream-deep: #F3ECE2;
   --color-cream-surface: #FFFDF9;
@@ -33,44 +33,30 @@
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
 
   color-scheme: light;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-body {
   font-family: var(--font-body);
-  background: var(--color-cream);
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
-#root {
-  min-height: 100vh;
+.val2-app * {
+  box-sizing: border-box;
 }
 
-button {
+.val2-app button {
   font-family: inherit;
 }
 
-img,
-video {
+.val2-app img {
   max-width: 100%;
   display: block;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  .val2-app *,
+  .val2-app *::before,
+  .val2-app *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;

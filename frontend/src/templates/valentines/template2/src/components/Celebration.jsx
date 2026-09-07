@@ -47,9 +47,9 @@ export default function Celebration({
       </div>
 
       {/* Personalized message card if provided */}
-      {message && (
+      {(message || senderName) && (
         <div className="celebration-screen__letter">
-          <p className="celebration-screen__message">"{message}"</p>
+          {message && <p className="celebration-screen__message">"{message}"</p>}
           {senderName && (
             <p className="celebration-screen__signature">— With love, {senderName}</p>
           )}

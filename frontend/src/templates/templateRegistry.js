@@ -153,7 +153,7 @@ export const TEMPLATES = [
     id: 'our-story',
     occasion: 'anniversary',
     name: 'Our Story',
-    description: 'A multi-screen Indian aesthetic journey with traditional Bapu art, sacred garlands, and envelope keepsakes.',
+    description: 'A romantic interactive storytelling experience with traditional Bapu art, sacred garlands, and envelope keepsakes.',
     badge: 'Featured',
     previewColor: '#9b4a22',
     supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'years'],
@@ -170,6 +170,30 @@ export const TEMPLATES = [
       ]
     },
     component: OurStoryTemplate
+  },
+  {
+    id: 'petals-and-us',
+    occasion: 'anniversary',
+    name: 'Faith & Devotion',
+    description: 'A peaceful, elegant Christian wedding anniversary blessing with intertwined wedding rings, white roses, sacred scripture, and prayers.',
+    badge: 'Blessed Keepsake',
+    previewColor: '#C5A059',
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'date', 'years', 'subtitle'],
+    defaultData: {
+      recipientName: 'David & Sarah',
+      senderName: 'With all our love & prayers',
+      subtitle: 'Celebrating the beautiful journey of love, faith & togetherness.',
+      date: 'September 18 • Blessed in Faith',
+      years: 'Years of Grace & Devotion',
+      message: 'May God continue to fill your home with love, your hearts with patience, and your journey together with joy.',
+      photos: [
+        'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=800&auto=format&fit=crop&q=80'
+      ]
+    },
+    component: LoveLetterAnniversaryTemplate
   },
   {
     id: 'forever-always',
@@ -208,25 +232,6 @@ export const TEMPLATES = [
       ]
     },
     component: MemoryTimelineTemplate
-  },
-  {
-    id: 'love-letter-anniversary',
-    occasion: 'anniversary',
-    name: 'Love Letter',
-    description: 'Vintage wax seal parchment paper letter handwritten with devotion.',
-    badge: 'Keepsake',
-    previewColor: '#E84393',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'date'],
-    defaultData: {
-      recipientName: 'Dearest Eleanor',
-      senderName: 'Arthur',
-      message: 'No words in any language could ever fully express how grateful I am to walk through this life by your side.',
-      date: 'Our Anniversary',
-      photos: [
-        'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&auto=format&fit=crop&q=80'
-      ]
-    },
-    component: LoveLetterAnniversaryTemplate
   },
   {
     id: 'our-journey',
@@ -760,6 +765,14 @@ export const getTemplateById = (templateId) => {
     templateId === 'valentines-2'
   ) {
     return TEMPLATES.find((t) => t.id === 'prove-your-love') || TEMPLATES[1];
+  }
+  if (
+    templateId === 'petals-and-us' ||
+    templateId === 'petals-us' ||
+    templateId === 'love-letter-anniversary' ||
+    templateId === 'anniversary-2'
+  ) {
+    return TEMPLATES.find((t) => t.id === 'petals-and-us') || TEMPLATES.find((t) => t.id === 'love-letter-anniversary') || TEMPLATES[1];
   }
   return TEMPLATES.find((t) => t.id === templateId) || TEMPLATES[0];
 };

@@ -34,16 +34,21 @@ export default function App({ data = {} }) {
   const questions = customData.questions || QUESTIONS;
 
   // Merge user-uploaded photos & captions into memories
-  const rawPhotos = data.photos || data.photoObjects || customData.photos;
-  const memories = customData.memories || (
-    Array.isArray(rawPhotos) && rawPhotos.length > 0
+  const rawPhotos = data.photoObjects || data.photos || customData.photoObjects || customData.photos;
+  const rawMemories = customData.memories || data.memories;
+  const memories = (Array.isArray(rawMemories) && rawMemories.length > 0 && rawMemories.some((m) => m && (m.src || m.image || m.url)))
+    ? rawMemories.map((m, i) => ({
+        id: m?.id || `m${i + 1}`,
+        src: m?.src || m?.image || m?.url,
+        caption: m?.caption ? m.caption : (MEMORIES[i]?.caption || `Our Memory #${i + 1}`),
+      }))
+    : (Array.isArray(rawPhotos) && rawPhotos.length > 0
       ? rawPhotos.map((p, i) => ({
           id: `m${i + 1}`,
-          src: typeof p === "object" ? (p.url || p.src) : p,
-          caption: typeof p === "object" && p.caption ? p.caption : (MEMORIES[i]?.caption || `Our Memory #${i + 1}`),
+          src: typeof p === "object" ? (p?.url || p?.src || p?.image) : p,
+          caption: typeof p === "object" && p?.caption ? p.caption : (MEMORIES[i]?.caption || `Our Memory #${i + 1}`),
         }))
-      : MEMORIES
-  );
+      : MEMORIES);
 
   const copy = { ...COPY, ...(customData.copy || {}) };
   const characters = { ...CHARACTERS, ...(customData.characters || {}) };
@@ -77,9 +82,9 @@ export default function App({ data = {} }) {
   };
 
   return (
-    <div className="app">
-      <div className="app__decor" aria-hidden="true" />
-      <main className="app__stage" key={transitionKey}>
+    <div className="val2-app">
+      <div className="val2-app__decor" aria-hidden="true" />
+      <main className="val2-app__stage" key={transitionKey}>
         {stage === STAGES.INTRO && (
           <Intro
             onStart={handleStart}

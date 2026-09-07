@@ -1,98 +1,1073 @@
-/* Anniversary Template 2 - Love Letter Styles */
-.tpl-anniversary-love-letter {
-  background: #fdfaf6;
-  border: 1px solid #ebd9c8;
-  padding: 3rem 1.8rem;
+/* ==========================================================================
+   ANNIVERSARY TEMPLATE 2 — FAITH & DEVOTION
+   Peaceful • Blessed • Pure • Romantic • Elegant • Christian Wedding Anniversary
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
+
+/* --------------------------------------------------------------------------
+   CSS VARIABLES & TOKENS
+   -------------------------------------------------------------------------- */
+.tpl-grace-and-devotion {
+  --grace-white: #FFFFFF;
+  --grace-ivory: #FFFDFB;
+  --grace-warm-white: #FAF8F5;
+  --grace-cream: #F7F4EE;
+  
+  --grace-blush-whisper: #FCF4F6;
+  --grace-blush-soft: #F9E8EC;
+  --grace-dusty-rose: #C88A96;
+  --grace-rose-deep: #8F4A56;
+
+  --grace-gold-champagne: #C99D3B;
+  --grace-gold-light: #E8D49E;
+  --grace-gold-soft: rgba(201, 157, 59, 0.12);
+
+  --grace-sage-leaf: #7D9679;
+  --grace-sage-dark: #4F684B;
+
+  --grace-ink-primary: #2C2426;
+  --grace-ink-secondary: #5E5355;
+  --grace-ink-muted: #8E8284;
+
+  --grace-border-hairline: rgba(201, 157, 59, 0.22);
+  --grace-border-card: rgba(200, 138, 150, 0.2);
+  
+  --grace-shadow-stationery: 0 16px 44px rgba(74, 50, 55, 0.06), 0 2px 8px rgba(0, 0, 0, 0.02);
+  --grace-shadow-photo: 0 12px 32px rgba(44, 36, 38, 0.09);
+
+  --grace-font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --grace-font-scriptural: 'Cormorant Garamond', Georgia, serif;
+  --grace-font-cinzel: 'Cinzel', serif;
+  --grace-font-script: 'Great Vibes', cursive;
+  --grace-font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--grace-warm-white);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(252, 244, 246, 0.8) 0%, transparent 45%),
+    radial-gradient(circle at 88% 82%, rgba(247, 244, 238, 0.8) 0%, transparent 45%),
+    linear-gradient(180deg, #FAF8F5 0%, #FFFDFB 50%, #FAF8F5 100%);
+  color: var(--grace-ink-primary);
+  font-family: var(--grace-font-sans);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 
-.wax-seal-crest {
-  width: 54px;
-  height: 54px;
-  background: #c0392b;
-  color: #fff;
-  border-radius: 50%;
+/* Subtle background fine linen paper overlay */
+.grace-linen-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(200, 150, 160, 0.15) 0.65px, transparent 0.65px);
+  background-size: 24px 24px;
+  opacity: 0.35;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   CALM PETAL DRIFT
+   -------------------------------------------------------------------------- */
+.grace-petal-drift-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  overflow: hidden;
+}
+
+.grace-petal-particle {
+  position: absolute;
+  top: -30px;
+  will-change: transform, opacity;
+  animation: gracePetalSlowDrift linear infinite;
+}
+
+@keyframes gracePetalSlowDrift {
+  0% {
+    top: -30px;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+  15% { opacity: 0.85; }
+  85% { opacity: 0.8; }
+  100% {
+    top: 105vh;
+    opacity: 0;
+    transform: translateX(var(--sway-drift, 20px)) rotate(180deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   STAGE WRAPPER & REFINED TRANSITIONS
+   -------------------------------------------------------------------------- */
+.grace-stage-container {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 4.5rem;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
-  margin: 0 auto 1.2rem;
-  box-shadow: 0 6px 18px rgba(192, 57, 43, 0.3);
 }
 
-.letter-paper-sheet {
-  background: #fffefb;
-  border: 1px solid #f0e6dc;
-  border-radius: 12px;
-  padding: 2.5rem 2rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
-  text-align: left;
-}
-
-.letter-header-row {
+.grace-stage-wrapper {
+  position: relative;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 1.8rem;
-  border-bottom: 1px dashed #e2d5c5;
-  padding-bottom: 0.8rem;
+  justify-content: center;
+  animation: graceGentleFadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.letter-date-stamp {
-  font-size: 0.85rem;
-  color: #7f8c8d;
-  font-family: var(--font-display);
+@keyframes graceGentleFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.letter-seal-badge {
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 1px;
-  color: #c0392b;
+/* --------------------------------------------------------------------------
+   PEACEFUL STATIONERY CARD
+   -------------------------------------------------------------------------- */
+.grace-card-stationery {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  background: var(--grace-white);
+  border: 1px solid var(--grace-border-card);
+  border-radius: 18px;
+  padding: 3.8rem 3rem;
+  text-align: center;
+  box-shadow: var(--grace-shadow-stationery);
+  box-sizing: border-box;
+  z-index: 6;
 }
 
-.letter-salutation {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 1.2rem;
+/* Double Hairline Inner Frame */
+.grace-card-stationery::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid var(--grace-border-hairline);
+  border-radius: 12px;
+  pointer-events: none;
 }
 
-.letter-body-text {
-  font-family: var(--font-display);
+.grace-card-cross-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.grace-cross-motif {
+  display: inline-block;
+}
+
+.grace-cross-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.grace-milestone-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1.3rem;
+  background: var(--grace-blush-whisper);
+  border: 1px solid var(--grace-border-hairline);
+  border-radius: 9999px;
+  font-family: var(--grace-font-cinzel);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grace-gold-champagne);
+  margin-bottom: 1.5rem;
+}
+
+.grace-tag-sparkle {
+  font-size: 0.7rem;
+  color: var(--grace-gold-champagne);
+}
+
+.grace-chapter-tag {
+  font-family: var(--grace-font-cinzel);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--grace-gold-champagne);
+  margin-bottom: 1rem;
+}
+
+/* Divider Filigree */
+.grace-divider-filigree {
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--grace-border-hairline), transparent);
+  margin: 1.6rem auto 1.8rem;
+}
+
+/* --------------------------------------------------------------------------
+   TYPOGRAPHY
+   -------------------------------------------------------------------------- */
+.grace-hero-title {
+  font-family: var(--grace-font-serif);
+  font-size: clamp(2.3rem, 5.5vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.18;
+  color: var(--grace-ink-primary);
+  letter-spacing: -0.01em;
+  margin: 0.5rem 0 1.25rem;
+}
+
+.grace-hero-dedication {
+  margin-bottom: 0.8rem;
+}
+
+.grace-dedication-prefix {
+  display: block;
+  font-family: var(--grace-font-cinzel);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--grace-ink-muted);
+  margin-bottom: 0.25rem;
+}
+
+.grace-dedication-names {
+  font-family: var(--grace-font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 600;
+  color: var(--grace-rose-deep);
+  line-height: 1.2;
+}
+
+.grace-hero-subtitle {
+  font-family: var(--grace-font-scriptural);
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.8vw, 1.45rem);
+  line-height: 1.5;
+  color: var(--grace-ink-secondary);
+  max-width: 500px;
+  margin: 1.2rem auto 0;
+}
+
+.grace-hero-blessing {
+  font-family: var(--grace-font-scriptural);
   font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--grace-ink-secondary);
+  font-weight: 500;
+}
+
+.grace-stage-heading {
+  font-family: var(--grace-font-serif);
+  font-size: clamp(2rem, 4.5vw, 2.6rem);
+  font-weight: 600;
+  color: var(--grace-ink-primary);
+  line-height: 1.25;
+  margin-bottom: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   WEDDING RINGS
+   -------------------------------------------------------------------------- */
+.grace-wedding-rings-wrapper {
+  display: inline-block;
+  position: relative;
+  filter: drop-shadow(0 4px 14px rgba(201, 157, 59, 0.2));
+  animation: graceRingGentleFloat 4s ease-in-out infinite alternate;
+}
+
+.grace-wedding-rings-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.grace-diamond-sparkle {
+  animation: graceDiamondTwinkle 3s ease-in-out infinite;
+}
+
+@keyframes graceRingGentleFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-4px); }
+}
+
+@keyframes graceDiamondTwinkle {
+  0%, 100% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.grace-hero-rings-box {
+  margin: 1.2rem auto 1rem;
+}
+
+.grace-promise-rings-display {
+  margin: 1.5rem auto 1.75rem;
+}
+
+.grace-final-rings-box {
+  margin: 1.5rem auto 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   WEDDING BOUQUETS & FRAMING
+   -------------------------------------------------------------------------- */
+.grace-bouquet-wrapper {
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.grace-bouquet-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.grace-hero-bouquet-right {
+  top: -30px;
+  right: -50px;
+  width: 290px;
+  opacity: 0.95;
+}
+
+.grace-hero-bouquet-left {
+  bottom: -30px;
+  left: -50px;
+  width: 250px;
+  transform: scaleX(-1);
+  opacity: 0.9;
+}
+
+.grace-rings-bq-left {
+  bottom: -30px;
+  left: -50px;
+  width: 260px;
+  transform: scaleX(-1);
+  opacity: 0.85;
+}
+
+.grace-rings-bq-right {
+  top: -30px;
+  right: -50px;
+  width: 270px;
+  opacity: 0.85;
+}
+
+.grace-devotion-bq-top-right {
+  top: -30px;
+  right: -50px;
+  width: 270px;
+  opacity: 0.9;
+}
+
+.grace-devotion-bq-bottom-left {
+  bottom: -30px;
+  left: -50px;
+  width: 250px;
+  transform: scaleX(-1);
+  opacity: 0.85;
+}
+
+.grace-final-bq-top-left {
+  top: -20px;
+  left: -40px;
+  width: 230px;
+  transform: scaleX(-1);
+  opacity: 0.85;
+}
+
+.grace-final-bq-top-right {
+  top: -20px;
+  right: -40px;
+  width: 230px;
+  opacity: 0.85;
+}
+
+.grace-final-bq-bottom-left {
+  bottom: -20px;
+  left: -40px;
+  width: 220px;
+  transform: scaleX(-1);
+  opacity: 0.8;
+}
+
+.grace-final-bq-bottom-right {
+  bottom: -20px;
+  right: -40px;
+  width: 220px;
+  opacity: 0.8;
+}
+
+.grace-journey-wreath,
+.grace-prayer-wreath,
+.grace-album-wreath {
+  position: relative;
+  width: 320px;
+  margin: 0 auto 1.5rem;
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   LUXURY PHOTO FRAMES (WEDDING ALBUM STYLE)
+   -------------------------------------------------------------------------- */
+.grace-luxury-photo-frame {
+  position: relative;
+  margin: 1.75rem auto 2rem;
+  max-width: 440px;
+  background: #FFFFFF;
+  padding: 12px 12px 18px;
+  border: 1px solid var(--grace-border-hairline);
+  border-radius: 12px;
+  box-shadow: var(--grace-shadow-photo);
+}
+
+.grace-photo-inner {
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #F7F4EE;
+}
+
+.grace-photo-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.grace-photo-caption {
+  display: block;
+  font-family: var(--grace-font-scriptural);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--grace-rose-deep);
+  margin-top: 10px;
+}
+
+.grace-journey-quote-primary {
+  font-family: var(--grace-font-serif);
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--grace-ink-primary);
+}
+
+.grace-journey-quote-secondary {
+  font-family: var(--grace-font-scriptural);
+  font-style: italic;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--grace-ink-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   PROMISE & SCRIPTURE
+   -------------------------------------------------------------------------- */
+.grace-promise-heading {
+  font-family: var(--grace-font-serif);
+  font-size: clamp(1.6rem, 3.8vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--grace-ink-primary);
+}
+
+.grace-promise-body {
+  font-family: var(--grace-font-scriptural);
+  font-size: clamp(1.2rem, 2.5vw, 1.45rem);
   line-height: 1.8;
-  color: #34495e;
+  color: var(--grace-ink-secondary);
+  font-style: italic;
+}
+
+.grace-prayer-body-text {
+  font-family: var(--grace-font-scriptural);
+  font-size: clamp(1.25rem, 2.8vw, 1.55rem);
+  line-height: 1.8;
+  color: var(--grace-ink-primary);
   font-style: italic;
   margin-bottom: 1.5rem;
 }
 
-.letter-polaroid-tuck {
+.grace-scripture-box {
+  background: var(--grace-warm-white);
+  border: 1px solid var(--grace-border-hairline);
+  border-radius: 12px;
+  padding: 1.8rem 1.6rem;
   margin: 1.5rem 0;
+  box-shadow: 0 4px 16px rgba(201, 157, 59, 0.08);
+}
+
+.grace-scripture-icon {
+  font-size: 1.4rem;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.grace-scripture-verse {
+  font-family: var(--grace-font-serif);
+  font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--grace-rose-deep);
+  margin-bottom: 0.5rem;
+}
+
+.grace-scripture-reference {
+  font-family: var(--grace-font-cinzel);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--grace-gold-champagne);
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   FLORAL DEVOTION SECTION
+   -------------------------------------------------------------------------- */
+.grace-devotion-lines-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+
+.grace-devotion-line-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.grace-devotion-bullet {
+  font-size: 1.2rem;
+}
+
+.grace-devotion-text {
+  font-family: var(--grace-font-serif);
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  font-weight: 600;
+  color: var(--grace-ink-primary);
+  margin: 0;
+}
+
+.grace-devotion-subtext {
+  font-family: var(--grace-font-scriptural);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--grace-gold-champagne);
+}
+
+/* --------------------------------------------------------------------------
+   WEDDING ALBUM SECTION
+   -------------------------------------------------------------------------- */
+.grace-album-stage {
+  max-width: 980px;
+}
+
+.grace-album-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.grace-album-subtext {
+  font-family: var(--grace-font-scriptural);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--grace-ink-secondary);
+}
+
+.grace-album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2.5rem 2rem;
+  justify-items: center;
+  width: 100%;
+}
+
+.grace-album-card {
+  position: relative;
+  background: #FFFFFF;
+  padding: 12px 12px 18px;
+  border: 1px solid var(--grace-border-card);
+  border-radius: 10px;
+  box-shadow: var(--grace-shadow-photo);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  max-width: 260px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.grace-album-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(74, 50, 55, 0.14);
+  border-color: var(--grace-gold-champagne);
+}
+
+.grace-album-img-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #F7F4EE;
+}
+
+.grace-album-img-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.grace-album-card:hover .grace-album-img-frame img {
+  transform: scale(1.04);
+}
+
+.grace-album-zoom-hint {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.grace-album-card:hover .grace-album-zoom-hint {
+  opacity: 1;
+}
+
+.grace-album-card-footer {
+  margin-top: 14px;
   text-align: center;
 }
 
-.letter-polaroid-tuck img {
-  width: 220px;
-  height: 150px;
+.grace-album-date-stamp {
+  font-family: var(--grace-font-cinzel);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grace-gold-champagne);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.grace-album-caption {
+  font-family: var(--grace-font-scriptural);
+  font-size: 1.15rem;
+  color: var(--grace-ink-primary);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Lightbox Modal */
+.grace-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 36, 38, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.grace-modal-card {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 1.8rem;
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+}
+
+.grace-modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--grace-blush-whisper);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1rem;
+  color: var(--grace-ink-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grace-modal-img {
+  width: 100%;
+  max-height: 58vh;
   object-fit: cover;
   border-radius: 6px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  margin: 1rem 0;
+  margin-bottom: 1rem;
 }
 
-.letter-polaroid-caption {
-  display: block;
+.grace-modal-date {
+  font-family: var(--grace-font-cinzel);
   font-size: 0.8rem;
-  color: #95a5a6;
-  font-style: italic;
+  letter-spacing: 0.1em;
+  color: var(--grace-gold-champagne);
+  display: block;
+  margin-bottom: 0.35rem;
 }
 
-.letter-signoff {
-  margin-top: 2rem;
+.grace-modal-caption {
+  font-family: var(--grace-font-scriptural);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--grace-ink-primary);
+}
+
+/* --------------------------------------------------------------------------
+   FINAL BLESSING SECTION
+   -------------------------------------------------------------------------- */
+.grace-final-card {
+  max-width: 700px;
+  padding: 4rem 3.2rem;
+}
+
+.grace-final-title {
+  font-family: var(--grace-font-serif);
+  font-size: clamp(2.4rem, 5.5vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--grace-ink-primary);
+  margin-bottom: 0.4rem;
+}
+
+.grace-final-couple-names {
+  font-family: var(--grace-font-serif);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--grace-rose-deep);
+  margin-bottom: 1.25rem;
+}
+
+.grace-final-message-box {
+  margin: 1.5rem 0;
+}
+
+.grace-final-paragraph {
+  font-family: var(--grace-font-scriptural);
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  line-height: 1.8;
+  color: var(--grace-ink-primary);
+  font-style: italic;
+  margin-bottom: 0.75rem;
+}
+
+.grace-final-subtext {
+  font-family: var(--grace-font-serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--grace-gold-champagne);
+  margin: 1.5rem 0;
+}
+
+.grace-final-signoff-area {
+  margin-top: 1.75rem;
   text-align: right;
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: #c0392b;
+}
+
+.grace-signoff-prefix {
+  display: block;
+  font-family: var(--grace-font-scriptural);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--grace-ink-muted);
+  margin-bottom: 0.25rem;
+}
+
+.grace-signoff-author {
+  font-family: var(--grace-font-script);
+  font-size: 2.2rem;
+  color: var(--grace-rose-deep);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.grace-final-bottom-cross {
+  margin: 2rem auto 0;
+}
+
+/* --------------------------------------------------------------------------
+   SACRED BUTTONS & CTAS
+   -------------------------------------------------------------------------- */
+.grace-cta-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.grace-btn-sacred {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 2.8rem;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF9FA 50%, #FCEEF1 100%);
+  border: 1px solid var(--grace-border-hairline);
+  border-radius: 9999px;
+  color: var(--grace-rose-deep);
+  font-family: var(--grace-font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(200, 138, 150, 0.16);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.grace-btn-sacred:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #FFFFFF 0%, #FAF2F4 50%, #F8DDE3 100%);
+  border-color: var(--grace-gold-champagne);
+  box-shadow: 0 8px 26px rgba(201, 157, 59, 0.22);
+}
+
+.grace-btn-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  transform: skewX(-25deg);
+  animation: graceBtnShimmer 4s infinite;
+}
+
+@keyframes graceBtnShimmer {
+  0%, 60% { left: -100%; }
+  100% { left: 160%; }
+}
+
+.grace-btn-text {
+  position: relative;
+  z-index: 2;
+}
+
+.grace-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: var(--grace-white);
+  border: 1px solid var(--grace-border-hairline);
+  border-radius: 9999px;
+  color: var(--grace-ink-secondary);
+  font-family: var(--grace-font-sans);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.grace-btn-secondary:hover {
+  background: var(--grace-blush-whisper);
+  color: var(--grace-rose-deep);
+  border-color: var(--grace-gold-champagne);
+}
+
+/* --------------------------------------------------------------------------
+   NAVIGATION THREAD (BOTTOM BAR)
+   -------------------------------------------------------------------------- */
+.grace-nav-thread {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding: 1rem 1rem 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.grace-nav-pill-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.65rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--grace-border-hairline);
+  border-radius: 9999px;
+  box-shadow: 0 4px 18px rgba(74, 50, 55, 0.08);
+}
+
+.grace-nav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: var(--grace-ink-muted);
+  font-family: var(--grace-font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.grace-nav-item:hover {
+  color: var(--grace-rose-deep);
+  background: var(--grace-blush-whisper);
+}
+
+.grace-nav-item.active {
+  background: var(--grace-blush-soft);
+  color: var(--grace-rose-deep);
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(200, 138, 150, 0.15);
+}
+
+.grace-nav-item.passed {
+  color: var(--grace-gold-champagne);
+}
+
+.grace-nav-bullet {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: rgba(201, 157, 59, 0.15);
+  font-size: 0.68rem;
   font-weight: 700;
+  color: var(--grace-gold-champagne);
+}
+
+.grace-nav-item.active .grace-nav-bullet {
+  background: var(--grace-rose-deep);
+  color: #FFFFFF;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE DESIGN (TABLETS & MOBILE)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .grace-card-stationery {
+    padding: 3rem 1.6rem;
+    border-radius: 14px;
+  }
+
+  .grace-hero-bouquet-right,
+  .grace-devotion-bq-top-right,
+  .grace-rings-bq-right {
+    top: -20px;
+    right: -20px;
+    width: 180px;
+    opacity: 0.75;
+  }
+
+  .grace-hero-bouquet-left,
+  .grace-devotion-bq-bottom-left,
+  .grace-rings-bq-left {
+    bottom: -20px;
+    left: -20px;
+    width: 160px;
+    opacity: 0.7;
+  }
+
+  .grace-final-bq-top-left,
+  .grace-final-bq-top-right,
+  .grace-final-bq-bottom-left,
+  .grace-final-bq-bottom-right {
+    width: 140px;
+  }
+
+  .grace-album-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.75rem 1.25rem;
+  }
+
+  .grace-nav-label {
+    display: none;
+  }
+
+  .grace-nav-item {
+    padding: 0.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .grace-stage-container {
+    padding: 2rem 0.85rem 3.5rem;
+  }
+
+  .grace-card-stationery {
+    padding: 2.4rem 1.2rem;
+  }
+
+  .grace-hero-title {
+    font-size: 2.1rem;
+  }
+
+  .grace-hero-subtitle {
+    font-size: 1.15rem;
+  }
+
+  .grace-btn-sacred {
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+  }
+
+  .grace-hero-bouquet-right,
+  .grace-devotion-bq-top-right {
+    width: 130px;
+    right: -10px;
+    top: -10px;
+  }
+
+  .grace-hero-bouquet-left,
+  .grace-devotion-bq-bottom-left {
+    width: 120px;
+    left: -10px;
+    bottom: -10px;
+  }
+
+  .grace-album-grid {
+    grid-template-columns: 1fr;
+    max-width: 260px;
+    margin: 0 auto;
+  }
 }
