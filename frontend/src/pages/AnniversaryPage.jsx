@@ -89,14 +89,17 @@ export function AnniversaryPage() {
                     </div>
                   )}
 
-                  {/* Visual Preview Content for other templates */}
-                  {tpl.id === 'forever-always' && (
-                    <div className="mockup-generic-anniv gold-style">
-                      <div className="gold-mockup-card">
-                        <span className="gold-crest">✨</span>
-                        <h4 className="gold-title">Forever & Always</h4>
-                        <p className="gold-sub">Gold & Champagne Elegance</p>
+                  {/* Visual Preview Content for Template 3: Arranged to Soulmates */}
+                  {(tpl.id === 'forever-always' || tpl.id === 'arranged-to-soulmates') && (
+                    <div className="mockup-arranged-soulmates">
+                      <div className="soulmates-mockup-card">
+                        <span className="soulmates-crest">💍✨</span>
+                        <h4 className="soulmates-title">Arranged to Soulmates</h4>
+                        <p className="soulmates-sub">"From Two Families to One Heart"</p>
+                        <div className="soulmates-mockup-rings">Aditi & Vikram</div>
                       </div>
+                      <span className="soulmates-petal sp-1">🌸</span>
+                      <span className="soulmates-petal sp-2">🤍</span>
                     </div>
                   )}
 

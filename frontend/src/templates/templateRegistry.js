@@ -198,18 +198,22 @@ export const TEMPLATES = [
   {
     id: 'forever-always',
     occasion: 'anniversary',
-    name: 'Forever & Always',
-    description: 'Timeless gold and champagne elegance for cherished milestones.',
-    badge: 'Elegant',
-    previewColor: '#D4AF37',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'date'],
+    name: 'Arranged to Soulmates',
+    description: 'An intimate, cinematic love story tracing the transformation from an arranged marriage to passionate soulmates.',
+    badge: 'Soulmates ♡',
+    previewColor: '#8B263E',
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'date', 'years'],
     defaultData: {
-      recipientName: 'My Beloved',
-      senderName: 'Forever Yours',
-      message: 'I loved you yesterday, I love you still, I always have, I always will. Happy Anniversary, my heart.',
-      date: 'June 18 • Forever & Always',
+      recipientName: 'Aditi & Vikram',
+      senderName: 'Vikram',
+      message: 'Some stories begin with love. Some begin with two people simply meeting. And some begin with an arranged marriage… and become the greatest love story of all.',
+      date: 'November 24 • 7 Years Together',
+      years: '7 Years of Us',
       photos: [
-        'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=800&auto=format&fit=crop&q=80'
+        'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1000&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1000&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=1000&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1000&auto=format&fit=crop&q=80'
       ]
     },
     component: ForeverAlwaysTemplate
@@ -773,6 +777,13 @@ export const getTemplateById = (templateId) => {
     templateId === 'anniversary-2'
   ) {
     return TEMPLATES.find((t) => t.id === 'petals-and-us') || TEMPLATES.find((t) => t.id === 'love-letter-anniversary') || TEMPLATES[1];
+  }
+  if (
+    templateId === 'arranged-to-soulmates' ||
+    templateId === 'forever-always' ||
+    templateId === 'anniversary-3'
+  ) {
+    return TEMPLATES.find((t) => t.id === 'forever-always') || TEMPLATES[2];
   }
   return TEMPLATES.find((t) => t.id === templateId) || TEMPLATES[0];
 };
