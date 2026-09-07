@@ -1,0 +1,1033 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   VALENTINE TEMPLATE 2 — PROVE YOUR LOVE
+   Visual Design & Character Animation System
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── App Shell & Ambient Canvas ───────────────────────────────────────── */
+
+.app {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px 56px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--color-cream);
+}
+
+.app__decor {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 15%, rgba(249, 230, 235, 0.85) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 85%, rgba(242, 203, 213, 0.7) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 253, 249, 0.6) 0%, transparent 65%),
+    var(--color-cream);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.app__stage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  animation: stage-scene-in 420ms var(--ease-smooth) both;
+}
+
+@keyframes stage-scene-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Scene Card Frame ─────────────────────────────────────────────────── */
+
+.screen {
+  background: var(--color-cream-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(222, 139, 160, 0.25);
+  padding: 42px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  color: var(--color-burgundy-deep);
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+p {
+  margin: 0;
+  color: var(--color-ink-soft);
+  line-height: 1.6;
+}
+
+/* ── Interactive Buttons ──────────────────────────────────────────────── */
+
+.btn {
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 15px 32px;
+  font-size: 1.02rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+}
+
+.btn:active {
+  transform: scale(0.975);
+}
+
+.btn--primary {
+  background: var(--color-burgundy);
+  color: var(--color-white);
+  box-shadow: 0 8px 24px var(--color-burgundy-glow);
+}
+
+.btn--primary:hover {
+  background: var(--color-burgundy-deep);
+  box-shadow: 0 12px 30px rgba(78, 16, 32, 0.38);
+  transform: translateY(-2px);
+}
+
+.btn--secondary {
+  background: var(--color-pink);
+  color: var(--color-burgundy-deep);
+  box-shadow: 0 6px 18px rgba(78, 16, 32, 0.1);
+}
+
+.btn--secondary:hover {
+  background: var(--color-pink-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(78, 16, 32, 0.16);
+}
+
+/* ── Intro Scene ──────────────────────────────────────────────────────── */
+
+.intro-screen {
+  padding: 52px 32px 48px;
+  gap: 20px;
+}
+
+.intro-screen__seal {
+  font-size: 3.2rem;
+  line-height: 1;
+  animation: seal-bob 3.2s ease-in-out infinite;
+  filter: drop-shadow(0 6px 16px rgba(124, 36, 59, 0.18));
+}
+
+@keyframes seal-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+.intro-screen__title {
+  font-size: clamp(2rem, 6.5vw, 2.5rem);
+  max-width: 18ch;
+  color: var(--color-burgundy-deep);
+}
+
+.intro-screen__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 34ch;
+  margin: 4px 0 14px;
+}
+
+.intro-screen__line {
+  font-size: 1.05rem;
+  color: var(--color-ink-soft);
+}
+
+.intro-screen__btn {
+  font-size: 1.12rem;
+  padding: 16px 40px;
+  letter-spacing: 0.01em;
+}
+
+/* ── Question Scene (Clean, Video-Free Composition) ──────────────────── */
+
+.question-screen {
+  align-items: stretch;
+  text-align: left;
+  gap: 22px;
+  padding: 34px 28px 38px;
+}
+
+.question-screen__progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px 4px;
+}
+
+.question-screen__progress-text {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--color-burgundy);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.question-screen__steps {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.question-screen__step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-cream-deep);
+  transition: all 280ms ease;
+}
+
+.question-screen__step-dot--active {
+  width: 22px;
+  border-radius: var(--radius-full);
+  background: var(--color-burgundy);
+}
+
+.question-screen__step-dot--done {
+  background: var(--color-rose);
+}
+
+.question-screen__accent-icon {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-top: -6px;
+  filter: drop-shadow(0 4px 10px rgba(124, 36, 59, 0.12));
+}
+
+.question-screen__prompt {
+  font-size: clamp(1.35rem, 5vw, 1.65rem);
+  text-align: center;
+  margin: 2px 0 6px;
+  color: var(--color-burgundy-deep);
+  line-height: 1.35;
+}
+
+/* ── Answers Stack ────────────────────────────────────────────────────── */
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.answer-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-cream-deep);
+  background: var(--color-cream-surface);
+  color: var(--color-ink);
+  font-size: 1.02rem;
+  font-weight: 600;
+  cursor: pointer;
+  line-height: 1.35;
+  transition: border-color 180ms ease, background-color 180ms ease, transform 140ms ease, box-shadow 180ms ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.answer-btn__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--color-cream-deep);
+  color: var(--color-burgundy);
+  font-size: 0.84rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  transition: all 180ms ease;
+}
+
+.answer-btn__text {
+  flex: 1;
+}
+
+.answer-btn:hover:not(:disabled) {
+  border-color: var(--color-rose);
+  background: #FFF5F7;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(124, 36, 59, 0.08);
+}
+
+.answer-btn:hover:not(:disabled) .answer-btn__badge {
+  background: var(--color-burgundy);
+  color: var(--color-white);
+}
+
+.answer-btn:active:not(:disabled) {
+  transform: scale(0.985);
+}
+
+.answer-btn:disabled {
+  cursor: default;
+}
+
+.answer-btn--correct {
+  border-color: var(--color-burgundy) !important;
+  background: #FFF0F3 !important;
+  color: var(--color-burgundy-deep) !important;
+  font-weight: 700;
+  box-shadow: 0 0 0 2px rgba(124, 36, 59, 0.25);
+}
+
+.answer-btn--correct .answer-btn__badge {
+  background: var(--color-burgundy) !important;
+  color: var(--color-white) !important;
+}
+
+.answer-btn--wrong {
+  border-color: var(--color-burgundy-deep) !important;
+  background: #FDF0F1 !important;
+}
+
+.answer-btn__feedback {
+  color: var(--color-burgundy);
+  font-size: 1.25rem;
+  font-weight: 900;
+  margin-left: 8px;
+}
+
+.answers--shake {
+  animation: shake-error 440ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake-error {
+  10%, 90% { transform: translate3d(-3px, 0, 0); }
+  20%, 80% { transform: translate3d(5px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
+  40%, 60% { transform: translate3d(8px, 0, 0); }
+}
+
+/* ── Character Image Base ─────────────────────────────────────────────── */
+
+.cat-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 28px rgba(46, 24, 30, 0.24));
+}
+
+.cat-fallback {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--color-pink-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+}
+
+/* ── Wrong Answer: Gun Cat Side-Entry Interruption ────────────────────── */
+
+.wrong-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.wrong-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(35, 12, 18, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: backdrop-reveal 240ms ease both;
+}
+
+@keyframes backdrop-reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.wrong-stage-wrap {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Gun Cat slides in aggressively & playfully from the LEFT edge */
+.wrong-cat-actor {
+  width: 250px;
+  height: 250px;
+  max-width: 72vw;
+  max-height: 40vh;
+  animation: gun-cat-slide-in-left 480ms var(--ease-spring) both;
+}
+
+@keyframes gun-cat-slide-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-150%) rotate(-15deg) scale(0.75);
+  }
+  70% {
+    transform: translateX(12px) rotate(4deg) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg) scale(1);
+  }
+}
+
+.wrong-dialog-card {
+  background: var(--color-cream-surface);
+  border-radius: var(--radius-lg);
+  padding: 26px 24px 24px;
+  width: 100%;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.45);
+  border: 1.5px solid rgba(242, 203, 213, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  animation: card-pop-in 320ms 140ms var(--ease-smooth) both;
+}
+
+@keyframes card-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.wrong-badge {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--color-white);
+  background: var(--color-burgundy-deep);
+  padding: 4px 16px;
+  border-radius: var(--radius-full);
+}
+
+.wrong-headline {
+  font-size: clamp(1.4rem, 5.2vw, 1.75rem);
+  color: var(--color-burgundy-deep);
+}
+
+.wrong-sub {
+  font-size: 1.02rem;
+  color: var(--color-ink-soft);
+  max-width: 30ch;
+}
+
+.wrong-btn {
+  margin-top: 6px;
+  width: 100%;
+  font-size: 1.05rem;
+  padding: 15px 24px;
+}
+
+/* ── Success Screen: Flower Cat Side Entrance ─────────────────────────── */
+
+.success-screen {
+  padding: 44px 28px 40px;
+  gap: 18px;
+}
+
+.success-screen__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.success-screen__badge {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--color-burgundy);
+  background: var(--color-pink-soft);
+  padding: 5px 16px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.04em;
+}
+
+.success-screen__title {
+  font-size: clamp(2rem, 6.5vw, 2.5rem);
+  color: var(--color-burgundy-deep);
+}
+
+/* Flower Cat enters with gentle, joyful slide and bounce from RIGHT */
+.success-cat-actor--enter-right {
+  width: 220px;
+  height: 220px;
+  max-width: 68vw;
+  margin: 4px auto;
+  animation: flower-cat-slide-in-right 540ms var(--ease-spring) both;
+}
+
+@keyframes flower-cat-slide-in-right {
+  0% {
+    opacity: 0;
+    transform: translateX(150%) rotate(14deg) scale(0.75);
+  }
+  70% {
+    transform: translateX(-10px) rotate(-3deg) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg) scale(1);
+  }
+}
+
+.success-screen__content-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 34ch;
+  background: var(--color-cream);
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-pink-soft);
+}
+
+.success-screen__line {
+  font-size: 1.02rem;
+  color: var(--color-ink);
+}
+
+.success-screen__btn {
+  font-size: 1.08rem;
+  padding: 16px 36px;
+}
+
+/* ── Memory Gallery: Scrapbook / Polaroid Collection ─────────────────── */
+
+.gallery-screen {
+  align-items: stretch;
+  gap: 20px;
+  padding: 34px 22px 38px;
+}
+
+.gallery-screen__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.gallery-screen__badge {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--color-burgundy);
+  background: var(--color-pink-soft);
+  padding: 5px 16px;
+  border-radius: var(--radius-full);
+}
+
+.gallery-screen__title {
+  font-size: clamp(1.4rem, 4.8vw, 1.78rem);
+  text-align: center;
+  max-width: 32ch;
+  color: var(--color-burgundy-deep);
+}
+
+.scrapbook-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 16px;
+  padding: 12px 4px 18px;
+}
+
+/* Polaroid Card */
+.polaroid-card {
+  margin: 0;
+  background: #FFFFFF;
+  padding: 10px 10px 16px;
+  border-radius: 4px;
+  box-shadow: var(--shadow-polaroid);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transform: rotate(var(--card-rot, 0deg));
+  transition: transform 240ms var(--ease-smooth), box-shadow 240ms ease, z-index 240ms ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.polaroid-card:hover {
+  transform: rotate(0deg) scale(1.04);
+  box-shadow: 0 18px 36px rgba(78, 16, 32, 0.22);
+  z-index: 10;
+}
+
+/* Washi Tape / Photo Strip Effect */
+.polaroid-card__tape {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 52px;
+  height: 18px;
+  background: rgba(242, 203, 213, 0.85);
+  border-left: 2px dashed rgba(255, 255, 255, 0.8);
+  border-right: 2px dashed rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+}
+
+.polaroid-card__photo-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--color-cream-deep);
+}
+
+.polaroid-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.polaroid-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: linear-gradient(135deg, var(--color-pink-soft), var(--color-cream-deep));
+  color: var(--color-ink-soft);
+}
+
+.polaroid-card__icon {
+  font-size: 2rem;
+}
+
+.polaroid-card__placeholder-text {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-burgundy);
+}
+
+.polaroid-card__caption {
+  margin-top: 10px;
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  text-align: center;
+  line-height: 1.25;
+}
+
+/* Lightbox Modal */
+.memory-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: rgba(35, 12, 18, 0.82);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: backdrop-reveal 200ms ease both;
+}
+
+.memory-lightbox__panel {
+  background: #FFFFFF;
+  padding: 16px 16px 22px;
+  border-radius: var(--radius-md);
+  max-width: 460px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  box-shadow: 0 28px 64px rgba(0, 0, 0, 0.45);
+}
+
+.memory-lightbox__close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.08);
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-ink);
+}
+
+.memory-lightbox__img-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--color-cream-deep);
+}
+
+.memory-lightbox__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.memory-lightbox__caption {
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-burgundy-deep);
+  text-align: center;
+}
+
+.gallery-screen__btn {
+  margin-top: 4px;
+  align-self: center;
+  font-size: 1.08rem;
+  padding: 16px 40px;
+}
+
+/* ── Final Valentine Question Screen ──────────────────────────────────── */
+
+.final-question-screen {
+  padding: 48px 28px 44px;
+  gap: 18px;
+}
+
+.final-screen__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.final-screen__badge {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--color-burgundy);
+  background: var(--color-pink-soft);
+  padding: 5px 16px;
+  border-radius: var(--radius-full);
+}
+
+.final-screen__buildup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 34ch;
+}
+
+.final-screen__lead,
+.final-screen__sublead {
+  font-size: 0.98rem;
+  color: var(--color-ink-soft);
+}
+
+.final-screen__note {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--color-burgundy);
+  margin-top: 2px;
+}
+
+/* Flower Cat enters with romantic side slide */
+.final-cat-actor--enter-left {
+  width: 230px;
+  height: 230px;
+  max-width: 70vw;
+  margin: 4px auto;
+  animation: final-cat-slide-in-left 560ms var(--ease-spring) both;
+}
+
+@keyframes final-cat-slide-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-150%) rotate(-14deg) scale(0.75);
+  }
+  70% {
+    transform: translateX(10px) rotate(3deg) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg) scale(1);
+  }
+}
+
+.final-question-screen__title {
+  font-size: clamp(1.85rem, 6.8vw, 2.4rem);
+  color: var(--color-burgundy-deep);
+  margin: 4px 0 8px;
+}
+
+.final-question-screen__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.final-btn {
+  width: 100%;
+  font-size: 1.18rem;
+  padding: 17px 28px;
+  letter-spacing: 0.02em;
+}
+
+.final-btn--yes1 {
+  background: var(--color-burgundy);
+  box-shadow: 0 10px 28px var(--color-burgundy-glow);
+}
+
+.final-btn--yes2 {
+  background: #A02848;
+  box-shadow: 0 10px 28px rgba(160, 40, 72, 0.35);
+}
+
+.final-btn--yes1:hover,
+.final-btn--yes2:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* ── Final Celebration Screen ─────────────────────────────────────────── */
+
+.celebration-screen {
+  padding: 48px 28px 44px;
+  gap: 18px;
+}
+
+.celebration-screen__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.celebration-screen__badge {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--color-burgundy);
+  background: var(--color-pink-soft);
+  padding: 5px 16px;
+  border-radius: var(--radius-full);
+}
+
+.celebration-screen__title {
+  font-size: clamp(2rem, 6.5vw, 2.55rem);
+  color: var(--color-burgundy-deep);
+}
+
+/* Flower Cat celebratory pop */
+.celebration-cat-actor--enter-pop {
+  width: 230px;
+  height: 230px;
+  max-width: 70vw;
+  margin: 4px auto;
+  animation: celebration-cat-pop-bounce 600ms var(--ease-spring) both;
+}
+
+@keyframes celebration-cat-pop-bounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) translateY(40px) rotate(-8deg);
+  }
+  70% {
+    transform: scale(1.08) translateY(-6px) rotate(3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+}
+
+.celebration-screen__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 36ch;
+  margin: 2px 0 6px;
+}
+
+.celebration-screen__line {
+  font-size: 1.08rem;
+  color: var(--color-ink);
+  line-height: 1.55;
+}
+
+/* Personalized letter/message box */
+.celebration-screen__letter {
+  width: 100%;
+  max-width: 420px;
+  background: var(--color-cream);
+  border: 1px solid var(--color-pink);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin: 4px 0 8px;
+  text-align: center;
+}
+
+.celebration-screen__message {
+  font-size: 1.02rem;
+  font-style: italic;
+  color: var(--color-burgundy-deep);
+  line-height: 1.55;
+}
+
+.celebration-screen__signature {
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-burgundy);
+  margin-top: 8px;
+}
+
+.celebration-screen__btn {
+  font-size: 1.08rem;
+  padding: 16px 36px;
+}
+
+/* ── Floating Hearts Decor ────────────────────────────────────────────── */
+
+.floating-hearts {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-hearts__item {
+  position: absolute;
+  bottom: -10%;
+  animation-name: float-up-particle;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+  opacity: 0.85;
+}
+
+@keyframes float-up-particle {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-400px) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+/* ── Responsive Refinements ───────────────────────────────────────────── */
+
+@media (min-width: 600px) {
+  .screen {
+    padding: 44px 38px;
+  }
+
+  .question-screen {
+    padding: 38px 34px 42px;
+  }
+
+  .scrapbook-grid {
+    gap: 24px 18px;
+  }
+}
+
+@media (max-width: 420px) {
+  .app {
+    padding: 16px 10px 40px;
+  }
+
+  .screen {
+    padding: 26px 18px;
+    border-radius: var(--radius-md);
+  }
+
+  .intro-screen {
+    padding: 38px 18px 34px;
+  }
+
+  .question-screen {
+    padding: 24px 16px 30px;
+  }
+
+  .scrapbook-grid {
+    gap: 14px 10px;
+  }
+
+  .polaroid-card {
+    padding: 8px 8px 12px;
+  }
+
+  .polaroid-card__caption {
+    font-size: 1rem;
+  }
+
+  .wrong-cat-actor,
+  .success-cat-actor--enter-right,
+  .final-cat-actor--enter-left,
+  .celebration-cat-actor--enter-pop {
+    width: 190px;
+    height: 190px;
+  }
+}

@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Nunito:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --color-cream: #FAF6F0;
+  --color-cream-deep: #F3ECE2;
+  --color-cream-surface: #FFFDF9;
+  --color-pink-soft: #F9E6EB;
+  --color-pink: #F2CBD5;
+  --color-rose: #DE8BA0;
+  --color-burgundy: #7C243B;
+  --color-burgundy-deep: #4E1020;
+  --color-burgundy-glow: rgba(124, 36, 59, 0.28);
+  --color-ink: #2E181E;
+  --color-ink-soft: #63454D;
+  --color-ink-muted: #947179;
+  --color-white: #FFFFFF;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-hand: "Caveat", cursive, sans-serif;
+
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-full: 9999px;
+
+  --shadow-subtle: 0 4px 16px rgba(78, 16, 32, 0.05);
+  --shadow-card: 0 16px 44px rgba(78, 16, 32, 0.08), 0 2px 8px rgba(78, 16, 32, 0.03);
+  --shadow-elevated: 0 24px 60px rgba(78, 16, 32, 0.14), 0 4px 12px rgba(78, 16, 32, 0.06);
+  --shadow-polaroid: 0 12px 28px rgba(78, 16, 32, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
+
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-cream);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

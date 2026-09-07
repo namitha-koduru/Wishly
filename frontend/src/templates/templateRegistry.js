@@ -29,7 +29,7 @@ import { FarewellTemplate5 as GoodbyeMemoriesTemplate } from './farewell/templat
 
 // Valentine's (5)
 import { ValentinesTemplate1 as LoveLetterValTemplate } from './valentines/template1/ValentinesTemplate1.jsx';
-import { ValentinesTemplate2 as ReasonsILoveYouTemplate } from './valentines/template2/ValentinesTemplate2.jsx';
+import { ValentinesTemplate2 as ProveYourLoveTemplate } from './valentines/template2/ValentinesTemplate2.jsx';
 import { ValentinesTemplate3 as OurStoryValTemplate } from './valentines/template3/ValentinesTemplate3.jsx';
 import { ValentinesTemplate4 as OurMomentsValTemplate } from './valentines/template4/ValentinesTemplate4.jsx';
 import { ValentinesTemplate5 as ForeverValTemplate } from './valentines/template5/ValentinesTemplate5.jsx';
@@ -480,6 +480,44 @@ export const TEMPLATES = [
     component: LoveLetterValTemplate
   },
   {
+    id: 'prove-your-love',
+    occasion: 'valentines',
+    name: 'Prove Your Love',
+    description: 'Playful interactive Valentine love quiz with Gun Cat wrong-answer interruptions, Flower Cat celebrations, and scrapbook memory gallery.',
+    badge: 'Interactive 🐱',
+    previewColor: '#7C2942',
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos'],
+    defaultData: {
+      recipientName: 'Sneha',
+      senderName: 'Yours, Kabir',
+      message: 'Happy Valentine\'s Day! You make every normal moment feel magical, and I love every single second with you.',
+      photos: [
+        'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&auto=format&fit=crop&q=80'
+      ]
+    },
+    component: ProveYourLoveTemplate
+  },
+  {
+    id: 'our-story-val',
+    occasion: 'valentines',
+    name: 'Our Story',
+    description: 'Classic Valentine card layout with gentle gradients and milestone timeline.',
+    badge: 'Classic',
+    previewColor: '#B33771',
+    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'milestones'],
+    defaultData: {
+      recipientName: 'My One & Only',
+      senderName: 'Always',
+      message: 'From day one, you have been my dream come true. Happy Valentine’s Day, my love.',
+      photos: [
+        'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&auto=format&fit=crop&q=80'
+      ]
+    },
+    component: OurStoryValTemplate
+  },
+  {
     id: 'our-moments-val',
     occasion: 'valentines',
     name: 'Our Moments',
@@ -515,42 +553,6 @@ export const TEMPLATES = [
       ]
     },
     component: ForeverValTemplate
-  },
-  {
-    id: 'reasons-i-love-you',
-    occasion: 'valentines',
-    name: 'Reasons I Love You',
-    description: 'Numbered card deck highlighting all the reasons why they are adored.',
-    badge: 'Thoughtful',
-    previewColor: '#E84393',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'reasons'],
-    defaultData: {
-      recipientName: 'Bella',
-      senderName: 'Noah',
-      message: 'Here are just a few reasons why you are the love of my life...',
-      photos: [
-        'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&auto=format&fit=crop&q=80'
-      ]
-    },
-    component: ReasonsILoveYouTemplate
-  },
-  {
-    id: 'our-story-val',
-    occasion: 'valentines',
-    name: 'Our Story',
-    description: 'Classic Valentine card layout with gentle gradients and milestone timeline.',
-    badge: 'Classic',
-    previewColor: '#B33771',
-    supportedFields: ['recipientName', 'senderName', 'message', 'photos', 'milestones'],
-    defaultData: {
-      recipientName: 'My One & Only',
-      senderName: 'Always',
-      message: 'From day one, you have been my dream come true. Happy Valentine’s Day, my love.',
-      photos: [
-        'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&auto=format&fit=crop&q=80'
-      ]
-    },
-    component: OurStoryValTemplate
   },
 
   // ================= CONGRATULATIONS (5) =================
@@ -751,6 +753,14 @@ export const TEMPLATES = [
 
 // Helper functions for template querying
 export const getTemplateById = (templateId) => {
+  if (
+    templateId === 'reasons-i-love-you' ||
+    templateId === 'prove-your-love' ||
+    templateId === 'valentine-2' ||
+    templateId === 'valentines-2'
+  ) {
+    return TEMPLATES.find((t) => t.id === 'prove-your-love') || TEMPLATES[1];
+  }
   return TEMPLATES.find((t) => t.id === templateId) || TEMPLATES[0];
 };
 
